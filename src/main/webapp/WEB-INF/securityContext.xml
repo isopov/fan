@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+	<!-- <http pattern="/**" security="none" /> -->
+
+	<http use-expressions="true">
+		<intercept-url pattern="/edit/**" access="hasRole('EDITOR')" />
+		<form-login login-page="/login" authentication-failure-url="/loginfailed" />
+		<logout logout-success-url="/" delete-cookies="JSESSIONID" />
+		<remember-me />
+	</http>
+
+
+
+	<b:bean id="encoder"
+		class="org.springframework.security.crypto.password.NoOpPasswordEncoder" />
+
+	<authentication-manager>
+		<authentication-provider>
+			<password-encoder ref="encoder" />	
+			<user-service>
+				<user name="editor" password="editor" authorities="EDITOR" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+
+
+</b:beans>

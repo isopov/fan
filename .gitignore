@@ -1,0 +1,10 @@
+target
+.settings
+.classpath
+.project
+.springBeans
+*~
+*.jar
+#For Idea project files
+.idea
+*.iml
