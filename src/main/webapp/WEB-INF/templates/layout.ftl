@@ -2,6 +2,16 @@
 
 <#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
 
+
+<#macro i18nedProperty object property>
+
+	<#if object.getI18n(lang)??>
+		${object.getI18n(lang)[property]}
+	<#else>
+		${object[property]}
+	</#if>
+</#macro>
+
 <#macro head pageTitle>
 	<head>
     	<meta charset="utf-8">

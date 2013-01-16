@@ -2,10 +2,10 @@ package com.sopovs.moradanen.fan.service;
 
 import java.util.List;
 
-import com.sopovs.moradanen.fan.domain.ClubTeam;
+import com.sopovs.moradanen.fan.domain.Club;
 
 public interface IDaoService {
-	ClubTeam getByClubTeamName(String name);
+	Club findClubByName(String name);
 
-	List<ClubTeam> findByClubTeamName(String name);
+	List<Club> listAllClubs();
 }

@@ -3,12 +3,16 @@ package com.sopovs.moradanen.fan.domain;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
+@Table(name = "TEAM_IN_GAME")
 public class TeamInGame extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
@@ -23,6 +27,7 @@ public class TeamInGame extends AbstractEntity {
 	@ForeignKey(name = "TEAM_IN_GAME_GAME_FK")
 	private Game game;
 
+	@Enumerated(EnumType.STRING)
 	private TeamPosition position;
 
 	public TeamPosition getPosition() {

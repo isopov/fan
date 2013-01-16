@@ -23,23 +23,22 @@ public class DomainsTest extends AbstractServiceTest {
 	@Test
 	public void testClubTeamsSize() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<ClubTeam> cq = cb.createQuery(ClubTeam.class);
-		cq.from(ClubTeam.class);
-		List<ClubTeam> allClubTeams = em.createQuery(cq).getResultList();
+		CriteriaQuery<Club> cq = cb.createQuery(Club.class);
+		cq.from(Club.class);
+		List<Club> allClubs = em.createQuery(cq).getResultList();
 
-		Assert.assertEquals(2, allClubTeams.size());
+		Assert.assertEquals(2, allClubs.size());
 	}
 
 	@Test
 	public void testBlackburnTeam() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<ClubTeam> cq = cb.createQuery(ClubTeam.class);
-		Root<ClubTeam> from = cq.from(ClubTeam.class);
-		cq.where(cb.equal(from.get("club").get("name"), BLACKBURN_NAME));
-		ClubTeam blackburn = em.createQuery(cq).getSingleResult();
+		CriteriaQuery<Club> cq = cb.createQuery(Club.class);
+		Root<Club> from = cq.from(Club.class);
+		cq.where(cb.equal(from.get("name"), BLACKBURN_NAME));
+		Club blackburn = em.createQuery(cq).getSingleResult();
 
 		Assert.assertNotNull(blackburn.getId());
-		Assert.assertNotNull(blackburn.getClub().getId());
-		Assert.assertEquals(BLACKBURN_NAME, blackburn.getClub().getName());
+		Assert.assertEquals(BLACKBURN_NAME, blackburn.getName());
 	}
 }

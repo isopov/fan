@@ -2,12 +2,14 @@ package com.sopovs.moradanen.fan.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 
 @Entity
+@Table(name = "PLAYER_IN_TEAM")
 public class PlayerInTeam extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 

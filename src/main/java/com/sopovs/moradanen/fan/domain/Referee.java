@@ -6,9 +6,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
-@Table(name = "JUDGE")
-@ForeignKey(name = "JUDGE_PERSON_FK")
-public class Judge extends Person {
+@Table(name = "REFEREE")
+@ForeignKey(name = "REFEREE_PERSON_FK")
+public class Referee extends Person {
 	private static final long serialVersionUID = 1L;
 
 }

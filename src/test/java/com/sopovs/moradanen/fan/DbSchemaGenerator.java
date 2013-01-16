@@ -2,7 +2,6 @@ package com.sopovs.moradanen.fan;
 
 import org.hibernate.ejb.Ejb3Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/applicationContext.xml" })
 @ActiveProfiles("default")
 @SuppressWarnings("deprecation")
-@Ignore
+// @Ignore
 public class DbSchemaGenerator {
 
 	@Autowired

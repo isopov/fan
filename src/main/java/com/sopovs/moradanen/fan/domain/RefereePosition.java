@@ -1,5 +1,5 @@
 package com.sopovs.moradanen.fan.domain;
 
-public enum JudgePosition {
+public enum RefereePosition {
 	MAIN, LINE, GOAL, ASSISTANT, LINE_ASSITANT;
 }

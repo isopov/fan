@@ -4,18 +4,20 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.ForeignKey;
 
 @Entity
-public class Country extends AbstractEntity {
+@Table(name = "COUNTRY")
+@ForeignKey(name = "COUNTRY_CONTEST_HOLDER_FK")
+public class Country extends ContestHolder {
 
 	private static final long serialVersionUID = 1L;
 
 	public String code;
 
 	public String name;
-
-	@OneToMany(mappedBy = "country")
-	public List<Division> divisions;
 
 	@OneToMany(mappedBy = "country")
 	public List<NationalTeam> nationalTeams;
@@ -34,14 +36,6 @@ public class Country extends AbstractEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public List<Division> getDivisions() {
-		return divisions;
-	}
-
-	public void setDivisions(List<Division> divisions) {
-		this.divisions = divisions;
 	}
 
 	public List<NationalTeam> getNationalTeams() {

@@ -7,10 +7,12 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
+@Table(name = "PLAYER_IN_GAME")
 public class PlayerInGame extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 

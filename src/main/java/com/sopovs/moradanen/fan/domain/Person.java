@@ -1,13 +1,19 @@
 package com.sopovs.moradanen.fan.domain;
 
+import java.util.Map;
+
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 
 @Entity
+@Table(name = "PERSON")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Person extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
@@ -18,6 +24,10 @@ public class Person extends AbstractEntity {
 	private LocalDate dateOfBirth;
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate dateOfDeath;
+
+	@OneToMany(mappedBy = "person")
+	@MapKey(name = "lang")
+	private Map<Lang, I18nPerson> i18ns;
 
 	public String getFirstName() {
 		return firstName;

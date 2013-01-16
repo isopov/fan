@@ -19,7 +19,7 @@
 	<mvc:resources mapping="/img/**" location="/WEB-INF/img/"/>
 	
 	
-	<bean class="com.sopovs.moradanen.fan.HafExceptionHandler" />
+	<bean class="com.sopovs.moradanen.fan.FanExceptionHandler" />
 	
 
 	<bean id="messageSource"

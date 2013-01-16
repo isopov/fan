@@ -10,10 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Preconditions;
 import com.sopovs.moradanen.fan.domain.Club;
-import com.sopovs.moradanen.fan.domain.ClubTeam;
+import com.sopovs.moradanen.fan.domain.Contest;
+import com.sopovs.moradanen.fan.domain.ContestType;
 import com.sopovs.moradanen.fan.domain.Country;
-import com.sopovs.moradanen.fan.domain.Division;
-import com.sopovs.moradanen.fan.domain.DivisionType;
 import com.sopovs.moradanen.fan.service.IDaoService;
 
 @Transactional
@@ -31,28 +30,22 @@ public class DbTestData implements IDbTestData {
 	@Override
 	public void createTestData() {
 		if (notCreated()) {
-			ClubTeam roversTeam = new ClubTeam();
-			Club roversClub = new Club(BLACKBURN_NAME, Arrays.asList(roversTeam));
-			roversTeam.setClub(roversClub);
+			Club roversClub = new Club(BLACKBURN_NAME);
 
-			ClubTeam bromwichTeam = new ClubTeam();
-			Club bromwichClub = new Club(WEST_BROMWICH_ALBION_NAME, Arrays.asList(bromwichTeam));
-			bromwichTeam.setClub(bromwichClub);
+			Club bromwichClub = new Club(WEST_BROMWICH_ALBION_NAME);
 
 			Country england = new Country();
 			england.setCode("EN");
 			england.setName("England");
 
-			Division premier = new Division();
-			england.setDivisions(Arrays.asList(premier));
-			premier.setCountry(england);
-			premier.setPositition(DivisionType.FIRST);
+			Contest premier = new Contest();
+			england.setContests(Arrays.asList(premier));
+			premier.setHolder(england);
+			premier.setPositition(ContestType.FIRST);
 			premier.setName("Barclays Premier League");
 
 			em.persist(roversClub);
-			em.persist(roversTeam);
 			em.persist(bromwichClub);
-			em.persist(bromwichTeam);
 			em.persist(premier);
 			em.persist(england);
 
@@ -61,6 +54,6 @@ public class DbTestData implements IDbTestData {
 	}
 
 	private boolean notCreated() {
-		return service.findByClubTeamName(BLACKBURN_NAME).isEmpty();
+		return service.findClubByName(BLACKBURN_NAME) == null;
 	}
 }

@@ -24,11 +24,15 @@ public class Game extends AbstractEntity {
 	private List<TeamInGame> teams;
 
 	@OneToMany(mappedBy = "game")
-	private List<JudgeInGame> judges;
+	private List<RefereeInGame> judges;
 
 	@ManyToOne
 	@ForeignKey(name = "GAME_STADIUM_FK")
 	private Stadium stadium;
+
+	@ManyToOne
+	@ForeignKey(name = "GAME_INFORMATION_SOURCES_FK")
+	private InformationSources sources;
 
 	private Integer spectators;
 
@@ -45,11 +49,11 @@ public class Game extends AbstractEntity {
 		this.teams = teams;
 	}
 
-	public List<JudgeInGame> getJudges() {
+	public List<RefereeInGame> getJudges() {
 		return judges;
 	}
 
-	public void setJudges(List<JudgeInGame> judges) {
+	public void setJudges(List<RefereeInGame> judges) {
 		this.judges = judges;
 	}
 
