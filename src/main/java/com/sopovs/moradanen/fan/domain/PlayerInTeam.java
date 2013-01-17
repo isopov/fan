@@ -1,5 +1,6 @@
 package com.sopovs.moradanen.fan.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -19,7 +20,7 @@ public class PlayerInTeam extends AbstractEntity {
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	private LocalDate end;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@ForeignKey(name = "PLAYER_IN_TEAM_PLAYER_FK")
 	private Player player;
 

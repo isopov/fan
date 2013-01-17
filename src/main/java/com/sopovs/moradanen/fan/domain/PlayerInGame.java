@@ -3,12 +3,7 @@ package com.sopovs.moradanen.fan.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.ForeignKey;
 
@@ -17,7 +12,7 @@ import org.hibernate.annotations.ForeignKey;
 public class PlayerInGame extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @ForeignKey(name = "PLAYER_IN_GAME_PLAYER_FK")
     private PlayerInTeam player;
 

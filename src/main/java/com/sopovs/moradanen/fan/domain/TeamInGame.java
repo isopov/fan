@@ -3,12 +3,7 @@ package com.sopovs.moradanen.fan.domain;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.ForeignKey;
 
@@ -21,7 +16,7 @@ public class TeamInGame extends AbstractEntity {
 	@ForeignKey(name = "TEAM_IN_GAME_TEAM_FK")
 	private Team team;
 
-	@OneToMany(mappedBy = "team")
+	@OneToMany(mappedBy = "team",cascade = CascadeType.ALL)
 	private List<PlayerInGame> players;
 
 	@ManyToOne

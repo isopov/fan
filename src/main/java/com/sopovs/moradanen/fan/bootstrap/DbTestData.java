@@ -28,52 +28,6 @@ public class DbTestData implements IDbTestData {
     @Override
     public void createTestData() {
         if (notCreated()) {
-            Game game = new Game();
-            Club roversClub = new Club(BLACKBURN_NAME);
-
-
-//            POS	 No	 Name	 SH	 SG	 G	 A	 OF	 FD	 FC	 SV	 YC	 RC
-//                    G
-//            13	Mark Bunn	 -	 -	 -	 -	 -	 -	 -	 -	 -	 -
-//                    D
-//            33	Josh Morris	 -	 -	 -	 -	 -	 -	 -	 -	 -	 -
-//                    D
-//            39	Adam Henley	 -	 -	 -	 -	 -	 -	 -	 -	 -	 -
-//                    M
-//            10	Mauro Formica  	 1	 1	 1	 -	 -	 1	 3	 -	 -	 -
-//                    M
-//            29	Simon Vukcevic	 -	 -	 -	 -	 -	 -	 -	 -	 -	 -
-//                    F
-//            20	Ruben Rochina	 -	 -	 -	 -	 -	 -	 -	 -	 -	 -
-//                    F
-//            25	David Goodwillie
-
-            new TeamInGame(roversClub, game
-                    , new PlayerInGame(new PlayerInTeam(new Player("Paul", "Robinson"), roversClub), GOALKEEPER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Martin", "Olsson"), roversClub), DEFENDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Gael", "Givet"), roversClub), DEFENDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Grant", "Hanley"), roversClub), DEFENDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Jason", "Lowe"), roversClub), DEFENDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Morten", "Gamst", "Pedersen"), roversClub), MIDFIELDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Radosav", "Petrovic"), roversClub), MIDFIELDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Steven", "Nzonzi"), roversClub), MIDFIELDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("David", "Hoilett"), roversClub), MIDFIELDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("David", "Dunn"), roversClub), FORWARD).addStart(0).addEnd(69)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Yakubu", "Aiyegbeni"), roversClub), FORWARD).addStart(0)
-
-
-                    , new PlayerInGame(new PlayerInTeam(new Player("Mark", "Bunn"), roversClub), GOALKEEPER)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Josh", "Morris"), roversClub), DEFENDER)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Adam", "Henley"), roversClub), DEFENDER)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Mauro", "Formica"), roversClub), MIDFIELDER)
-                    .addStart(69).addGoal(new Goal(79))
-                    , new PlayerInGame(new PlayerInTeam(new Player("Simon", "Vukcevic"), roversClub), MIDFIELDER)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Ruben", "Rochina"), roversClub), FORWARD)
-                    , new PlayerInGame(new PlayerInTeam(new Player("David", "Goodwillie"), roversClub), FORWARD)
-            );
-
-            Club bromwichClub = new Club(FULHAM);
-
             Country england = new Country();
             england.setCode("EN");
             england.setName("England");
@@ -85,16 +39,92 @@ public class DbTestData implements IDbTestData {
             premier.setPositition(ContestType.FIRST);
             premier.setName("Barclays Premier League");
 
-            em.persist(roversClub);
-            em.persist(bromwichClub);
+
+
+            Game game = new Game();
+            Club rovers = new Club(BLACKBURN_NAME);
+
+
+            TeamInGame roversTeam = new TeamInGame(rovers, game
+                    , new PlayerInGame(new PlayerInTeam(new Player("Paul", "Robinson"), rovers), GOALKEEPER).addStart(0)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Martin", "Olsson"), rovers), DEFENDER).addStart(0)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Gael", "Givet"), rovers), DEFENDER).addStart(0)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Grant", "Hanley"), rovers), DEFENDER).addStart(0)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Jason", "Lowe"), rovers), DEFENDER).addStart(0)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Morten", "Gamst", "Pedersen"), rovers), MIDFIELDER).addStart(0).addGoal(new Goal(49)) //TODO this should be 45 +4
+                    , new PlayerInGame(new PlayerInTeam(new Player("Radosav", "Petrovic"), rovers), MIDFIELDER).addStart(0)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Steven", "Nzonzi"), rovers), MIDFIELDER).addStart(0)
+                    , new PlayerInGame(new PlayerInTeam(new Player("David", "Hoilett"), rovers), MIDFIELDER).addStart(0)
+                    , new PlayerInGame(new PlayerInTeam(new Player("David", "Dunn"), rovers), FORWARD).addStart(0).addEnd(69).addGoal(new Goal(46))
+                    , new PlayerInGame(new PlayerInTeam(new Player("Yakubu", "Aiyegbeni"), rovers), FORWARD).addStart(0).addRedCards(1).addEnd(23)
+
+
+                    , new PlayerInGame(new PlayerInTeam(new Player("Mark", "Bunn"), rovers), GOALKEEPER)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Josh", "Morris"), rovers), DEFENDER)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Adam", "Henley"), rovers), DEFENDER)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Mauro", "Formica"), rovers), MIDFIELDER)
+                    .addStart(69).addGoal(new Goal(79))
+                    , new PlayerInGame(new PlayerInTeam(new Player("Simon", "Vukcevic"), rovers), MIDFIELDER)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Ruben", "Rochina"), rovers), FORWARD)
+                    , new PlayerInGame(new PlayerInTeam(new Player("David", "Goodwillie"), rovers), FORWARD)
+            );
+
+
+
+            Club fulham = new Club(FULHAM);
+
+            TeamInGame fulhamTeam = new TeamInGame(fulham, game
+                    , new PlayerInGame(new PlayerInTeam(new Player("David", "Stockdale"), fulham), GOALKEEPER).addStart(0)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Stephen", "Kelly"), fulham), DEFENDER).addStart(0)
+                    , new PlayerInGame(new PlayerInTeam(new Player("John", "Arne", "Riise"), fulham), DEFENDER).addStart(0).addEnd(74)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Brede", "Hangeland"), fulham), DEFENDER).addStart(0)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Philippe", "Senderos"), fulham), DEFENDER).addStart(0).addYellowCards(1)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Danny", "Murphy"), fulham), MIDFIELDER).addStart(0)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Damien", "Duff"), fulham), MIDFIELDER).addStart(0).addGoal(new Goal(56))
+                    , new PlayerInGame(new PlayerInTeam(new Player("Clint", "Dempsey"), fulham), MIDFIELDER).addStart(0)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Mousa", "Dembele"), fulham), MIDFIELDER).addStart(0).addEnd(36)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Bryan", "Ruiz"), fulham), FORWARD).addStart(0).addEnd(69)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Bobby", "Zamora"), fulham), FORWARD).addStart(0)
+
+
+                    , new PlayerInGame(new PlayerInTeam(new Player("Neil", "Etheridge"), fulham), GOALKEEPER)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Aaron", "Hughes"), fulham), DEFENDER)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Steve", "Sidwell"), fulham), MIDFIELDER)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Pajtim", "Kasami"), fulham), MIDFIELDER)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Kerim", "Frei"), fulham), MIDFIELDER).addStart(36).addEnd(87)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Simon", "Davies"), fulham), MIDFIELDER).addStart(87)
+                    , new PlayerInGame(new PlayerInTeam(new Player("Andrew", "Johnson"), fulham), FORWARD).addStart(74)
+            );
+
+            game.setTeams(Arrays.asList(roversTeam,fulhamTeam));
+
+            em.persist(game);
             em.persist(premier);
+            em.persist(rovers);
+            em.persist(fulham);
+
             em.persist(england);
 
             Preconditions.checkNotNull(premier.getId());
+            Preconditions.checkNotNull(fulhamTeam.getId());
+            Preconditions.checkNotNull(fulham.getId());
+            Preconditions.checkNotNull(roversTeam.getId());
+            Preconditions.checkNotNull(rovers.getId());
+
+            Preconditions.checkNotNull(game.getId());
+            checkPLayers(fulhamTeam);
+            checkPLayers(roversTeam);
         }
     }
 
     private boolean notCreated() {
         return service.findClubByName(BLACKBURN_NAME) == null;
+    }
+
+    private static void checkPLayers(TeamInGame teamInGame){
+        for (PlayerInGame p:teamInGame.getPlayers()){
+            Preconditions.checkNotNull(p.getId());
+        }
+
     }
 }

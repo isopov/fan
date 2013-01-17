@@ -2,10 +2,7 @@ package com.sopovs.moradanen.fan.domain;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.Type;
@@ -20,7 +17,7 @@ public class Game extends AbstractEntity {
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime date;
 
-	@OneToMany(mappedBy = "game")
+	@OneToMany(mappedBy = "game",cascade = CascadeType.ALL)
 	private List<TeamInGame> teams;
 
 	@OneToMany(mappedBy = "game")
