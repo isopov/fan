@@ -14,7 +14,7 @@ import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "I18N_CLUB", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
-public class I18nClub implements Serializable {
+public class I18nClub implements I18nDomain<Club> {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -45,7 +45,8 @@ public class I18nClub implements Serializable {
 		this.club = club;
 	}
 
-	public Lang getLang() {
+	@Override
+    public Lang getLang() {
 		return lang;
 	}
 

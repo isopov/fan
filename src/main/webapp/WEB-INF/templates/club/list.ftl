@@ -14,7 +14,7 @@
 		<tr>
 			<td>
 				<a href="<@spring.url "/club/view?id=${club.id}"/>">
-					link
+                    <@layout.i18nedProperty club "name" />
 				</a>
 			</td>
 			<td>&nbsp;</td>

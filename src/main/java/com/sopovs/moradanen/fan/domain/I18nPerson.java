@@ -13,7 +13,7 @@ import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "I18N_PERSON")
-public class I18nPerson implements Serializable {
+public class I18nPerson implements I18nDomain<Person> {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -37,7 +37,8 @@ public class I18nPerson implements Serializable {
 		this.person = person;
 	}
 
-	public Lang getLang() {
+	@Override
+    public Lang getLang() {
 		return lang;
 	}
 

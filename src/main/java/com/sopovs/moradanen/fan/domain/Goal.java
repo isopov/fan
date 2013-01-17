@@ -22,7 +22,35 @@ public class Goal extends AbstractEntity {
 
 	private Integer minute;
 
-	public GoalType getType() {
+
+    public Goal() {
+    }
+
+
+    public Goal(Integer minute) {
+        this.minute = minute;
+    }
+
+    public Goal(GoalType type, Integer minute) {
+        this.type = type;
+        this.minute = minute;
+    }
+
+    public Goal(GoalType type, PlayerInGame scorer, Integer minute) {
+        this.type = type;
+        this.scorer = scorer;
+        this.minute = minute;
+    }
+
+    public PlayerInGame getScorer() {
+        return scorer;
+    }
+
+    public void setScorer(PlayerInGame scorer) {
+        this.scorer = scorer;
+    }
+
+    public GoalType getType() {
 		return type;
 	}
 

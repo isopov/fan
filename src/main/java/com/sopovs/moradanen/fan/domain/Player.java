@@ -9,6 +9,17 @@ import org.hibernate.annotations.ForeignKey;
 @Table(name = "PLAYER")
 @ForeignKey(name = "PLAYER_PERSON_FK")
 public class Player extends Person {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
+
+    public Player() {
+    }
+
+    public Player(String firstName, String lastName, String middleName) {
+        super(firstName, lastName, middleName);
+    }
+
+    public Player(String firstName, String lastName) {
+        super(firstName, lastName);
+    }
 }

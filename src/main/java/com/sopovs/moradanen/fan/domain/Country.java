@@ -1,17 +1,16 @@
 package com.sopovs.moradanen.fan.domain;
 
 import java.util.List;
+import java.util.Map;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "COUNTRY")
 @ForeignKey(name = "COUNTRY_CONTEST_HOLDER_FK")
-public class Country extends ContestHolder {
+public class Country extends ContestHolder  implements I18nedDomain<I18nCoutry>{
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,6 +20,10 @@ public class Country extends ContestHolder {
 
 	@OneToMany(mappedBy = "country")
 	public List<NationalTeam> nationalTeams;
+
+    @OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
+    @MapKey(name = "lang")
+    public Map<Lang,I18nCoutry> i18ns;
 
 	public String getCode() {
 		return code;
@@ -45,4 +48,14 @@ public class Country extends ContestHolder {
 	public void setNationalTeams(List<NationalTeam> nationalTeams) {
 		this.nationalTeams = nationalTeams;
 	}
+
+    @Override
+    public Map<Lang, I18nCoutry> getI18ns() {
+        return i18ns;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public I18nCoutry getI18n(String lang) {
+        return DefaultI18nedDomain.getI18n(i18ns,lang);
+    }
 }

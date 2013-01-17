@@ -15,7 +15,7 @@ import org.joda.time.LocalDate;
 @Entity
 @Table(name = "PERSON")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Person extends AbstractEntity {
+public class Person extends DefaultI18nedDomain<I18nPerson> {
 	private static final long serialVersionUID = 1L;
 	private String firstName;
 	private String lastName;
@@ -29,7 +29,22 @@ public class Person extends AbstractEntity {
 	@MapKey(name = "lang")
 	private Map<Lang, I18nPerson> i18ns;
 
-	public String getFirstName() {
+
+    public Person() {
+    }
+
+    public Person(String firstName, String lastName, String middleName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+    }
+
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
 		return firstName;
 	}
 
@@ -69,4 +84,8 @@ public class Person extends AbstractEntity {
 		this.dateOfDeath = dateOfDeath;
 	}
 
+    @Override
+    public Map<Lang, I18nPerson> getI18ns() {
+        return i18ns;
+    }
 }

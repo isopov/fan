@@ -27,7 +27,15 @@ public class PlayerInTeam extends AbstractEntity {
 	@ForeignKey(name = "PLAYER_IN_TEAM_TEAM_FK")
 	private Team team;
 
-	public LocalDate getStart() {
+    public PlayerInTeam() {
+    }
+
+    public PlayerInTeam(Player player, Team team) {
+        this.player = player;
+        this.team = team;
+    }
+
+    public LocalDate getStart() {
 		return start;
 	}
 

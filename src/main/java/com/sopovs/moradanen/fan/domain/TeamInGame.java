@@ -1,5 +1,6 @@
 package com.sopovs.moradanen.fan.domain;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -30,7 +31,29 @@ public class TeamInGame extends AbstractEntity {
 	@Enumerated(EnumType.STRING)
 	private TeamPosition position;
 
-	public TeamPosition getPosition() {
+    public TeamInGame() {
+    }
+
+    public TeamInGame(Team team, Game game, List<PlayerInGame> players) {
+        this.team = team;
+        this.players = players;
+        this.game = game;
+    }
+
+    public TeamInGame(Team team, Game game, PlayerInGame... players) {
+        this.team = team;
+        this.players = Arrays.asList(players);
+        this.game = game;
+    }
+
+    public TeamInGame(Team team, Game game, TeamPosition position, List<PlayerInGame> players) {
+        this.team = team;
+        this.players = players;
+        this.game = game;
+        this.position = position;
+    }
+
+    public TeamPosition getPosition() {
 		return position;
 	}
 
