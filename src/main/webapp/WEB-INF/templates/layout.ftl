@@ -74,7 +74,7 @@
                             <@security.authorize ifAnyGranted="EDITOR">
                                 <li><a href="<@spring.url "/edit/club/new"/>"><@spring.message "simple.new" /></a></li>
                                 <li>
-                                    <a href="<@spring.url "/edit/club/team/new"/>"><@spring.message "club.team.new" /></a>
+                                    <a href="<@spring.url "/edit/club/teamInGame/new"/>"><@spring.message "club.teamInGame.new" /></a>
                                 </li>
                             </@security.authorize>
                         </ul>

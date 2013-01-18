@@ -17,7 +17,7 @@ public class Contest extends AbstractEntity {
 	@ForeignKey(name = "CONTEST_CONTEST_HOLDER_FK")
 	private ContestHolder holder;
 	@Enumerated(EnumType.STRING)
-	private ContestType positition;
+	private ContestType position;
 	private String name;
 
 	public String getName() {
@@ -28,12 +28,12 @@ public class Contest extends AbstractEntity {
 		this.name = name;
 	}
 
-	public ContestType getPositition() {
-		return positition;
+	public ContestType getPosition() {
+		return position;
 	}
 
-	public void setPositition(ContestType positition) {
-		this.positition = positition;
+	public void setPosition(ContestType position) {
+		this.position = position;
 	}
 
 	public ContestHolder getHolder() {

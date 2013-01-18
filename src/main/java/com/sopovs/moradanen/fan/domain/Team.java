@@ -10,4 +10,8 @@ import javax.persistence.Table;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Team extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
+
+    public abstract String getTitle();
+
+    public abstract String getTitle(String lang);
 }

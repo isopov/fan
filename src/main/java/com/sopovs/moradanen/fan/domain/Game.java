@@ -31,6 +31,10 @@ public class Game extends AbstractEntity {
 	@ForeignKey(name = "GAME_INFORMATION_SOURCES_FK")
 	private InformationSources sources;
 
+    @ManyToOne
+    @ForeignKey(name = "GAME_SEASON_FK")
+    private Season season;
+
 	private Integer spectators;
 
 	public List<Goal> getGoals() {
@@ -38,7 +42,44 @@ public class Game extends AbstractEntity {
 		return null;
 	}
 
-	public List<TeamInGame> getTeams() {
+    public TeamInGame getGuest(){
+        if(teams != null){
+            for(TeamInGame t:teams){
+                if(t.getPosition() == TeamPosition.GUEST){
+                    return t;
+                }
+            }
+        }
+        return null;
+    }
+    public TeamInGame getHost(){
+        if(teams != null){
+            for(TeamInGame t:teams){
+                if(t.getPosition() == TeamPosition.HOST){
+                    return t;
+                }
+            }
+        }
+        return null;
+    }
+
+    public InformationSources getSources() {
+        return sources;
+    }
+
+    public void setSources(InformationSources sources) {
+        this.sources = sources;
+    }
+
+    public Season getSeason() {
+        return season;
+    }
+
+    public void setSeason(Season season) {
+        this.season = season;
+    }
+
+    public List<TeamInGame> getTeams() {
 		return teams;
 	}
 

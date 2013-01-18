@@ -16,7 +16,7 @@ public class TeamInGame extends AbstractEntity {
 	@ForeignKey(name = "TEAM_IN_GAME_TEAM_FK")
 	private Team team;
 
-	@OneToMany(mappedBy = "team",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "teamInGame",cascade = CascadeType.ALL)
 	private List<PlayerInGame> players;
 
 	@ManyToOne

@@ -64,4 +64,18 @@ public class Club extends Team implements I18nedDomain<I18nClub> {
         return i18ns.get(Lang.fromLang(lang));
     }
 
+    @Override
+    public String getTitle() {
+        return name;
+    }
+
+    @Override
+    public String getTitle(String lang) {
+        I18nClub i18n = getI18n(lang);
+        if (i18n == null) {
+            return i18n.getName();
+        } else {
+            return name;
+        }
+   }
 }

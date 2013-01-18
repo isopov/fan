@@ -18,7 +18,7 @@ public class PlayerInGame extends AbstractEntity {
 
     @ManyToOne
     @ForeignKey(name = "PLAYER_IN_GAME_TEAM_IN_GAME_FK")
-    private TeamInGame team;
+    private TeamInGame teamInGame;
 
     @OneToMany(mappedBy = "scorer", cascade = CascadeType.ALL)
     private List<Goal> goals;
@@ -54,9 +54,9 @@ public class PlayerInGame extends AbstractEntity {
         this.position = position;
     }
 
-    public PlayerInGame(PlayerInTeam player, TeamInGame team, List<Goal> goals, PlayerInGamePosition position) {
+    public PlayerInGame(PlayerInTeam player, TeamInGame teamInGame, List<Goal> goals, PlayerInGamePosition position) {
         this.playerInTeam = player;
-        this.team = team;
+        this.teamInGame = teamInGame;
         this.goals = goals;
         this.position = position;
     }
@@ -193,6 +193,14 @@ public class PlayerInGame extends AbstractEntity {
 
     public void setFaildPasses(Integer faildPasses) {
         this.faildPasses = faildPasses;
+    }
+
+    public TeamInGame getTeamInGame() {
+        return teamInGame;
+    }
+
+    public void setTeamInGame(TeamInGame teamInGame) {
+        this.teamInGame = teamInGame;
     }
 
     public Integer getAttempts() {

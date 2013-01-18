@@ -6,6 +6,7 @@ import static com.sopovs.moradanen.fan.domain.PlayerInGamePosition.*;
 
 import com.sopovs.moradanen.fan.domain.*;
 import com.sopovs.moradanen.fan.service.IDaoService;
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,9 +37,8 @@ public class DbTestData implements IDbTestData {
             Contest premier = new Contest();
             england.setContests(Arrays.asList(premier));
             premier.setHolder(england);
-            premier.setPositition(ContestType.FIRST);
+            premier.setPosition(ContestType.FIRST);
             premier.setName("Barclays Premier League");
-
 
 
             Game game = new Game();
@@ -69,6 +69,7 @@ public class DbTestData implements IDbTestData {
                     , new PlayerInGame(new PlayerInTeam(new Player("David", "Goodwillie"), rovers), FORWARD)
             );
 
+            fillBackLinkOnPlayers(roversTeam);
 
 
             Club fulham = new Club(FULHAM);
@@ -95,13 +96,23 @@ public class DbTestData implements IDbTestData {
                     , new PlayerInGame(new PlayerInTeam(new Player("Simon", "Davies"), fulham), MIDFIELDER).addStart(87)
                     , new PlayerInGame(new PlayerInTeam(new Player("Andrew", "Johnson"), fulham), FORWARD).addStart(74)
             );
+            fillBackLinkOnPlayers(fulhamTeam);
 
-            game.setTeams(Arrays.asList(roversTeam,fulhamTeam));
+            game.setTeams(Arrays.asList(roversTeam, fulhamTeam));
+
+
+            Season season = new Season();
+            season.setContest(premier);
+            season.setGames(Arrays.asList(game));
+            game.setSeason(season);
+            season.setStart(LocalDate.now().minusMonths(6));
+            season.setEnd(LocalDate.now().plusMonths(6));
 
             em.persist(game);
             em.persist(premier);
             em.persist(rovers);
             em.persist(fulham);
+            em.persist(season);
 
             em.persist(england);
 
@@ -110,6 +121,7 @@ public class DbTestData implements IDbTestData {
             Preconditions.checkNotNull(fulham.getId());
             Preconditions.checkNotNull(roversTeam.getId());
             Preconditions.checkNotNull(rovers.getId());
+            Preconditions.checkNotNull(season.getId());
 
             Preconditions.checkNotNull(game.getId());
             checkPLayers(fulhamTeam);
@@ -121,17 +133,25 @@ public class DbTestData implements IDbTestData {
         return service.findClubByName(BLACKBURN_NAME) == null;
     }
 
-    private static void checkPLayers(TeamInGame teamInGame){
-        for (PlayerInGame p:teamInGame.getPlayers()){
+    private static void fillBackLinkOnPlayers(TeamInGame teamInGame) {
+        for (PlayerInGame p : teamInGame.getPlayers()) {
+            p.setTeamInGame(teamInGame);
+        }
+    }
+
+
+    private static void checkPLayers(TeamInGame teamInGame) {
+        for (PlayerInGame p : teamInGame.getPlayers()) {
             Preconditions.checkNotNull(p.getId());
-            if(p.getGoals() != null){
-                for(Goal g:p.getGoals()){
+            if (p.getGoals() != null) {
+                for (Goal g : p.getGoals()) {
                     Preconditions.checkNotNull(g.getId());
                 }
             }
             Preconditions.checkNotNull(p.getPlayerInTeam().getId());
             Preconditions.checkNotNull(p.getPlayerInTeam().getPlayer().getId());
             Preconditions.checkNotNull(p.getPlayerInTeam().getTeam().getId());
+            Preconditions.checkNotNull(p.getTeamInGame().getId());
         }
 
     }
