@@ -13,14 +13,14 @@ public class PlayerInGame extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @ForeignKey(name = "PLAYER_IN_GAME_PLAYER_FK")
-    private PlayerInTeam player;
+    @ForeignKey(name = "PLAYER_IN_GAME_PLAYER_IN_TEAM_FK")
+    private PlayerInTeam playerInTeam;
 
     @ManyToOne
-    @ForeignKey(name = "PLAYER_IN_GAME_TEAM_FK")
+    @ForeignKey(name = "PLAYER_IN_GAME_TEAM_IN_GAME_FK")
     private TeamInGame team;
 
-    @OneToMany(mappedBy = "scorer")
+    @OneToMany(mappedBy = "scorer", cascade = CascadeType.ALL)
     private List<Goal> goals;
 
     // As stated in the application form, but not what was the real position
@@ -50,12 +50,12 @@ public class PlayerInGame extends AbstractEntity {
     }
 
     public PlayerInGame(PlayerInTeam player, PlayerInGamePosition position) {
-        this.player = player;
+        this.playerInTeam = player;
         this.position = position;
     }
 
     public PlayerInGame(PlayerInTeam player, TeamInGame team, List<Goal> goals, PlayerInGamePosition position) {
-        this.player = player;
+        this.playerInTeam = player;
         this.team = team;
         this.goals = goals;
         this.position = position;
@@ -219,12 +219,12 @@ public class PlayerInGame extends AbstractEntity {
         this.goals = goals;
     }
 
-    public PlayerInTeam getPlayer() {
-        return player;
+    public PlayerInTeam getPlayerInTeam() {
+        return playerInTeam;
     }
 
-    public void setPlayer(PlayerInTeam player) {
-        this.player = player;
+    public void setPlayerInTeam(PlayerInTeam playerInTeam) {
+        this.playerInTeam = playerInTeam;
     }
 
     public PlayerInGamePosition getPosition() {

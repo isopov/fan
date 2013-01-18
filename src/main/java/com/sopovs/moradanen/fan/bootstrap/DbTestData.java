@@ -124,6 +124,14 @@ public class DbTestData implements IDbTestData {
     private static void checkPLayers(TeamInGame teamInGame){
         for (PlayerInGame p:teamInGame.getPlayers()){
             Preconditions.checkNotNull(p.getId());
+            if(p.getGoals() != null){
+                for(Goal g:p.getGoals()){
+                    Preconditions.checkNotNull(g.getId());
+                }
+            }
+            Preconditions.checkNotNull(p.getPlayerInTeam().getId());
+            Preconditions.checkNotNull(p.getPlayerInTeam().getPlayer().getId());
+            Preconditions.checkNotNull(p.getPlayerInTeam().getTeam().getId());
         }
 
     }
