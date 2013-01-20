@@ -4,13 +4,10 @@
 <#assign pageTitle><@spring.message "contest.list" /></#assign>
 
 <@layout.layout pageTitle="${pageTitle}">
-    <#list contests as contest>
-    <h3>${contest.name}</h3>
-        <#if seasons.containsKey(contest)>
-            <#assign season=seasons.get(contest) />
+    <#list seasons as season>
+    <h3>${season.contest.name}</h3>
         <h4>${season.start} - ${season.end}</h4>
-            <#if season.games?? && !season.games.isEmpty()>
-                <#list season.games as game>
+             <#list season.games as game>
                 <table>
                     <thead>
                     <tr>
@@ -27,47 +24,31 @@
                     </thead>
                 <tbody>
                 <tr>
-                    <td>
-                    ${game.date}
+                    <td align="center">
+                    <#if (game.date??) >
+                    	${game.date}
+                    <#else>
+                    	-
+                    </#if>
                     </td>
                     <#if game.guest??>
                         <td title="Guest">
-                        ${game.guest.getTitle(lang)}
+                        ${game.guest.team.getTitle(lang)}
                         </td>
                         <td title="Host">
-                        ${game.host.getTitle(lang)}
+                        ${game.host.team.getTitle(lang)}
                         </td>
                     <#else>
                         <td>
-                        ${game.teams.get(0)}
+                        ${game.teams[0].team.getTitle(lang)}
                         </td>
                         <td>
-                        ${game.teams.get(1)}
+                        ${game.teams[1].team.getTitle(lang)}
                         </td>
                     </#if>
-                    </tr>
-                    </tbody>
-                    </table>
-                </#list>
-            </#if>
-        </#if>
+                  </tr>
+               </tbody>
+               </table>
+            </#list>
     </#list>
-<table>
-    <tr>
-        <th>Link</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
-    </tr>
-
-    <tr>
-        <td>
-            <a href="<@spring.url "/club/view?id=${club.id}"/>">
-                <@layout.i18nedProperty club "name" />
-            </a>
-        </td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-    </tr>
-
-</table>
 </@layout.layout>

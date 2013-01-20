@@ -15,6 +15,20 @@ public abstract class AbstractI18nTest extends AbstractControllerTest {
 				.andExpect(status().isOk());
 	}
 
+	@Test
+	public void testListContestsWithGames() throws Exception {
+		this.mockMvc.perform(
+				MockMvcRequestBuilders.get(addLocale("/contest/games")))
+				.andExpect(status().isOk());
+	}
+
+	@Test
+	public void testListContestsWithTeams() throws Exception {
+		this.mockMvc.perform(
+				MockMvcRequestBuilders.get(addLocale("/contest/teams")))
+				.andExpect(status().isOk());
+	}
+
 	private String addLocale(String url) {
 		if (url.contains("?")) {
 			return url + "&lang=" + getLocale();

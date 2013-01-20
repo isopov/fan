@@ -2,6 +2,7 @@ package com.sopovs.moradanen.fan.domain;
 
 import java.util.Map;
 
+//TODO Revisit generics
 public interface I18nedDomain<T extends I18nDomain> {
 	Map<Lang, T> getI18ns();
 

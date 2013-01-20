@@ -17,7 +17,7 @@ public class Game extends AbstractEntity {
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
 	private LocalDateTime date;
 
-	@OneToMany(mappedBy = "game",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private List<TeamInGame> teams;
 
 	@OneToMany(mappedBy = "game")
@@ -31,9 +31,9 @@ public class Game extends AbstractEntity {
 	@ForeignKey(name = "GAME_INFORMATION_SOURCES_FK")
 	private InformationSources sources;
 
-    @ManyToOne
-    @ForeignKey(name = "GAME_SEASON_FK")
-    private Season season;
+	@ManyToOne
+	@ForeignKey(name = "GAME_SEASON_FK")
+	private Season season;
 
 	private Integer spectators;
 
@@ -42,44 +42,49 @@ public class Game extends AbstractEntity {
 		return null;
 	}
 
-    public TeamInGame getGuest(){
-        if(teams != null){
-            for(TeamInGame t:teams){
-                if(t.getPosition() == TeamPosition.GUEST){
-                    return t;
-                }
-            }
-        }
-        return null;
-    }
-    public TeamInGame getHost(){
-        if(teams != null){
-            for(TeamInGame t:teams){
-                if(t.getPosition() == TeamPosition.HOST){
-                    return t;
-                }
-            }
-        }
-        return null;
-    }
+	public TeamInGame getGuest() {
+		if (teams != null) {
+			for (TeamInGame t : teams) {
+				if (t.getPosition() == TeamPosition.GUEST) {
+					return t;
+				}
+			}
+		}
+		return null;
+	}
 
-    public InformationSources getSources() {
-        return sources;
-    }
+	public void setGuest(TeamInGame guest) {
+		throw new IllegalStateException();
+	}
 
-    public void setSources(InformationSources sources) {
-        this.sources = sources;
-    }
+	public TeamInGame getHost() {
+		if (teams != null) {
+			for (TeamInGame t : teams) {
+				if (t.getPosition() == TeamPosition.HOST) {
+					return t;
+				}
+			}
+		}
+		return null;
+	}
 
-    public Season getSeason() {
-        return season;
-    }
+	public InformationSources getSources() {
+		return sources;
+	}
 
-    public void setSeason(Season season) {
-        this.season = season;
-    }
+	public void setSources(InformationSources sources) {
+		this.sources = sources;
+	}
 
-    public List<TeamInGame> getTeams() {
+	public Season getSeason() {
+		return season;
+	}
+
+	public void setSeason(Season season) {
+		this.season = season;
+	}
+
+	public List<TeamInGame> getTeams() {
 		return teams;
 	}
 

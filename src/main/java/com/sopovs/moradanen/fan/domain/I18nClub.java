@@ -1,7 +1,5 @@
 package com.sopovs.moradanen.fan.domain;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -46,7 +44,7 @@ public class I18nClub implements I18nDomain<Club> {
 	}
 
 	@Override
-    public Lang getLang() {
+	public Lang getLang() {
 		return lang;
 	}
 

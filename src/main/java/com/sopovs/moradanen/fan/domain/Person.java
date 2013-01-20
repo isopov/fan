@@ -29,22 +29,21 @@ public class Person extends DefaultI18nedDomain<I18nPerson> {
 	@MapKey(name = "lang")
 	private Map<Lang, I18nPerson> i18ns;
 
+	public Person() {
+	}
 
-    public Person() {
-    }
+	public Person(String firstName, String lastName, String middleName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.middleName = middleName;
+	}
 
-    public Person(String firstName, String lastName, String middleName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
-    }
+	public Person(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 
-    public Person(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public String getFirstName() {
+	public String getFirstName() {
 		return firstName;
 	}
 
@@ -84,8 +83,8 @@ public class Person extends DefaultI18nedDomain<I18nPerson> {
 		this.dateOfDeath = dateOfDeath;
 	}
 
-    @Override
-    public Map<Lang, I18nPerson> getI18ns() {
-        return i18ns;
-    }
+	@Override
+	public Map<Lang, I18nPerson> getI18ns() {
+		return i18ns;
+	}
 }
