@@ -32,6 +32,20 @@ public class ContestControllerTest extends AbstractControllerTest {
 										"First team", "Second team"))));
 	}
 
+    @Test
+    public void testViewSeason() throws Exception {
+        daoService.lastSeasonByClubName(DbTestData.BLACKBURN_NAME).getId();
+        this.mockMvc
+                .perform(get("/contest/season/" + daoService.lastSeasonByClubName(DbTestData.BLACKBURN_NAME).getId().toString()))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("text/html;charset=UTF-8"))
+                .andExpect(
+                        content()
+                                .string(allOf(
+                                        containsString(DbTestData.BLACKBURN_NAME),
+                                        containsString(DbTestData.FULHAM))));
+    }
+
 	@Test
 	public void testListTeams() throws Exception {
 		this.mockMvc

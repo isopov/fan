@@ -1,47 +1,58 @@
 package com.sopovs.moradanen.fan.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.ForeignKey;
 
+import java.util.Map;
+
 @Entity
 @Table(name = "CONTEST")
-public class Contest extends AbstractEntity {
-	private static final long serialVersionUID = 1L;
+public class Contest extends DefaultI18nedDomain<I18nContest> {
+    private static final long serialVersionUID = 1L;
 
-	@ManyToOne
-	@ForeignKey(name = "CONTEST_CONTEST_HOLDER_FK")
-	private ContestHolder holder;
-	@Enumerated(EnumType.STRING)
-	private ContestType position;
-	private String name;
+    @ManyToOne
+    @ForeignKey(name = "CONTEST_CONTEST_HOLDER_FK")
+    private ContestHolder holder;
+    @Enumerated(EnumType.STRING)
+    private ContestType position;
+    private String name;
 
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @OneToMany(mappedBy = "contest", fetch = FetchType.EAGER)
+    @MapKey(name = "lang")
+    private Map<Lang, I18nContest> i18ns;
 
-	public ContestType getPosition() {
-		return position;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setPosition(ContestType position) {
-		this.position = position;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public ContestHolder getHolder() {
-		return holder;
-	}
+    public ContestType getPosition() {
+        return position;
+    }
 
-	public void setHolder(ContestHolder holder) {
-		this.holder = holder;
-	}
+    public void setPosition(ContestType position) {
+        this.position = position;
+    }
 
+    public ContestHolder getHolder() {
+        return holder;
+    }
+
+    public void setHolder(ContestHolder holder) {
+        this.holder = holder;
+    }
+
+    @Override
+    public Map<Lang, I18nContest> getI18ns() {
+        return i18ns;
+    }
+
+    public void setI18ns(Map<Lang, I18nContest> i18ns) {
+        this.i18ns = i18ns;
+    }
 }

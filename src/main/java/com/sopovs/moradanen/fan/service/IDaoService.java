@@ -11,4 +11,6 @@ public interface IDaoService {
 	List<Club> listAllClubs();
 
     List<Season> lastSeasons();
+
+    Season lastSeasonByClubName(String name);
 }

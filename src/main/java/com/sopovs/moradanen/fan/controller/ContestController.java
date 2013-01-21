@@ -6,9 +6,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sopovs.moradanen.fan.domain.Season;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,40 +24,32 @@ import com.sopovs.moradanen.fan.service.IDaoService;
 @RequestMapping("/contest")
 public class ContestController extends AbstractController {
 
-	@PersistenceContext
-	private EntityManager em;
+    @PersistenceContext
+    private EntityManager em;
 
-	@Autowired
-	private IDaoService service;
+    @Autowired
+    private IDaoService service;
 
-	@RequestMapping(value = "/games")
-	public ModelAndView listGames() {
-		return new ModelAndView("contest/games", "seasons",
-				service.lastSeasons());
-	}
+    @RequestMapping(value = "/games")
+    public ModelAndView listGames() {
+        return new ModelAndView("contest/games", "seasons", service.lastSeasons());
+    }
 
-	@RequestMapping(value = "/teams")
-	public ModelAndView listTeams() {
-		return new ModelAndView("contest/teams", "seasons",
-				service.lastSeasons());
-	}
+    @RequestMapping(value = "/teams")
+    public ModelAndView listTeams() {
+        return new ModelAndView("contest/teams", "seasons", service.lastSeasons());
+    }
 
-	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public ModelAndView viewClub(@RequestParam(required = false) UUID id,
-			@RequestParam(required = false) String clubName,
-			HttpServletResponse response) {
-		Club club = null;
-		if (id != null) {
-			club = em.find(Club.class, id);
-		} else if (!Strings.isNullOrEmpty(clubName)) {
-			club = service.findClubByName(clubName);
-		}
+    @RequestMapping(value = "/season/{id}", method = RequestMethod.GET)
+    public ModelAndView viewClub(@PathVariable UUID id,
+                                 HttpServletResponse response) {
 
-		if (club == null) {
-			response.setStatus(HttpStatus.NOT_FOUND.value());
-			return new ModelAndView("errors/404");
-		} else {
-			return new ModelAndView("club/view", "club", club);
-		}
-	}
+        Season season = em.find(Season.class, id);
+        if (season == null) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            return new ModelAndView("errors/404");
+        } else {
+            return new ModelAndView("contest/season", "season", season);
+        }
+    }
 }
