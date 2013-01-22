@@ -11,6 +11,7 @@ angular.module('fanedit', []).config([ '$routeProvider', function($routeProvider
 
 function IndexCtrl($scope) {
 	console.log('Creating login controller');
+    $scope.messages = ['Hello', 'world!'];
 	// TODO Is this controller needed at all?
 }
 
