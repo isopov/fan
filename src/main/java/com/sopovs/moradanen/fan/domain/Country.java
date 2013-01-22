@@ -51,7 +51,7 @@ public class Country extends ContestHolder  implements I18nedDomain<I18nCoutry>{
 
     @Override
     public Map<Lang, I18nCoutry> getI18ns() {
-        return i18ns;  //To change body of implemented methods use File | Settings | File Templates.
+        return i18ns;
     }
 
     @Override

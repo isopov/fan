@@ -29,8 +29,8 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script src="<@spring.url "/js/jquery.js"/>" type="text/javascript"></script>
-    <script src="<@spring.url "/js/bootstrap.js"/>" type="text/javascript"></script>
+    <script src="<@spring.url "/js/jquery-1.8.3.js"/>" type="text/javascript"></script>
+    <script src="<@spring.url "/js/bootstrap-2.2.2.js"/>" type="text/javascript"></script>
 </head>
 </#macro>
 
@@ -73,9 +73,6 @@
                             <li><a href="<@spring.url "/club/list"/>"><@spring.message "simple.list" /></a></li>
                             <@security.authorize ifAnyGranted="EDITOR">
                                 <li><a href="<@spring.url "/edit/club/new"/>"><@spring.message "simple.new" /></a></li>
-                                <li>
-                                    <a href="<@spring.url "/edit/club/teamInGame/new"/>"><@spring.message "club.teamInGame.new" /></a>
-                                </li>
                             </@security.authorize>
                         </ul>
                     </li>
