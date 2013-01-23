@@ -4,21 +4,31 @@ import com.google.common.base.Preconditions;
 
 import static com.sopovs.moradanen.fan.domain.PlayerInGamePosition.*;
 
+import com.google.common.collect.Maps;
 import com.sopovs.moradanen.fan.domain.*;
 import com.sopovs.moradanen.fan.service.IDaoService;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 @Transactional
 public class DbTestData implements IDbTestData {
-
     public static final String FULHAM = "Fulham";
-    public static final String BLACKBURN_NAME = "Blackburn Rovers";
+    public static final String BLACKBURN_NAME = "Blackburn";
+    public static final String BARCLAYS_PREMIER_LEAGUE = "Barclays Premier League";
+
+
+    private final DateTimeFormatter df = DateTimeFormat.forPattern("dd/mm/yy");
 
     @PersistenceContext
     private EntityManager em;
@@ -38,7 +48,7 @@ public class DbTestData implements IDbTestData {
             england.setContests(Arrays.asList(premier));
             premier.setHolder(england);
             premier.setPosition(ContestType.FIRST);
-            premier.setName("Barclays Premier League");
+            premier.setName(BARCLAYS_PREMIER_LEAGUE);
 
 
             Game game = new Game();
@@ -126,6 +136,60 @@ public class DbTestData implements IDbTestData {
             Preconditions.checkNotNull(game.getId());
             checkPLayers(fulhamTeam);
             checkPLayers(roversTeam);
+
+            importFootballData();
+        }
+    }
+
+    /**
+     * Importer for data from http://www.football-data.co.uk/data.php
+     */
+    private void importFootballData() {
+        importDataFromFile("/1011-E0.csv");
+        importDataFromFile("/0910-E0.csv");
+    }
+
+    private void importDataFromFile(String fileName){
+        Contest premier = service.findContestByName(DbTestData.BARCLAYS_PREMIER_LEAGUE);
+
+
+        FootbalDataGameHeader h = null;
+        Season season = new Season();
+        em.persist(season);
+        try (Scanner scanner = new Scanner(DbTestData.class.getResourceAsStream(fileName))) {
+            while (scanner.hasNextLine()) {
+                String s = scanner.nextLine();
+                if (h == null) {
+                    h = new FootbalDataGameHeader(s);
+                    continue;
+                }
+                String[] gameString = s.split(",");
+
+                String hostName = gameString[h.indexes.get("HomeTeam")];
+                Club host = service.findClubByName(hostName);
+                if (host == null) {
+                    host = new Club(hostName);
+                    em.persist(host);
+                }
+
+                String guestName = gameString[h.indexes.get("AwayTeam")];
+                Club guest = service.findClubByName(guestName);
+                if (guest == null) {
+                    guest = new Club(guestName);
+                    em.persist(guest);
+                }
+
+                Game game = new Game();
+
+                LocalDateTime date = df.parseLocalDateTime(gameString[h.indexes.get("Date")]);
+                game.setDate(date);
+                game.setSeason(season);
+                game.setTeams(Arrays.asList(new TeamInGame(guest, game, TeamPosition.GUEST), new TeamInGame(host, game, TeamPosition.HOST)));
+                game.getGuest().setGoals(Integer.valueOf(gameString[h.indexes.get("FTAG")]));
+                game.getHost().setGoals(Integer.valueOf(gameString[h.indexes.get("FTHG")]));
+                em.persist(game);
+
+            }
         }
     }
 
@@ -154,5 +218,50 @@ public class DbTestData implements IDbTestData {
             Preconditions.checkNotNull(p.getTeamInGame().getId());
         }
 
+    }
+
+    //    Div = League Division
+//    Date = Match Date (dd/mm/yy)
+//    HomeTeam = Home Team
+//    AwayTeam = Away Team
+//    FTHG = Full Time Home Team Goals
+//    FTAG = Full Time Away Team Goals
+//
+//    Match Statistics (where available)
+//    Attendance = Crowd Attendance
+//    HS = Home Team Shots
+//            AS = Away Team Shots
+//    HST = Home Team Shots on Target
+//            AST = Away Team Shots on Target
+//    HHW = Home Team Hit Woodwork
+//    AHW = Away Team Hit Woodwork
+//    HC = Home Team Corners
+//            AC = Away Team Corners
+//    HF = Home Team Fouls Committed
+//    AF = Away Team Fouls Committed
+//    HO = Home Team Offsides
+//            AO = Away Team Offsides
+//    HY = Home Team Yellow Cards
+//    AY = Away Team Yellow Cards
+//    HR = Home Team Red Cards
+//    AR = Away Team Red Cards
+    private static class FootbalDataGameHeader {
+
+        private static List<String> values = Arrays.asList(
+                "Date", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "Attendance", "HS", "AS", "HST", "AST",
+                "HHW", "AHW", "HC", "AC", "HF", "AF", "HO", "AO", "HY", "AY", "HR", "AR"
+        );
+
+        private Map<String, Integer> indexes = Maps.newHashMap();
+
+        public FootbalDataGameHeader(String header) {
+            List<String> headers = Arrays.asList(header.split(","));
+            for (String value : values) {
+                int index = headers.indexOf(value);
+                if (index >= 0) {
+                    indexes.put(value, index);
+                }
+            }
+        }
     }
 }

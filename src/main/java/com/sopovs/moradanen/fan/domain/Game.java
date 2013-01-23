@@ -37,12 +37,7 @@ public class Game extends AbstractEntity {
 
 	private Integer spectators;
 
-	public List<Goal> getGoals() {
-		// TODO goals are in PlayerInGame
-		return null;
-	}
-
-	public TeamInGame getGuest() {
+    public TeamInGame getGuest() {
 		if (teams != null) {
 			for (TeamInGame t : teams) {
 				if (t.getPosition() == TeamPosition.GUEST) {

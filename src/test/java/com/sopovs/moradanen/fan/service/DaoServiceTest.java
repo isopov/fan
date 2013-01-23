@@ -1,11 +1,13 @@
 package com.sopovs.moradanen.fan.service;
 
 import com.sopovs.moradanen.fan.AbstractServiceTest;
+import com.sopovs.moradanen.fan.AbstractTransactionalServiceTest;
 import com.sopovs.moradanen.fan.bootstrap.DbTestData;
 import com.sopovs.moradanen.fan.domain.Contest;
 import com.sopovs.moradanen.fan.domain.Season;
 import org.joda.time.LocalDate;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +19,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public class DaoServiceTest extends AbstractServiceTest {
+public class DaoServiceTest extends AbstractTransactionalServiceTest {
 
 
     @Autowired
@@ -27,6 +29,7 @@ public class DaoServiceTest extends AbstractServiceTest {
     private EntityManager em;
 
     @Test
+    @Ignore
     public void testListAllAndFindByNameClubs() throws Exception {
         assertEquals(service.listAllClubs(), Arrays.asList(service.findClubByName(DbTestData.BLACKBURN_NAME), service.findClubByName(DbTestData.FULHAM)));
     }

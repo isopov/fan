@@ -1,5 +1,6 @@
 package com.sopovs.moradanen.fan.controller;
 
+import com.sopovs.moradanen.fan.AbstractTransactionalServiceTest;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,7 +13,7 @@ import com.sopovs.moradanen.fan.AbstractServiceTest;
 
 @WebAppConfiguration
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring-servlet.xml" })
-public abstract class AbstractControllerTest extends AbstractServiceTest {
+public abstract class AbstractControllerTest extends AbstractTransactionalServiceTest {
 
 	@Autowired
 	protected WebApplicationContext wac;

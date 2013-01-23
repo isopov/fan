@@ -16,6 +16,7 @@ import com.google.common.base.Preconditions;
 
 @Entity
 @Table(name = "CLUB", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
+@ForeignKey(name = "CLUB_TEAM_FK")
 public class Club extends Team implements I18nedDomain<I18nClub> {
 	private static final long serialVersionUID = 1L;
 

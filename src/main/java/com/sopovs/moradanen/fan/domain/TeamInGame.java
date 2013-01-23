@@ -32,6 +32,12 @@ public class TeamInGame extends AbstractEntity {
     private Integer shotsOnTarget;
     private Integer goals;
 
+    private Integer fouls;
+    private Integer corners;
+    private Integer yellowCards;
+    private Integer redCards;
+
+
     public TeamInGame() {
     }
 

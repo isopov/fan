@@ -6,13 +6,14 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import com.sopovs.moradanen.fan.AbstractTransactionalServiceTest;
 import org.junit.Assert;
 import org.junit.Test;
 
 import com.google.common.collect.Maps;
 import com.sopovs.moradanen.fan.AbstractServiceTest;
 
-public class DomainI18nTest extends AbstractServiceTest {
+public class DomainI18nTest extends AbstractTransactionalServiceTest {
 
 	@PersistenceContext
 	private EntityManager em;

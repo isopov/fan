@@ -10,12 +10,13 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import com.sopovs.moradanen.fan.AbstractTransactionalServiceTest;
 import org.junit.Assert;
 import org.junit.Test;
 
 import com.sopovs.moradanen.fan.AbstractServiceTest;
 
-public class DomainsTest extends AbstractServiceTest {
+public class DomainsTest extends AbstractTransactionalServiceTest {
 
 	@PersistenceContext
 	private EntityManager em;

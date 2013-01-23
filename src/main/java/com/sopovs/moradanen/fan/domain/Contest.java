@@ -2,8 +2,10 @@ package com.sopovs.moradanen.fan.domain;
 
 import javax.persistence.*;
 
+import com.google.common.collect.Lists;
 import org.hibernate.annotations.ForeignKey;
 
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -22,6 +24,8 @@ public class Contest extends DefaultI18nedDomain<I18nContest> {
     @OneToMany(mappedBy = "contest", fetch = FetchType.EAGER)
     @MapKey(name = "lang")
     private Map<Lang, I18nContest> i18ns;
+
+
 
     public String getName() {
         return name;

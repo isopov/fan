@@ -12,13 +12,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/applicationContext.xml" })
-@ActiveProfiles("default")
 @SuppressWarnings("deprecation")
 @Ignore
-public class DbSchemaGenerator {
+public class DbSchemaGenerator extends AbstractServiceTest{
 
 	@Autowired
 	private AbstractEntityManagerFactoryBean fb;

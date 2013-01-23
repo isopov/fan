@@ -7,14 +7,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 
-import com.sopovs.moradanen.fan.domain.TeamInGame;
+import com.sopovs.moradanen.fan.domain.*;
 import org.joda.time.LocalDate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Iterables;
-import com.sopovs.moradanen.fan.domain.Club;
-import com.sopovs.moradanen.fan.domain.Season;
 
 @Repository
 @Transactional
@@ -101,4 +99,17 @@ public class DaoService implements IDaoService {
 //                " order by t.game.season.start", Season.class)
 //                .setMaxResults(1).setParameter("name", name));
     }
+
+    @Override
+    public Contest findContestByName(String value) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Contest> cq = cb.createQuery(Contest.class);
+
+        Root<Contest> from = cq.from(Contest.class);
+        cq.select(from);
+
+        cq.where(cb.equal(from.get("name"), value));
+        return getSingleResultOrNull(em.createQuery(cq));
+    }
+
 }
