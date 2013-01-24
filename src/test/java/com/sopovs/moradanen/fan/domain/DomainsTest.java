@@ -21,15 +21,6 @@ public class DomainsTest extends AbstractTransactionalServiceTest {
 	@PersistenceContext
 	private EntityManager em;
 
-	@Test
-	public void testClubTeamsSize() {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Club> cq = cb.createQuery(Club.class);
-		cq.from(Club.class);
-		List<Club> allClubs = em.createQuery(cq).getResultList();
-
-		Assert.assertEquals(2, allClubs.size());
-	}
 
 	@Test
 	public void testBlackburnTeam() {

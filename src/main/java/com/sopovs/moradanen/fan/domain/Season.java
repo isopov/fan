@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.Type;
@@ -19,59 +20,77 @@ import com.google.common.collect.Sets;
 @Table(name = "SEASON")
 public class Season extends AbstractEntity {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-	private LocalDate start;
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-	private LocalDate end;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+    @NotNull
+    private LocalDate start;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+    @NotNull
+    private LocalDate end;
 
-	@ManyToOne
-	@ForeignKey(name = "SEASON_CONTEST_FK")
-	private Contest contest;
+    @ManyToOne
+    @ForeignKey(name = "SEASON_CONTEST_FK")
+    private Contest contest;
 
-	@OneToMany(mappedBy = "season")
-	private List<Game> games;
+    @OneToMany(mappedBy = "season")
+    private List<Game> games;
 
-	public LocalDate getStart() {
-		return start;
-	}
+    public LocalDate getStart() {
+        return start;
+    }
 
-	public void setStart(LocalDate start) {
-		this.start = start;
-	}
+    public void setStart(LocalDate start) {
+        this.start = start;
+    }
 
-	public LocalDate getEnd() {
-		return end;
-	}
+    public LocalDate getEnd() {
+        return end;
+    }
 
-	public void setEnd(LocalDate end) {
-		this.end = end;
-	}
+    public void setEnd(LocalDate end) {
+        this.end = end;
+    }
 
-	public Contest getContest() {
-		return contest;
-	}
+    public Contest getContest() {
+        return contest;
+    }
 
-	public void setContest(Contest contest) {
-		this.contest = contest;
-	}
+    public void setContest(Contest contest) {
+        this.contest = contest;
+    }
 
-	public List<Object> getTeams() {
-		Set<Object> result = Sets.newHashSet();
-		for (Game g : games) {
-			for (TeamInGame t : g.getTeams()) {
-				result.add(t.getTeam());
-			}
-		}
-		return Lists.newArrayList(result);
-	}
+    public void addGame(Game game) {
+        if (games == null) {
+            games = Lists.newArrayList();
+        }
+        games.add(game);
+    }
 
-	public List<Game> getGames() {
-		return games;
-	}
+    public List<Team> getTeams() {
+        Set<Team> result = Sets.newHashSet();
+        for (Game g : games) {
+            for (TeamInGame t : g.getTeams()) {
+                result.add(t.getTeam());
+            }
+        }
+        return Lists.newArrayList(result);
+    }
 
-	public void setGames(List<Game> games) {
-		this.games = games;
-	}
+    public List<Game> getGames() {
+        return games;
+    }
+
+    public void setGames(List<Game> games) {
+        this.games = games;
+    }
+
+    @Override
+    public String toString() {
+        return "Season{" +
+                "start=" + start +
+                ", end=" + end +
+                ", contest=" + contest +
+                '}';
+    }
 }

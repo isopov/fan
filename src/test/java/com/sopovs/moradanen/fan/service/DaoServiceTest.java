@@ -3,6 +3,7 @@ package com.sopovs.moradanen.fan.service;
 import com.sopovs.moradanen.fan.AbstractServiceTest;
 import com.sopovs.moradanen.fan.AbstractTransactionalServiceTest;
 import com.sopovs.moradanen.fan.bootstrap.DbTestData;
+import com.sopovs.moradanen.fan.domain.Club;
 import com.sopovs.moradanen.fan.domain.Contest;
 import com.sopovs.moradanen.fan.domain.Season;
 import org.joda.time.LocalDate;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 public class DaoServiceTest extends AbstractTransactionalServiceTest {
 
@@ -28,10 +30,25 @@ public class DaoServiceTest extends AbstractTransactionalServiceTest {
     @PersistenceContext
     private EntityManager em;
 
+
     @Test
-    @Ignore
-    public void testListAllAndFindByNameClubs() throws Exception {
-        assertEquals(service.listAllClubs(), Arrays.asList(service.findClubByName(DbTestData.BLACKBURN_NAME), service.findClubByName(DbTestData.FULHAM)));
+    public void testFindContestByName() throws Exception {
+        assertEquals(DbTestData.BARCLAYS_PREMIER_LEAGUE, service.findContestByName(DbTestData.BARCLAYS_PREMIER_LEAGUE).getName());
+    }
+
+    @Test
+    public void testListAllClubs() throws Exception {
+        assertTrue(service.listAllClubs().size() > 0);
+        service.listAllClubs().contains(service.findClubByName(DbTestData.BLACKBURN_NAME));
+        service.listAllClubs().contains(service.findClubByName(DbTestData.FULHAM));
+    }
+
+    @Test
+    public void testFindClubByName() throws Exception {
+        Club blackburn = service.findClubByName(DbTestData.BLACKBURN_NAME);
+        assertEquals(DbTestData.BLACKBURN_NAME, blackburn.getName());
+        assertEquals(DbTestData.BLACKBURN_NAME, blackburn.getTitle("en"));
+
     }
 
     @Test
@@ -56,11 +73,12 @@ public class DaoServiceTest extends AbstractTransactionalServiceTest {
         assertEquals(seasons.get(0).getContest(), newSeasons.get(0).getContest());
     }
 
-    private Season newSeason(Contest contest){
+    private Season newSeason(Contest contest) {
         Season newSeason = new Season();
         newSeason.setEnd(LocalDate.now().plusYears(10));
+        newSeason.setStart(LocalDate.now().plusYears(9));
         newSeason.setContest(contest);
         em.persist(newSeason);
         return newSeason;
-       }
+    }
 }

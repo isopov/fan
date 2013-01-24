@@ -34,7 +34,6 @@ public class ContestControllerTest extends AbstractControllerTest {
 	}
 
     @Test
-    @Ignore //TODO
     public void testViewSeason() throws Exception {
         daoService.lastSeasonByClubName(DbTestData.BLACKBURN_NAME).getId();
         this.mockMvc

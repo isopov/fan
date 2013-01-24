@@ -87,7 +87,7 @@ public class DaoService implements IDaoService {
         sq.where(cb.equal(subRoot.get("name"), name));
 
         cq.where(cb.equal(root.get("team"), sq));
-        cq.orderBy(cb.asc(root.get("game").get("season").<LocalDate>get("start")));
+        cq.orderBy(cb.desc(root.get("game").get("season").<LocalDate>get("end")));
 
         return getSingleResultOrNull(em.createQuery(cq).setMaxResults(1));
 
@@ -96,7 +96,7 @@ public class DaoService implements IDaoService {
         // JPQL here...
 //        return getSingleResultOrNull(em.createQuery("Select t.game.season from TeamInGame  t" +
 //                " where t.team = (Select c from Club c where c.name=:name)" +
-//                " order by t.game.season.start", Season.class)
+//                " order by t.game.season.end", Season.class)
 //                .setMaxResults(1).setParameter("name", name));
     }
 

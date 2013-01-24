@@ -1,9 +1,11 @@
 package com.sopovs.moradanen.fan.bootstrap;
 
+import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 
 import static com.sopovs.moradanen.fan.domain.PlayerInGamePosition.*;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.sopovs.moradanen.fan.domain.*;
 import com.sopovs.moradanen.fan.service.IDaoService;
@@ -16,10 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 @Transactional
 public class DbTestData implements IDbTestData {
@@ -149,12 +148,15 @@ public class DbTestData implements IDbTestData {
         importDataFromFile("/0910-E0.csv");
     }
 
-    private void importDataFromFile(String fileName){
+    private void importDataFromFile(String fileName) {
         Contest premier = service.findContestByName(DbTestData.BARCLAYS_PREMIER_LEAGUE);
 
 
         FootbalDataGameHeader h = null;
         Season season = new Season();
+        season.setContest(premier);
+        season.setStart(LocalDate.now());
+        season.setEnd(LocalDate.now());
         em.persist(season);
         try (Scanner scanner = new Scanner(DbTestData.class.getResourceAsStream(fileName))) {
             while (scanner.hasNextLine()) {
@@ -184,12 +186,28 @@ public class DbTestData implements IDbTestData {
                 LocalDateTime date = df.parseLocalDateTime(gameString[h.indexes.get("Date")]);
                 game.setDate(date);
                 game.setSeason(season);
+                season.addGame(game);
                 game.setTeams(Arrays.asList(new TeamInGame(guest, game, TeamPosition.GUEST), new TeamInGame(host, game, TeamPosition.HOST)));
                 game.getGuest().setGoals(Integer.valueOf(gameString[h.indexes.get("FTAG")]));
                 game.getHost().setGoals(Integer.valueOf(gameString[h.indexes.get("FTHG")]));
                 em.persist(game);
-
             }
+            List<LocalDateTime> dates = Lists.transform(season.getGames(), new Function<Game, LocalDateTime>() {
+                @Override
+                public LocalDateTime apply(Game input) {
+                    return input.getDate();
+                }
+            });
+
+            season.setEnd(Collections.max(dates).toLocalDate());
+            season.setStart(Collections.min(dates).toLocalDate());
+            em.persist(season);
+            for (Game g : season.getGames()) {
+//                em.persist(g.getGuest().getTeam());
+//                em.persist(g.getHost().getTeam());
+                em.persist(g);
+            }
+
         }
     }
 

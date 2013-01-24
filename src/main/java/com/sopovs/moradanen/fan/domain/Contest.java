@@ -59,4 +59,11 @@ public class Contest extends DefaultI18nedDomain<I18nContest> {
     public void setI18ns(Map<Lang, I18nContest> i18ns) {
         this.i18ns = i18ns;
     }
+
+    @Override
+    public String toString() {
+        return "Contest{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
