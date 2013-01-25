@@ -41,8 +41,8 @@ public class PlayerInGame extends AbstractEntity {
     private Integer passes;
     private Integer faildPasses;
 
-    private Integer attempts;
-    private Integer attemptsOnTarget;
+    private Integer shots;
+    private Integer shotsOnTarget;
     private Integer saves;
 
 
@@ -76,13 +76,13 @@ public class PlayerInGame extends AbstractEntity {
         return this;
     }
 
-    public PlayerInGame addAttemptsOnTarget(Integer attemptsOnTarget) {
-        this.attemptsOnTarget = attemptsOnTarget;
+    public PlayerInGame addShotsOnTarget(Integer attemptsOnTarget) {
+        this.shotsOnTarget = attemptsOnTarget;
         return this;
     }
 
-    public PlayerInGame addAttempts(Integer attempts) {
-        this.attempts = attempts;
+    public PlayerInGame addShots(Integer attempts) {
+        this.shots = attempts;
         return this;
     }
     public PlayerInGame addFaildPasses(Integer faildPasses) {
@@ -203,20 +203,20 @@ public class PlayerInGame extends AbstractEntity {
         this.teamInGame = teamInGame;
     }
 
-    public Integer getAttempts() {
-        return attempts;
+    public Integer getShots() {
+        return shots;
     }
 
-    public void setAttempts(Integer attempts) {
-        this.attempts = attempts;
+    public void setShots(Integer shots) {
+        this.shots = shots;
     }
 
-    public Integer getAttemptsOnTarget() {
-        return attemptsOnTarget;
+    public Integer getShotsOnTarget() {
+        return shotsOnTarget;
     }
 
-    public void setAttemptsOnTarget(Integer attemptsOnTarget) {
-        this.attemptsOnTarget = attemptsOnTarget;
+    public void setShotsOnTarget(Integer shotsOnTarget) {
+        this.shotsOnTarget = shotsOnTarget;
     }
 
     public List<Goal> getGoals() {

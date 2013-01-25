@@ -30,7 +30,7 @@ public class ContestControllerTest extends AbstractControllerTest {
 				.andExpect(
 						content().string(
 								stringContainsInOrder(Arrays.asList("DateTime",
-										"First team", "Second team"))));
+										"Host", "Guest"))));
 	}
 
     @Test

@@ -39,106 +39,113 @@ public class DbTestData implements IDbTestData {
     @Override
     public void createTestData() {
         if (notCreated()) {
-            Country england = new Country();
-            england.setCode("EN");
-            england.setName("England");
-
-
-            Contest premier = new Contest();
-            england.setContests(Arrays.asList(premier));
-            premier.setHolder(england);
-            premier.setPosition(ContestType.FIRST);
-            premier.setName(BARCLAYS_PREMIER_LEAGUE);
-
-
-            Game game = new Game();
-            Club rovers = new Club(BLACKBURN_NAME);
-
-
-            TeamInGame roversTeam = new TeamInGame(rovers, game
-                    , new PlayerInGame(new PlayerInTeam(new Player("Paul", "Robinson"), rovers), GOALKEEPER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Martin", "Olsson"), rovers), DEFENDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Gael", "Givet"), rovers), DEFENDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Grant", "Hanley"), rovers), DEFENDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Jason", "Lowe"), rovers), DEFENDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Morten", "Gamst", "Pedersen"), rovers), MIDFIELDER).addStart(0).addGoal(new Goal(49)) //TODO this should be 45 +4
-                    , new PlayerInGame(new PlayerInTeam(new Player("Radosav", "Petrovic"), rovers), MIDFIELDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Steven", "Nzonzi"), rovers), MIDFIELDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("David", "Hoilett"), rovers), MIDFIELDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("David", "Dunn"), rovers), FORWARD).addStart(0).addEnd(69).addGoal(new Goal(46))
-                    , new PlayerInGame(new PlayerInTeam(new Player("Yakubu", "Aiyegbeni"), rovers), FORWARD).addStart(0).addRedCards(1).addEnd(23)
-
-
-                    , new PlayerInGame(new PlayerInTeam(new Player("Mark", "Bunn"), rovers), GOALKEEPER)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Josh", "Morris"), rovers), DEFENDER)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Adam", "Henley"), rovers), DEFENDER)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Mauro", "Formica"), rovers), MIDFIELDER)
-                    .addStart(69).addGoal(new Goal(79))
-                    , new PlayerInGame(new PlayerInTeam(new Player("Simon", "Vukcevic"), rovers), MIDFIELDER)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Ruben", "Rochina"), rovers), FORWARD)
-                    , new PlayerInGame(new PlayerInTeam(new Player("David", "Goodwillie"), rovers), FORWARD)
-            );
-
-            fillBackLinkOnPlayers(roversTeam);
-
-
-            Club fulham = new Club(FULHAM);
-
-            TeamInGame fulhamTeam = new TeamInGame(fulham, game
-                    , new PlayerInGame(new PlayerInTeam(new Player("David", "Stockdale"), fulham), GOALKEEPER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Stephen", "Kelly"), fulham), DEFENDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("John", "Arne", "Riise"), fulham), DEFENDER).addStart(0).addEnd(74)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Brede", "Hangeland"), fulham), DEFENDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Philippe", "Senderos"), fulham), DEFENDER).addStart(0).addYellowCards(1)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Danny", "Murphy"), fulham), MIDFIELDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Damien", "Duff"), fulham), MIDFIELDER).addStart(0).addGoal(new Goal(56))
-                    , new PlayerInGame(new PlayerInTeam(new Player("Clint", "Dempsey"), fulham), MIDFIELDER).addStart(0)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Mousa", "Dembele"), fulham), MIDFIELDER).addStart(0).addEnd(36)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Bryan", "Ruiz"), fulham), FORWARD).addStart(0).addEnd(69)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Bobby", "Zamora"), fulham), FORWARD).addStart(0)
-
-
-                    , new PlayerInGame(new PlayerInTeam(new Player("Neil", "Etheridge"), fulham), GOALKEEPER)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Aaron", "Hughes"), fulham), DEFENDER)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Steve", "Sidwell"), fulham), MIDFIELDER)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Pajtim", "Kasami"), fulham), MIDFIELDER)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Kerim", "Frei"), fulham), MIDFIELDER).addStart(36).addEnd(87)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Simon", "Davies"), fulham), MIDFIELDER).addStart(87)
-                    , new PlayerInGame(new PlayerInTeam(new Player("Andrew", "Johnson"), fulham), FORWARD).addStart(74)
-            );
-            fillBackLinkOnPlayers(fulhamTeam);
-
-            game.setTeams(Arrays.asList(roversTeam, fulhamTeam));
-
-
-            Season season = new Season();
-            season.setContest(premier);
-            season.setGames(Arrays.asList(game));
-            game.setSeason(season);
-            season.setStart(LocalDate.now().minusMonths(6));
-            season.setEnd(LocalDate.now().plusMonths(6));
-
-            em.persist(game);
-            em.persist(premier);
-            em.persist(rovers);
-            em.persist(fulham);
-            em.persist(season);
-
-            em.persist(england);
-
-            Preconditions.checkNotNull(premier.getId());
-            Preconditions.checkNotNull(fulhamTeam.getId());
-            Preconditions.checkNotNull(fulham.getId());
-            Preconditions.checkNotNull(roversTeam.getId());
-            Preconditions.checkNotNull(rovers.getId());
-            Preconditions.checkNotNull(season.getId());
-
-            Preconditions.checkNotNull(game.getId());
-            checkPLayers(fulhamTeam);
-            checkPLayers(roversTeam);
-
-            importFootballData();
+            createTestGameWithDetails();
+//            importFootballData();
         }
+    }
+
+
+    private void createTestGameWithDetails() {
+        Country england = new Country();
+        england.setCode("EN");
+        england.setName("England");
+
+
+        Contest premier = new Contest();
+        england.setContests(Arrays.asList(premier));
+        premier.setHolder(england);
+        premier.setPosition(ContestType.FIRST);
+        premier.setName(BARCLAYS_PREMIER_LEAGUE);
+
+
+        Game game = new Game();
+        Club rovers = new Club(BLACKBURN_NAME);
+
+
+        TeamInGame roversTeam = new TeamInGame(rovers, game
+                , new PlayerInGame(new PlayerInTeam(new Player("Paul", "Robinson"), rovers), GOALKEEPER).addStart(0)
+                , new PlayerInGame(new PlayerInTeam(new Player("Martin", "Olsson"), rovers), DEFENDER).addStart(0)
+                , new PlayerInGame(new PlayerInTeam(new Player("Gael", "Givet"), rovers), DEFENDER).addStart(0)
+                , new PlayerInGame(new PlayerInTeam(new Player("Grant", "Hanley"), rovers), DEFENDER).addStart(0)
+                , new PlayerInGame(new PlayerInTeam(new Player("Jason", "Lowe"), rovers), DEFENDER).addStart(0)
+                , new PlayerInGame(new PlayerInTeam(new Player("Morten", "Gamst", "Pedersen"), rovers), MIDFIELDER).addStart(0).addGoal(new Goal(49)) //TODO this should be 45 +4
+                , new PlayerInGame(new PlayerInTeam(new Player("Radosav", "Petrovic"), rovers), MIDFIELDER).addStart(0)
+                , new PlayerInGame(new PlayerInTeam(new Player("Steven", "Nzonzi"), rovers), MIDFIELDER).addStart(0)
+                , new PlayerInGame(new PlayerInTeam(new Player("David", "Hoilett"), rovers), MIDFIELDER).addStart(0)
+                , new PlayerInGame(new PlayerInTeam(new Player("David", "Dunn"), rovers), FORWARD).addStart(0).addEnd(69).addGoal(new Goal(46))
+                , new PlayerInGame(new PlayerInTeam(new Player("Yakubu", "Aiyegbeni"), rovers), FORWARD).addStart(0).addRedCards(1).addEnd(23)
+
+
+                , new PlayerInGame(new PlayerInTeam(new Player("Mark", "Bunn"), rovers), GOALKEEPER)
+                , new PlayerInGame(new PlayerInTeam(new Player("Josh", "Morris"), rovers), DEFENDER)
+                , new PlayerInGame(new PlayerInTeam(new Player("Adam", "Henley"), rovers), DEFENDER)
+                , new PlayerInGame(new PlayerInTeam(new Player("Mauro", "Formica"), rovers), MIDFIELDER)
+                .addStart(69).addGoal(new Goal(79))
+                , new PlayerInGame(new PlayerInTeam(new Player("Simon", "Vukcevic"), rovers), MIDFIELDER)
+                , new PlayerInGame(new PlayerInTeam(new Player("Ruben", "Rochina"), rovers), FORWARD)
+                , new PlayerInGame(new PlayerInTeam(new Player("David", "Goodwillie"), rovers), FORWARD)
+        );
+        roversTeam.setPosition(TeamPosition.HOST);
+
+        fillBackLinkOnPlayers(roversTeam);
+
+
+        Club fulham = new Club(FULHAM);
+
+        TeamInGame fulhamTeam = new TeamInGame(fulham, game
+                , new PlayerInGame(new PlayerInTeam(new Player("David", "Stockdale"), fulham), GOALKEEPER).addStart(0)
+                , new PlayerInGame(new PlayerInTeam(new Player("Stephen", "Kelly"), fulham), DEFENDER).addStart(0)
+                , new PlayerInGame(new PlayerInTeam(new Player("John", "Arne", "Riise"), fulham), DEFENDER).addStart(0).addEnd(74)
+                , new PlayerInGame(new PlayerInTeam(new Player("Brede", "Hangeland"), fulham), DEFENDER).addStart(0)
+                , new PlayerInGame(new PlayerInTeam(new Player("Philippe", "Senderos"), fulham), DEFENDER).addStart(0).addYellowCards(1)
+                , new PlayerInGame(new PlayerInTeam(new Player("Danny", "Murphy"), fulham), MIDFIELDER).addStart(0)
+                , new PlayerInGame(new PlayerInTeam(new Player("Damien", "Duff"), fulham), MIDFIELDER).addStart(0).addGoal(new Goal(56))
+                , new PlayerInGame(new PlayerInTeam(new Player("Clint", "Dempsey"), fulham), MIDFIELDER).addStart(0)
+                , new PlayerInGame(new PlayerInTeam(new Player("Mousa", "Dembele"), fulham), MIDFIELDER).addStart(0).addEnd(36)
+                , new PlayerInGame(new PlayerInTeam(new Player("Bryan", "Ruiz"), fulham), FORWARD).addStart(0).addEnd(69)
+                , new PlayerInGame(new PlayerInTeam(new Player("Bobby", "Zamora"), fulham), FORWARD).addStart(0)
+
+
+                , new PlayerInGame(new PlayerInTeam(new Player("Neil", "Etheridge"), fulham), GOALKEEPER)
+                , new PlayerInGame(new PlayerInTeam(new Player("Aaron", "Hughes"), fulham), DEFENDER)
+                , new PlayerInGame(new PlayerInTeam(new Player("Steve", "Sidwell"), fulham), MIDFIELDER)
+                , new PlayerInGame(new PlayerInTeam(new Player("Pajtim", "Kasami"), fulham), MIDFIELDER)
+                , new PlayerInGame(new PlayerInTeam(new Player("Kerim", "Frei"), fulham), MIDFIELDER).addStart(36).addEnd(87)
+                , new PlayerInGame(new PlayerInTeam(new Player("Simon", "Davies"), fulham), MIDFIELDER).addStart(87)
+                , new PlayerInGame(new PlayerInTeam(new Player("Andrew", "Johnson"), fulham), FORWARD).addStart(74)
+        );
+        fulhamTeam.setPosition(TeamPosition.GUEST);
+        fillBackLinkOnPlayers(fulhamTeam);
+
+
+        game.setTeams(Arrays.asList(roversTeam, fulhamTeam));
+
+
+        Season season = new Season();
+        season.setContest(premier);
+        season.setGames(Arrays.asList(game));
+        game.setSeason(season);
+        season.setStart(LocalDate.now().minusMonths(6));
+        season.setEnd(LocalDate.now().plusMonths(6));
+
+        em.persist(game);
+        em.persist(premier);
+        em.persist(rovers);
+        em.persist(fulham);
+        em.persist(season);
+
+        em.persist(england);
+
+        Preconditions.checkNotNull(premier.getId());
+        Preconditions.checkNotNull(fulhamTeam.getId());
+        Preconditions.checkNotNull(fulham.getId());
+        Preconditions.checkNotNull(roversTeam.getId());
+        Preconditions.checkNotNull(rovers.getId());
+        Preconditions.checkNotNull(season.getId());
+
+        Preconditions.checkNotNull(game.getId());
+        checkPLayers(fulhamTeam);
+        checkPLayers(roversTeam);
     }
 
     /**
@@ -190,37 +197,37 @@ public class DbTestData implements IDbTestData {
                 season.addGame(game);
                 game.setTeams(Arrays.asList(new TeamInGame(guest, game, TeamPosition.GUEST), new TeamInGame(host, game, TeamPosition.HOST)));
 
-                game.getHost().setGoals(h.value(gameString,"FTHG"));
+                game.getHost().setGoals(h.value(gameString, "FTHG"));
 
-                game.getGuest().setGoals(h.value(gameString,"FTAG"));
+                game.getGuest().setGoals(h.value(gameString, "FTAG"));
 
-                game.getHost().setShots(h.value(gameString,"HS"));
+                game.getHost().setShots(h.value(gameString, "HS"));
 
-                game.getGuest().setShots(h.value(gameString,"AS"));
+                game.getGuest().setShots(h.value(gameString, "AS"));
 
-                game.getHost().setShotsOnTarget(h.value(gameString,"HST"));
+                game.getHost().setShotsOnTarget(h.value(gameString, "HST"));
 
-                game.getGuest().setShotsOnTarget(h.value(gameString,"AST"));
+                game.getGuest().setShotsOnTarget(h.value(gameString, "AST"));
 
-                game.getHost().setRedCards(h.value(gameString,"HR"));
+                game.getHost().setRedCards(h.value(gameString, "HR"));
 
-                game.getGuest().setRedCards(h.value(gameString,"AR"));
+                game.getGuest().setRedCards(h.value(gameString, "AR"));
 
-                game.getHost().setYellowCards(h.value(gameString,"HY"));
+                game.getHost().setYellowCards(h.value(gameString, "HY"));
 
-                game.getGuest().setYellowCards(h.value(gameString,"AY"));
+                game.getGuest().setYellowCards(h.value(gameString, "AY"));
 
-                game.getHost().setOffsides(h.value(gameString,"HO"));
+                game.getHost().setOffsides(h.value(gameString, "HO"));
 
-                game.getGuest().setOffsides(h.value(gameString,"AO"));
+                game.getGuest().setOffsides(h.value(gameString, "AO"));
 
-                game.getHost().setFouls(h.value(gameString,"HF"));
+                game.getHost().setFouls(h.value(gameString, "HF"));
 
-                game.getGuest().setFouls(h.value(gameString,"AF"));
+                game.getGuest().setFouls(h.value(gameString, "AF"));
 
-                game.getHost().setCorners(h.value(gameString,"HC"));
+                game.getHost().setCorners(h.value(gameString, "HC"));
 
-                game.getGuest().setCorners(h.value(gameString,"AC"));
+                game.getGuest().setCorners(h.value(gameString, "AC"));
 
                 em.persist(game);
             }
@@ -242,11 +249,55 @@ public class DbTestData implements IDbTestData {
     }
 
     private static void fillBackLinkOnPlayers(TeamInGame teamInGame) {
+        int goals = 0;
+        int shots = 0;
+        int shotsOnTarget = 0;
+        int passes = 0;
+        int failedPasses = 0;
+        int fouls = 0;
+        int yellows = 0;
+        int reds = 0;
+
         for (PlayerInGame p : teamInGame.getPlayers()) {
             p.setTeamInGame(teamInGame);
-        }
-    }
+            if (p.getGoals() != null) {
+                goals += p.getGoals().size();
+            }
+            if (p.getShots() != null) {
+                shots += p.getShots();
+            }
+            if (p.getShotsOnTarget() != null) {
+                shotsOnTarget += p.getShotsOnTarget();
+            }
+            if (p.getPasses() != null) {
+                passes += p.getPasses();
+            }
+            if (p.getFaildPasses() != null) {
+                passes += p.getFaildPasses();
+            }
+            if (p.getFouls() != null) {
+                fouls += p.getFouls();
+            }
+            if (p.getYellowCards() != null) {
+                yellows += p.getYellowCards();
+            }
+            if (p.getRedCards() != null) {
+                reds += p.getRedCards();
+            }
 
+        }
+
+        teamInGame.setGoals(goals);
+        teamInGame.setShots(shots);
+        teamInGame.setShotsOnTarget(shotsOnTarget);
+        teamInGame.setPasses(passes);
+        teamInGame.setFailedPasses(failedPasses);
+        teamInGame.setFouls(fouls);
+        teamInGame.setYellowCards(yellows);
+        teamInGame.setRedCards(reds);
+
+
+    }
 
 
     private static void checkPLayers(TeamInGame teamInGame) {

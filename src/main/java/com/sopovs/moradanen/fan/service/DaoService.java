@@ -112,4 +112,12 @@ public class DaoService implements IDaoService {
         return getSingleResultOrNull(em.createQuery(cq));
     }
 
+    @Override
+    public List<Game> lastGames(int size) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Game> cq = cb.createQuery(Game.class);
+        cq.orderBy(cb.desc(cq.from(Game.class).get("date")));
+        return em.createQuery(cq).setMaxResults(size).getResultList();
+    }
+
 }

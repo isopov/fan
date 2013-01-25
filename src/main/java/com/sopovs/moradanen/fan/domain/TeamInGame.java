@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ForeignKey;
 
@@ -24,6 +25,7 @@ public class TeamInGame extends AbstractEntity {
     private Game game;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private TeamPosition position;
 
 
@@ -37,6 +39,25 @@ public class TeamInGame extends AbstractEntity {
     private Integer corners;
     private Integer yellowCards;
     private Integer redCards;
+
+    private Integer passes;
+    private Integer failedPasses;
+
+    public Integer getFailedPasses() {
+        return failedPasses;
+    }
+
+    public void setFailedPasses(Integer failedPasses) {
+        this.failedPasses = failedPasses;
+    }
+
+    public Integer getPasses() {
+        return passes;
+    }
+
+    public void setPasses(Integer passes) {
+        this.passes = passes;
+    }
 
     public Integer getOffsides() {
         return offsides;
