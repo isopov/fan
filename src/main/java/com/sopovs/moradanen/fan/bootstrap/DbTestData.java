@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 
 import static com.sopovs.moradanen.fan.domain.PlayerInGamePosition.*;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.sopovs.moradanen.fan.domain.*;
@@ -188,8 +189,39 @@ public class DbTestData implements IDbTestData {
                 game.setSeason(season);
                 season.addGame(game);
                 game.setTeams(Arrays.asList(new TeamInGame(guest, game, TeamPosition.GUEST), new TeamInGame(host, game, TeamPosition.HOST)));
-                game.getGuest().setGoals(Integer.valueOf(gameString[h.indexes.get("FTAG")]));
-                game.getHost().setGoals(Integer.valueOf(gameString[h.indexes.get("FTHG")]));
+
+                game.getHost().setGoals(h.value(gameString,"FTHG"));
+
+                game.getGuest().setGoals(h.value(gameString,"FTAG"));
+
+                game.getHost().setShots(h.value(gameString,"HS"));
+
+                game.getGuest().setShots(h.value(gameString,"AS"));
+
+                game.getHost().setShotsOnTarget(h.value(gameString,"HST"));
+
+                game.getGuest().setShotsOnTarget(h.value(gameString,"AST"));
+
+                game.getHost().setRedCards(h.value(gameString,"HR"));
+
+                game.getGuest().setRedCards(h.value(gameString,"AR"));
+
+                game.getHost().setYellowCards(h.value(gameString,"HY"));
+
+                game.getGuest().setYellowCards(h.value(gameString,"AY"));
+
+                game.getHost().setOffsides(h.value(gameString,"HO"));
+
+                game.getGuest().setOffsides(h.value(gameString,"AO"));
+
+                game.getHost().setFouls(h.value(gameString,"HF"));
+
+                game.getGuest().setFouls(h.value(gameString,"AF"));
+
+                game.getHost().setCorners(h.value(gameString,"HC"));
+
+                game.getGuest().setCorners(h.value(gameString,"AC"));
+
                 em.persist(game);
             }
             List<LocalDateTime> dates = Lists.transform(season.getGames(), new Function<Game, LocalDateTime>() {
@@ -202,12 +234,6 @@ public class DbTestData implements IDbTestData {
             season.setEnd(Collections.max(dates).toLocalDate());
             season.setStart(Collections.min(dates).toLocalDate());
             em.persist(season);
-            for (Game g : season.getGames()) {
-//                em.persist(g.getGuest().getTeam());
-//                em.persist(g.getHost().getTeam());
-                em.persist(g);
-            }
-
         }
     }
 
@@ -220,6 +246,7 @@ public class DbTestData implements IDbTestData {
             p.setTeamInGame(teamInGame);
         }
     }
+
 
 
     private static void checkPLayers(TeamInGame teamInGame) {
@@ -280,6 +307,14 @@ public class DbTestData implements IDbTestData {
                     indexes.put(value, index);
                 }
             }
+        }
+
+        public Integer value(String[] values, String header) {
+            Integer index = indexes.get(header);
+            if (index == null) return null;
+            String value = values[index];
+            if (Strings.isNullOrEmpty(value)) return null;
+            return Integer.valueOf(value);
         }
     }
 }

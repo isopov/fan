@@ -32,11 +32,51 @@ public class TeamInGame extends AbstractEntity {
     private Integer shotsOnTarget;
     private Integer goals;
 
+    private Integer offsides;
     private Integer fouls;
     private Integer corners;
     private Integer yellowCards;
     private Integer redCards;
 
+    public Integer getOffsides() {
+        return offsides;
+    }
+
+    public void setOffsides(Integer offsides) {
+        this.offsides = offsides;
+    }
+
+    public Integer getFouls() {
+        return fouls;
+    }
+
+    public void setFouls(Integer fouls) {
+        this.fouls = fouls;
+    }
+
+    public Integer getCorners() {
+        return corners;
+    }
+
+    public void setCorners(Integer corners) {
+        this.corners = corners;
+    }
+
+    public Integer getYellowCards() {
+        return yellowCards;
+    }
+
+    public void setYellowCards(Integer yellowCards) {
+        this.yellowCards = yellowCards;
+    }
+
+    public Integer getRedCards() {
+        return redCards;
+    }
+
+    public void setRedCards(Integer redCards) {
+        this.redCards = redCards;
+    }
 
     public TeamInGame() {
     }
