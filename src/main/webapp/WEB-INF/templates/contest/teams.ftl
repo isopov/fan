@@ -6,7 +6,7 @@
 <@layout.layout pageTitle="${pageTitle}">
     <#list seasons as season>
     <h3>${season.contest.name}</h3>
-        <h4>Season ${season.start} - ${season.end}</h4>
+        <caption>Season ${season.start} - ${season.end}</caption>
         	 <ul>
              <#list season.teams as team>
              	<li>

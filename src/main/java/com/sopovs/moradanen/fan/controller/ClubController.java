@@ -23,32 +23,32 @@ import com.sopovs.moradanen.fan.service.IDaoService;
 @RequestMapping("/club")
 public class ClubController extends AbstractController {
 
-	@PersistenceContext
-	private EntityManager em;
+    @PersistenceContext
+    private EntityManager em;
 
-	@Autowired
-	private IDaoService service;
+    @Autowired
+    private IDaoService service;
 
-	@RequestMapping(value = "/list")
-	public ModelAndView listClubs(@ModelAttribute("club") Club club) {
-		return new ModelAndView("club/list", "clubs", service.listAllClubs());
-	}
+    @RequestMapping(value = "/list")
+    public ModelAndView listClubs(@ModelAttribute("club") Club club) {
+        return new ModelAndView("club/list", "clubs", service.listAllClubs());
+    }
 
-	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public ModelAndView viewClub(@RequestParam(required = false) UUID id,
-			@RequestParam(required = false) String clubName, HttpServletResponse response) {
-		Club club = null;
-		if (id != null) {
-			club = em.find(Club.class, id);
-		} else if (!Strings.isNullOrEmpty(clubName)) {
-			club = service.findClubByName(clubName);
-		}
+    @RequestMapping(value = "/view", method = RequestMethod.GET)
+    public ModelAndView viewClub(@RequestParam(required = false) UUID id,
+                                 @RequestParam(required = false) String clubName, HttpServletResponse response) {
+        Club club = null;
+        if (id != null) {
+            club = em.find(Club.class, id);
+        } else if (!Strings.isNullOrEmpty(clubName)) {
+            club = service.findClubByName(clubName);
+        }
 
-		if (club == null) {
-			response.setStatus(HttpStatus.NOT_FOUND.value());
-			return new ModelAndView("errors/404");
-		} else {
-			return new ModelAndView("club/view", "club", club);
-		}
-	}
+        if (club == null) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            return new ModelAndView("errors/404");
+        } else {
+            return new ModelAndView("club/view", "club", club).addObject("lastGames", service.lastGames(id, 100));
+        }
+    }
 }

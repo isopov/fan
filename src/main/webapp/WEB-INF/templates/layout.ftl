@@ -57,6 +57,9 @@
                         <a href="#" class="dropdown-toggle"
                            data-toggle="dropdown"><@spring.message "simple.divisions" /> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                            <li><a href="<@spring.url "/contest/list"/>"><@spring.message "simple.list" /></a></li>
+                            <li class="divider"></li>
+                            <li class="nav-header">Quick view</li>
                             <li><a href="<@spring.url "/contest/games"/>"><@spring.message "simple.games" /></a></li>
                             <li><a href="<@spring.url "/contest/teams"/>"><@spring.message "simple.teams" /></a></li>
                             <@security.authorize ifAnyGranted="EDITOR">

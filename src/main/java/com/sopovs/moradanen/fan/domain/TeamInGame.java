@@ -45,7 +45,7 @@ public class TeamInGame extends AbstractEntity {
 
     public TeamInGame other() {
         for (TeamInGame t : game.getTeams()) {
-            if (t != this) {
+            if (!this.equals(t)) {
                 return t;
             }
         }

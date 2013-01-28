@@ -1,6 +1,7 @@
 package com.sopovs.moradanen.fan.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -43,6 +44,13 @@ public class DaoService implements IDaoService {
     public List<Club> listAllClubs() {
         CriteriaQuery<Club> q = em.getCriteriaBuilder().createQuery(Club.class);
         q.from(Club.class);
+        return em.createQuery(q).getResultList();
+    }
+
+    @Override
+    public List<Contest> listAllContests() {
+        CriteriaQuery<Contest> q = em.getCriteriaBuilder().createQuery(Contest.class);
+        q.from(Contest.class);
         return em.createQuery(q).getResultList();
     }
 
@@ -118,6 +126,15 @@ public class DaoService implements IDaoService {
         CriteriaQuery<Game> cq = cb.createQuery(Game.class);
         cq.orderBy(cb.desc(cq.from(Game.class).get("date")));
         return em.createQuery(cq).setMaxResults(size).getResultList();
+    }
+
+    @Override
+    public List<TeamInGame> lastGames(UUID teamId, int size) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<TeamInGame> cq = cb.createQuery(TeamInGame.class);
+        cq.where(cb.equal(cq.from(TeamInGame.class).get("team").get("id"), teamId));
+
+        return em.createQuery(cq).setMaxResults(100).getResultList();
     }
 
 }

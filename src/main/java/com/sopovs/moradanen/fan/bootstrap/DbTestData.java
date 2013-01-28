@@ -59,6 +59,7 @@ public class DbTestData implements IDbTestData {
 
 
         Game game = new Game();
+//        game.setDate(LocalDa);
         Club rovers = new Club(BLACKBURN_NAME);
 
 

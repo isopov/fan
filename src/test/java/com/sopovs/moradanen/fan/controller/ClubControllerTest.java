@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.sopovs.moradanen.fan.domain.Club;
 import com.sopovs.moradanen.fan.service.IDaoService;
 
-public class ClubTeamControllerTest extends AbstractControllerTest {
+public class ClubControllerTest extends AbstractControllerTest {
 
 	@Autowired
 	private IDaoService daoService;

@@ -1,9 +1,12 @@
-<#import "../spring.ftl" as spring />
-<#import "../layout.ftl" as layout />
-<#import "../common.ftl" as common />
+<#import "../spring.ftl" as s />
+<#import "../layout.ftl" as l />
+<#import "../common.ftl" as c />
 
-<#assign pageTitle><@spring.message "games.list" /></#assign>
+<#assign pageTitle><@s.message "games.list" /></#assign>
 
-<@layout.layout pageTitle="${pageTitle}">
-    <@common.gamesTable games />
-</@layout.layout>
+<@l.layout pageTitle="${pageTitle}">
+    <@c.gamesTable games />
+</@l.layout>
+
+
+

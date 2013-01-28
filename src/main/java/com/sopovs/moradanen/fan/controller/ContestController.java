@@ -30,6 +30,11 @@ public class ContestController extends AbstractController {
     @Autowired
     private IDaoService service;
 
+    @RequestMapping(value = "/list")
+    public ModelAndView listDivisions() {
+        return new ModelAndView("contest/list", "contests", service.listAllContests());
+    }
+
     @RequestMapping(value = "/games")
     public ModelAndView listGames() {
         return new ModelAndView("contest/games", "seasons", service.lastSeasons());
