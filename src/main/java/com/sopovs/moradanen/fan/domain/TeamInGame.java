@@ -43,6 +43,15 @@ public class TeamInGame extends AbstractEntity {
     private Integer passes;
     private Integer failedPasses;
 
+    public TeamInGame other() {
+        for (TeamInGame t : game.getTeams()) {
+            if (t != this) {
+                return t;
+            }
+        }
+        return null;
+    }
+
     public Integer getFailedPasses() {
         return failedPasses;
     }

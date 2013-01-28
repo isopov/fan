@@ -1,8 +1,8 @@
-<#import "../spring.ftl" as spring />
-<#import "../layout.ftl" as layout />
+<#import "../layout.ftl" as l />
+<#import "../common.ftl" as c />
 
-<#assign pageTitle>Hello World!</#assign>
+<#assign pageTitle>${game.host.team.getTitle(lang)} - ${game.guest.team.getTitle(lang)}</#assign>
 
-<@layout.layout pageTitle=pageTitle>
-	<h1>${pageTitle}</h1>
-</@layout.layout>
+<@l.layout pageTitle=pageTitle>
+    <@c.gameView game />
+</@l.layout>
