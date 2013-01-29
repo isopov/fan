@@ -55,6 +55,13 @@ public class DaoService implements IDaoService {
     }
 
     @Override
+    public List<Player> listAllPlayers() {
+        CriteriaQuery<Player> q = em.getCriteriaBuilder().createQuery(Player.class);
+        q.from(Player.class);
+        return em.createQuery(q).getResultList();
+    }
+
+    @Override
     public List<Season> lastSeasons() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Season> cq = cb.createQuery(Season.class);
@@ -129,12 +136,25 @@ public class DaoService implements IDaoService {
     }
 
     @Override
-    public List<TeamInGame> lastGames(UUID teamId, int size) {
+    public List<TeamInGame> lastGamesForTeam(UUID teamId, int size) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<TeamInGame> cq = cb.createQuery(TeamInGame.class);
-        cq.where(cb.equal(cq.from(TeamInGame.class).get("team").get("id"), teamId));
-
+        Root<TeamInGame> from = cq.from(TeamInGame.class);
+        cq.where(cb.equal(from.get("team").get("id"), teamId));
+        cq.orderBy(cb.desc(from.get("game").get("date")));
         return em.createQuery(cq).setMaxResults(100).getResultList();
+    }
+
+    @Override
+    public List<PlayerInGame> lastGamesForPlayer(UUID playerId, int size) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<PlayerInGame> cq = cb.createQuery(PlayerInGame.class);
+        Root<PlayerInGame> from = cq.from(PlayerInGame.class);
+        cq.where(cb.equal(from.get("playerInTeam").get("player").get("id"), playerId));
+        cq.orderBy(cb.desc(from.get("teamInGame").get("game").get("date")));
+        return em.createQuery(cq).setMaxResults(100).getResultList();
+
+
     }
 
 }

@@ -92,6 +92,17 @@
                     </li>
 
                     <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><@spring.message "simple.players" />
+                            <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<@spring.url "/players/list"/>"><@spring.message "simple.list" /></a></li>
+                            <@security.authorize ifAnyGranted="EDITOR">
+                                <li><a href="<@spring.url "/edit/player/new"/>"><@spring.message "simple.new" /></a></li>
+                            </@security.authorize>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><@spring.message "simple.language" />
                             <b class="caret"></b></a>
                         <ul class="dropdown-menu">

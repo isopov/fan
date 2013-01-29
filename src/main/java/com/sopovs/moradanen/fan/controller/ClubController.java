@@ -48,7 +48,7 @@ public class ClubController extends AbstractController {
             response.setStatus(HttpStatus.NOT_FOUND.value());
             return new ModelAndView("errors/404");
         } else {
-            return new ModelAndView("club/view", "club", club).addObject("lastGames", service.lastGames(id, 100));
+            return new ModelAndView("club/view", "club", club).addObject("lastGames", service.lastGamesForTeam(id, 100));
         }
     }
 }
