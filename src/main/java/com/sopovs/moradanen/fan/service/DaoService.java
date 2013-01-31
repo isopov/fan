@@ -69,10 +69,10 @@ public class DaoService implements IDaoService {
 
         Subquery<LocalDate> sq = cq.subquery(LocalDate.class);
         Root<Season> subRoot = sq.from(Season.class);
-        sq.select(cb.greatest(subRoot.<LocalDate>get("end")));
+        sq.select(cb.greatest(subRoot.<LocalDate>get("endDate")));
         sq.where(cb.equal(subRoot.get("contest"), root.get("contest")));
 
-        cq.where(cb.equal(root.get("end"), sq));
+        cq.where(cb.equal(root.get("endDate"), sq));
         List<Season> result = em.createQuery(cq).getResultList();
         return result;
 
@@ -80,8 +80,8 @@ public class DaoService implements IDaoService {
         // JPQL here...
         // return em
         // .createQuery(
-        // "Select s1 from Season s1 where s1.end = ("
-        // + "    select max(s2.end)"
+        // "Select s1 from Season s1 where s1.endDate = ("
+        // + "    select max(s2.endDate)"
         // + "    from Season s2"
         // + "    where s1.contest=s2.contest" + ")",
         // Season.class).getResultList();
@@ -102,7 +102,7 @@ public class DaoService implements IDaoService {
         sq.where(cb.equal(subRoot.get("name"), name));
 
         cq.where(cb.equal(root.get("team"), sq));
-        cq.orderBy(cb.desc(root.get("game").get("season").<LocalDate>get("end")));
+        cq.orderBy(cb.desc(root.get("game").get("season").<LocalDate>get("endDate")));
 
         return getSingleResultOrNull(em.createQuery(cq).setMaxResults(1));
 
@@ -111,7 +111,7 @@ public class DaoService implements IDaoService {
         // JPQL here...
 //        return getSingleResultOrNull(em.createQuery("Select t.game.season from TeamInGame  t" +
 //                " where t.team = (Select c from Club c where c.name=:name)" +
-//                " order by t.game.season.end", Season.class)
+//                " order by t.game.season.endDate", Season.class)
 //                .setMaxResults(1).setParameter("name", name));
     }
 
@@ -131,7 +131,7 @@ public class DaoService implements IDaoService {
     public List<Game> lastGames(int size) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Game> cq = cb.createQuery(Game.class);
-        cq.orderBy(cb.desc(cq.from(Game.class).get("date")));
+        cq.orderBy(cb.desc(cq.from(Game.class).get("gameDate")));
         return em.createQuery(cq).setMaxResults(size).getResultList();
     }
 
@@ -141,7 +141,7 @@ public class DaoService implements IDaoService {
         CriteriaQuery<TeamInGame> cq = cb.createQuery(TeamInGame.class);
         Root<TeamInGame> from = cq.from(TeamInGame.class);
         cq.where(cb.equal(from.get("team").get("id"), teamId));
-        cq.orderBy(cb.desc(from.get("game").get("date")));
+        cq.orderBy(cb.desc(from.get("game").get("gameDate")));
         return em.createQuery(cq).setMaxResults(100).getResultList();
     }
 
@@ -151,7 +151,7 @@ public class DaoService implements IDaoService {
         CriteriaQuery<PlayerInGame> cq = cb.createQuery(PlayerInGame.class);
         Root<PlayerInGame> from = cq.from(PlayerInGame.class);
         cq.where(cb.equal(from.get("playerInTeam").get("player").get("id"), playerId));
-        cq.orderBy(cb.desc(from.get("teamInGame").get("game").get("date")));
+        cq.orderBy(cb.desc(from.get("teamInGame").get("game").get("gameDate")));
         return em.createQuery(cq).setMaxResults(100).getResultList();
 
 

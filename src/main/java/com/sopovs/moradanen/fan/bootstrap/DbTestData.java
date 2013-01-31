@@ -59,7 +59,7 @@ public class DbTestData implements IDbTestData {
 
 
         Game game = new Game();
-//        game.setDate(LocalDa);
+//        game.setGameDate(LocalDa);
         Club rovers = new Club(BLACKBURN_NAME);
 
 
@@ -126,8 +126,8 @@ public class DbTestData implements IDbTestData {
         season.setContest(premier);
         season.setGames(Arrays.asList(game));
         game.setSeason(season);
-        season.setStart(LocalDate.now().minusMonths(6));
-        season.setEnd(LocalDate.now().plusMonths(6));
+        season.setStartDate(LocalDate.now().minusMonths(6));
+        season.setEndDate(LocalDate.now().plusMonths(6));
 
         em.persist(game);
         em.persist(premier);
@@ -164,8 +164,8 @@ public class DbTestData implements IDbTestData {
         FootbalDataGameHeader h = null;
         Season season = new Season();
         season.setContest(premier);
-        season.setStart(LocalDate.now());
-        season.setEnd(LocalDate.now());
+        season.setStartDate(LocalDate.now());
+        season.setEndDate(LocalDate.now());
         em.persist(season);
         try (Scanner scanner = new Scanner(DbTestData.class.getResourceAsStream(fileName))) {
             while (scanner.hasNextLine()) {
@@ -193,7 +193,7 @@ public class DbTestData implements IDbTestData {
                 Game game = new Game();
 
                 LocalDateTime date = df.parseLocalDateTime(gameString[h.indexes.get("Date")]);
-                game.setDate(date);
+                game.setGameDate(date);
                 game.setSeason(season);
                 season.addGame(game);
                 game.setTeams(Arrays.asList(new TeamInGame(guest, game, TeamPosition.GUEST), new TeamInGame(host, game, TeamPosition.HOST)));
@@ -235,12 +235,12 @@ public class DbTestData implements IDbTestData {
             List<LocalDateTime> dates = Lists.transform(season.getGames(), new Function<Game, LocalDateTime>() {
                 @Override
                 public LocalDateTime apply(Game input) {
-                    return input.getDate();
+                    return input.getGameDate();
                 }
             });
 
-            season.setEnd(Collections.max(dates).toLocalDate());
-            season.setStart(Collections.min(dates).toLocalDate());
+            season.setEndDate(Collections.max(dates).toLocalDate());
+            season.setStartDate(Collections.min(dates).toLocalDate());
             em.persist(season);
         }
     }

@@ -15,10 +15,10 @@ public class PlayerInTeam extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-	private LocalDate start;
+	private LocalDate startDate;
 
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-	private LocalDate end;
+	private LocalDate endDate;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@ForeignKey(name = "PLAYER_IN_TEAM_PLAYER_FK")
@@ -36,20 +36,20 @@ public class PlayerInTeam extends AbstractEntity {
         this.team = team;
     }
 
-    public LocalDate getStart() {
-		return start;
+    public LocalDate getStartDate() {
+		return startDate;
 	}
 
-	public void setStart(LocalDate start) {
-		this.start = start;
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
 	}
 
-	public LocalDate getEnd() {
-		return end;
+	public LocalDate getEndDate() {
+		return endDate;
 	}
 
-	public void setEnd(LocalDate end) {
-		this.end = end;
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
 	}
 
 	public Player getPlayer() {

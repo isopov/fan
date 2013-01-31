@@ -7,7 +7,7 @@
 
 	<context-param>
 		<param-name>spring.profiles.default</param-name>
-		<param-value>default</param-value>
+		<param-value>postgres</param-value>
 	</context-param>
 
 	<filter>

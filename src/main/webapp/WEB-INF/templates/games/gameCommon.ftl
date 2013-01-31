@@ -4,7 +4,7 @@
 
 <#macro gameView game>
 <em>
-    <@c.orNull game "date" "Unknown date"/>
+    <@c.orNull game "gameDate" "Unknown Date"/>
 </em>
 <h3 class="text-align: center;">
     <a href="<@s.url "/club/view?id=${game.host.team.id}" />">

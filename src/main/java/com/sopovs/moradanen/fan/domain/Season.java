@@ -24,10 +24,10 @@ public class Season extends AbstractEntity {
 
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     @NotNull
-    private LocalDate start;
+    private LocalDate startDate;
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
     @NotNull
-    private LocalDate end;
+    private LocalDate endDate;
 
     @ManyToOne
     @ForeignKey(name = "SEASON_CONTEST_FK")
@@ -36,20 +36,20 @@ public class Season extends AbstractEntity {
     @OneToMany(mappedBy = "season")
     private List<Game> games;
 
-    public LocalDate getStart() {
-        return start;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setStart(LocalDate start) {
-        this.start = start;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public LocalDate getEnd() {
-        return end;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setEnd(LocalDate end) {
-        this.end = end;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
     public Contest getContest() {
@@ -88,8 +88,8 @@ public class Season extends AbstractEntity {
     @Override
     public String toString() {
         return "Season{" +
-                "start=" + start +
-                ", end=" + end +
+                "startDate=" + startDate +
+                ", endDate=" + endDate +
                 ", contest=" + contest +
                 '}';
     }

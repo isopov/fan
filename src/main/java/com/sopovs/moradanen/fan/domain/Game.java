@@ -15,7 +15,7 @@ public class Game extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-	private LocalDateTime date;
+	private LocalDateTime gameDate;
 
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL)
 	private List<TeamInGame> teams;
@@ -95,12 +95,12 @@ public class Game extends AbstractEntity {
 		this.judges = judges;
 	}
 
-	public LocalDateTime getDate() {
-		return date;
+	public LocalDateTime getGameDate() {
+		return gameDate;
 	}
 
-	public void setDate(LocalDateTime date) {
-		this.date = date;
+	public void setGameDate(LocalDateTime gameDate) {
+		this.gameDate = gameDate;
 	}
 
 	public Stadium getStadium() {

@@ -18,7 +18,27 @@
     <tbody>
         <#list lastGames as playerInGame >
         <tr>
-            <th>${playerInGame.playerInTeam.team.getTitle(lang)} ${playerInGame.teamInGame.goals} : ${playerInGame.teamInGame.other().goals} ${playerInGame.teamInGame.other().team.getTitle(lang)}</th>
+            <th>
+                <div style="white-space: nowrap;">
+                    <@compress single_line=true>
+                        <a href="<@s.url "/club/view?id=${playerInGame.playerInTeam.team.id}" />">
+                            <i class="icon-user"></i>
+                            <#if (playerInGame.teamInGame.isHost()) >
+                                <i class="icon-home"></i>
+                            </#if>
+                        ${playerInGame.playerInTeam.team.getTitle(lang)}
+                        </a>&nbsp;
+                        <a href="<@s.url "/games/view/${playerInGame.teamInGame.game.id}" />">
+                        ${playerInGame.teamInGame.goals}:${playerInGame.teamInGame.other().goals}
+                        </a>&nbsp;
+                    <a href="<@s.url "/club/view?id=${playerInGame.teamInGame.other().team.id}" />">
+                        <#if (playerInGame.teamInGame.other().isHost()) >
+                            <i class="icon-home"></i>
+                        </#if>${playerInGame.teamInGame.other().team.getTitle(lang)}
+                        <a/>
+                    </@compress>
+                </div>
+            </th>
             <@g.playerInGameDetailsRowContent playerInGame />
         </tr>
         </#list>

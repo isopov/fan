@@ -52,6 +52,14 @@ public class TeamInGame extends AbstractEntity {
         return null;
     }
 
+    public boolean isHost(){
+        return position == TeamPosition.HOST;
+    }
+
+    public boolean isGuest(){
+        return position == TeamPosition.GUEST;
+    }
+
     public Integer getFailedPasses() {
         return failedPasses;
     }

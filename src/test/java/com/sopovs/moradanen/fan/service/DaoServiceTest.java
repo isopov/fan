@@ -1,14 +1,11 @@
 package com.sopovs.moradanen.fan.service;
 
-import com.sopovs.moradanen.fan.AbstractServiceTest;
 import com.sopovs.moradanen.fan.AbstractTransactionalServiceTest;
 import com.sopovs.moradanen.fan.bootstrap.DbTestData;
 import com.sopovs.moradanen.fan.domain.Club;
 import com.sopovs.moradanen.fan.domain.Contest;
 import com.sopovs.moradanen.fan.domain.Season;
 import org.joda.time.LocalDate;
-import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -75,8 +72,8 @@ public class DaoServiceTest extends AbstractTransactionalServiceTest {
 
     private Season newSeason(Contest contest) {
         Season newSeason = new Season();
-        newSeason.setEnd(LocalDate.now().plusYears(10));
-        newSeason.setStart(LocalDate.now().plusYears(9));
+        newSeason.setEndDate(LocalDate.now().plusYears(10));
+        newSeason.setStartDate(LocalDate.now().plusYears(9));
         newSeason.setContest(contest);
         em.persist(newSeason);
         return newSeason;

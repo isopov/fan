@@ -3,7 +3,7 @@
 
 <#macro seasonView season>
 <h3><@layout.i18nedProperty season.contest "name" /></h3>
-<h4>${season.start} - ${season.end}</h4>
+<h4>${season.startDate} - ${season.endDate}</h4>
     <@gamesTable season.games />
 </#macro>
 
@@ -48,7 +48,7 @@
         <#list games as game>
         <tr>
             <td align="center">
-                <@orNull game "date" />
+                <@orNull game "gameDate" />
             </td>
             <td>
                 <a href="<@s.url "/club/view?id=${game.host.team.id}" />">
