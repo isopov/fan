@@ -49,7 +49,7 @@
         <util:map id="jpaPropertyMap">
             <entry key="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <entry key="hibernate.format_sql" value="true"/>
-            <entry key="hibernate.hbm2ddl.auto" value="create"/>
+            <!--<entry key="hibernate.hbm2ddl.auto" value="create"/>-->
             <entry key="hibernate.default_schema" value="fan"/>
             <!-- TODO -  https://hibernate.onjira.com/browse/HHH-7457 Hibernate guys strongly suggest to not use this-->
             <entry key="hibernate.enable_lazy_load_no_trans" value="true"/>

@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.InputStream;
 import java.util.*;
 
 @Transactional
@@ -59,7 +60,6 @@ public class DbTestData implements IDbTestData {
 
 
         Game game = new Game();
-//        game.setGameDate(LocalDa);
         Club rovers = new Club(BLACKBURN_NAME);
 
 
@@ -153,11 +153,11 @@ public class DbTestData implements IDbTestData {
      * Importer for data from http://www.football-data.co.uk/data.php
      */
     private void importFootballData() {
-        importDataFromFile("/1011-E0.csv");
-        importDataFromFile("/0910-E0.csv");
+        importDataFromFile(DbTestData.class.getResourceAsStream("/1011-E0.csv"));
+        importDataFromFile(DbTestData.class.getResourceAsStream("/0910-E0.csv"));
     }
 
-    private void importDataFromFile(String fileName) {
+    private void importDataFromFile(InputStream inputStream) {
         Contest premier = service.findContestByName(DbTestData.BARCLAYS_PREMIER_LEAGUE);
 
 
@@ -167,7 +167,7 @@ public class DbTestData implements IDbTestData {
         season.setStartDate(LocalDate.now());
         season.setEndDate(LocalDate.now());
         em.persist(season);
-        try (Scanner scanner = new Scanner(DbTestData.class.getResourceAsStream(fileName))) {
+        try (Scanner scanner = new Scanner(inputStream)) {
             while (scanner.hasNextLine()) {
                 String s = scanner.nextLine();
                 if (h == null) {
