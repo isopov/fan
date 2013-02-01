@@ -8,10 +8,10 @@
 <@l.layout pageTitle=pageTitle>
 <h1>${pageTitle}</h1>
 <table class="table table-striped table-bordered table-condensed">
-    <caption>Last games</caption>
+    <caption><@s.message "games.last" /> <@c.pages previousUrl nextUrl /></caption>
     <thead>
     <tr>
-        <th>Game</th>
+        <th><@s.message "simple.game" /></th>
         <@g.playersInGameDetailsHeaderContent />
     </tr>
     </thead>

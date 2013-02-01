@@ -25,4 +25,16 @@ public interface IDaoService {
     List<Player> listAllPlayers();
 
     List<PlayerInGame> lastGamesForPlayer(UUID playerId, int size);
+
+    List<TeamInGame> lastGamesForTeam(UUID teamId, int size, int startFrom);
+
+    List<Game> lastGames(int size, int startFrom);
+
+    List<PlayerInGame> lastGamesForPlayer(UUID playerId, int size, int startFrom);
+
+    int countGames();
+
+    int countGamesForTeam(UUID teamId);
+
+    int countGamesForPlayer(UUID playerId);
 }

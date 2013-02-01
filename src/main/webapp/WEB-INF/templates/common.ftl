@@ -7,6 +7,26 @@
     <@gamesTable season.games />
 </#macro>
 
+
+<#macro pages previousUrl nextUrl >
+    <@compress single_line=true>
+    (<#if (previousUrl?has_content) ><a href="<@s.url previousUrl />"></#if>
+        <@s.message "simple.previous" />
+        <#if (previousUrl?has_content)>
+        </a>
+        </#if>
+    ,
+        <#if (nextUrl?has_content) >
+        <a href="<@s.url nextUrl />">
+        </#if>
+        <@s.message "simple.next" />
+        <#if (nextUrl?has_content)>
+        </a>
+        </#if>
+    )
+    </@compress>
+</#macro>
+
 <#macro i18ned object property>
 
     <#if object.getI18n(lang)??>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityManager;
@@ -27,13 +28,14 @@ public class GameController extends AbstractController {
     private IDaoService service;
 
     @RequestMapping(value = "/list")
-    public ModelAndView listGames() {
-        return new ModelAndView("games/list", "games", service.lastGames(100));
+    public ModelAndView listGames(@RequestParam(defaultValue = "0", required = false) int startFrom,
+                                  @RequestParam(defaultValue = "100", required = false) int showNum) {
+        return new ModelAndView("games/list", "games", service.lastGames(showNum, startFrom)).addObject("countGames", service.countGames());
     }
 
     @RequestMapping(value = "/view/{id}")
     public ModelAndView viewGame(@PathVariable UUID id,
-                                  HttpServletResponse response) {
+                                 HttpServletResponse response) {
         Game game = em.find(Game.class, id);
         if (game == null) {
             response.setStatus(HttpStatus.NOT_FOUND.value());
