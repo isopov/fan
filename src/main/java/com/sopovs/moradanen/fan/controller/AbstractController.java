@@ -12,7 +12,7 @@ public class AbstractController {
 	}
 
     protected final String previousUrl(String url, int showNum, int startFrom) {
-        if (startFrom - showNum <= 0) {
+        if (startFrom - showNum < 0) {
             return "";
         }
         return url + "?startFrom=" + (startFrom - showNum) + ((showNum != getDefaultShowNum()) ? "&showNum=" + showNum : "");
@@ -26,7 +26,7 @@ public class AbstractController {
     }
 
     protected int getDefaultShowNum() {
-        return 100;
+        return 50;
     }
 
 }

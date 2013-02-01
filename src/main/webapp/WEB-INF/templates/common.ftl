@@ -54,8 +54,11 @@
     </#if>
 </#macro>
 
-<#macro gamesTable games>
+<#macro gamesTable games caption="">
 <table class="table table-striped table-bordered table-condensed">
+    <#if (caption?has_content) >
+        <caption>${caption}</caption>
+    </#if>
     <thead>
     <tr>
         <th>DateTime</th>

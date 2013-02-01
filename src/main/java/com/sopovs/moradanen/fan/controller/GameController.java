@@ -29,8 +29,10 @@ public class GameController extends AbstractController {
 
     @RequestMapping(value = "/list")
     public ModelAndView listGames(@RequestParam(defaultValue = "0", required = false) int startFrom,
-                                  @RequestParam(defaultValue = "100", required = false) int showNum) {
-        return new ModelAndView("games/list", "games", service.lastGames(showNum, startFrom)).addObject("countGames", service.countGames());
+                                  @RequestParam(defaultValue = "50", required = false) int showNum) {
+        return new ModelAndView("games/list", "games", service.lastGames(showNum, startFrom))
+                .addObject("previousUrl", previousUrl("/games/list", showNum, startFrom))
+                .addObject("nextUrl", nextUrl("/games/list", showNum, startFrom, service.countGames()));
     }
 
     @RequestMapping(value = "/view/{id}")

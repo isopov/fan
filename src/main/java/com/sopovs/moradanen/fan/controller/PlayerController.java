@@ -46,8 +46,8 @@ public class PlayerController extends AbstractController {
         } else {
             return new ModelAndView("players/view", "player", player)
                     .addObject("lastGames", service.lastGamesForPlayer(id, showNum, startFrom))
-                    .addObject("previousUrl", previousUrl("/view/" + id.toString(), showNum, startFrom))
-                    .addObject("nextUrl", nextUrl("/view/" + id.toString(), showNum, startFrom, service.countGamesForPlayer(id)));
+                    .addObject("previousUrl", previousUrl("/players/view/" + id.toString(), showNum, startFrom))
+                    .addObject("nextUrl", nextUrl("/players/view/" + id.toString(), showNum, startFrom, service.countGamesForPlayer(id)));
         }
     }
 
