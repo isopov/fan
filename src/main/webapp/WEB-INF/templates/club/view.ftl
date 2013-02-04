@@ -6,6 +6,18 @@
 
 <@l.layout pageTitle=pageTitle>
 <h1>${pageTitle}</h1>
+View derby with: <input type="search" placeholder="<@s.message "enter.team.title" />" data-provide="typeahead" id="search"/>
+<script type="text/javascript" >
+    var search = $('input#search');
+    $(search).typeahead({
+        source: [
+                <#list teamsPlayedWith as team>
+                   '${team.getTitle(lang)}',
+                </#list>
+        ],
+        items: 5
+    });
+</script>
 <table class="table table-striped table-bordered table-condensed">
     <caption>Last games</caption>
     <thead>

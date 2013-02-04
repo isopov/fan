@@ -9,10 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.common.base.Strings;
@@ -34,21 +31,17 @@ public class ClubController extends AbstractController {
         return new ModelAndView("club/list", "clubs", service.listAllClubs());
     }
 
-    @RequestMapping(value = "/view", method = RequestMethod.GET)
-    public ModelAndView viewClub(@RequestParam(required = false) UUID id,
-                                 @RequestParam(required = false) String clubName, HttpServletResponse response) {
-        Club club = null;
-        if (id != null) {
-            club = em.find(Club.class, id);
-        } else if (!Strings.isNullOrEmpty(clubName)) {
-            club = service.findClubByName(clubName);
-        }
+    @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
+    public ModelAndView viewClub(@PathVariable UUID id, HttpServletResponse response) {
+        Club club  = em.find(Club.class, id);
 
         if (club == null) {
             response.setStatus(HttpStatus.NOT_FOUND.value());
             return new ModelAndView("errors/404");
         } else {
-            return new ModelAndView("club/view", "club", club).addObject("lastGames", service.lastGamesForTeam(id, 100));
+            return new ModelAndView("club/view", "club", club)
+                    .addObject("lastGames", service.lastGamesForTeam(id, 100))
+                    .addObject("teamsPlayedWith",service.teamsPlayedWith(id,100));
         }
     }
 }

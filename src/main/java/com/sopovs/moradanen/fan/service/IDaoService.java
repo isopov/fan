@@ -37,4 +37,6 @@ public interface IDaoService {
     int countGamesForTeam(UUID teamId);
 
     int countGamesForPlayer(UUID playerId);
+
+    List<Team> teamsPlayedWith(UUID teamId, int size);
 }

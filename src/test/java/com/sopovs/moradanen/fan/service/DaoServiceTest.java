@@ -5,6 +5,7 @@ import com.sopovs.moradanen.fan.bootstrap.DbTestData;
 import com.sopovs.moradanen.fan.domain.Club;
 import com.sopovs.moradanen.fan.domain.Contest;
 import com.sopovs.moradanen.fan.domain.Season;
+import com.sopovs.moradanen.fan.domain.Team;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class DaoServiceTest extends AbstractTransactionalServiceTest {
 
@@ -27,6 +27,15 @@ public class DaoServiceTest extends AbstractTransactionalServiceTest {
     @PersistenceContext
     private EntityManager em;
 
+    @Test
+    public void testTeamsPlayedWith() throws Exception {
+        UUID blackId = service.findClubByName(DbTestData.BLACKBURN_NAME).getId();
+        List<Team> teams = service.teamsPlayedWith(blackId, 0);
+        assertTrue(teams.size() >= 1);
+        assertEquals(service.findClubByName(DbTestData.FULHAM),teams.get(0));
+        assertFalse(teams.contains(service.findClubByName(DbTestData.BLACKBURN_NAME)));
+
+    }
 
     @Test
     public void testFindContestByName() throws Exception {
