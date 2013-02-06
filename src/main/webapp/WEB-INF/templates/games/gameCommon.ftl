@@ -80,7 +80,7 @@
     </tr>
     </tbody>
 </table>
-    <#list game.teams as teamInGame >
+    <#list game.teamsInGame as teamInGame >
         <#if (teamInGame.players?? && teamInGame.players?has_content)>
 
         <div class="row-fluid">

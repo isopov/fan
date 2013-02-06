@@ -44,4 +44,10 @@ public class ClubController extends AbstractController {
                     .addObject("teamsPlayedWith",service.teamsPlayedWith(id,100));
         }
     }
+
+    @RequestMapping(value = "/derby/{firstTeamId}/vs/{secondTeamId}", method =RequestMethod.GET)
+    public ModelAndView viewDerby(@PathVariable UUID firstTeamId, @PathVariable UUID secondTeamId){
+        //TODO
+        return new ModelAndView("club/derby","games",service.getGames(firstTeamId,secondTeamId));
+    }
 }

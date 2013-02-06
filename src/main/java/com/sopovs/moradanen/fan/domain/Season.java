@@ -70,7 +70,7 @@ public class Season extends AbstractEntity {
     public List<Team> getTeams() {
         Set<Team> result = Sets.newHashSet();
         for (Game g : games) {
-            for (TeamInGame t : g.getTeams()) {
+            for (TeamInGame t : g.getTeamsInGame()) {
                 result.add(t.getTeam());
             }
         }

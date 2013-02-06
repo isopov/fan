@@ -174,23 +174,41 @@ public class DaoService implements IDaoService {
 
     @Override
     public List<Team> teamsPlayedWith(UUID teamId, int size) {
-        Query query = em.createQuery("Select tg.team, max(tg.game.gameDate) as maxDate from TeamInGame  tg" +
-                " where tg.game in (Select tg2.game from TeamInGame tg2 where tg2.team.id=:teamId)" +
-                " and tg.team.id <> :teamId" +
-                " group by tg.team" +
-                " order by maxDate desc");
+        Query query = em.createNamedQuery("teamsPlayedWith");
         if (size != 0) {
             query.setMaxResults(size);
         }
 
-        return Lists.transform(query
-                .setParameter("teamId", teamId).getResultList(), new Function<Object[], Team>() {
+        return Lists.<Object[], Team>transform(query.setParameter("teamId", teamId).getResultList(), new Function<Object[], Team>() {
             @Override
             public Team apply(Object[] input) {
                 return (Team) input[0];
             }
         });
     }
+
+    @Override
+    public List<Game> getGames(UUID firstTeamId, UUID secondTeamId) {
+        return getGames(firstTeamId, secondTeamId, 0, 0);
+    }
+
+    @Override
+    public List<Game> getGames(UUID firstTeamId, UUID secondTeamId, int size, int startFrom) {
+        TypedQuery<Game> query = em.createQuery("Select g from Game g" +
+                " where exists (select 'x' from TeamInGame tg where tg.game=g and tg.team.id=:firstTeamid)" +
+                " and exists (select 'x' from TeamInGame tg where tg.game=g and tg.team.id=:secondTeamId)" +
+                " order by g.gameDate desc", Game.class);
+        query.setParameter("firstTeamid", firstTeamId);
+        query.setParameter("secondTeamId", secondTeamId);
+        if (size != 0) {
+            query.setMaxResults(size);
+        }
+        if (startFrom != 0) {
+            query.setFirstResult(startFrom);
+        }
+        return query.getResultList();
+    }
+
 
     @Override
     public List<TeamInGame> lastGamesForTeam(UUID teamId, int size) {

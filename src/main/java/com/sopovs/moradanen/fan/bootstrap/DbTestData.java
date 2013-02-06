@@ -41,7 +41,7 @@ public class DbTestData implements IDbTestData {
     public void createTestData() {
         if (notCreated()) {
             createTestGameWithDetails();
-            importFootballData();
+//            importFootballData();
         }
     }
 
@@ -120,7 +120,7 @@ public class DbTestData implements IDbTestData {
         fillBackLinkOnPlayers(fulhamTeam);
 
 
-        game.setTeams(Arrays.asList(roversTeam, fulhamTeam));
+        game.setTeamsInGame(Arrays.asList(roversTeam, fulhamTeam));
 
 
         Season season = new Season();
@@ -197,7 +197,7 @@ public class DbTestData implements IDbTestData {
                 game.setGameDate(date);
                 game.setSeason(season);
                 season.addGame(game);
-                game.setTeams(Arrays.asList(new TeamInGame(guest, game, TeamPosition.GUEST), new TeamInGame(host, game, TeamPosition.HOST)));
+                game.setTeamsInGame(Arrays.asList(new TeamInGame(guest, game, TeamPosition.GUEST), new TeamInGame(host, game, TeamPosition.HOST)));
 
                 game.getHost().setGoals(h.value(gameString, "FTHG"));
 

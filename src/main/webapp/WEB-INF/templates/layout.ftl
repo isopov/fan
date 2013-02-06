@@ -75,7 +75,7 @@
                             <li class="divider"></li>
                             <li class="nav-header">Quick view</li>
                             <li><a href="<@spring.url "/contest/games"/>"><@spring.message "simple.games" /></a></li>
-                            <li><a href="<@spring.url "/contest/teams"/>"><@spring.message "simple.teams" /></a></li>
+                            <li><a href="<@spring.url "/contest/teamsInGame"/>"><@spring.message "simple.teamsInGame" /></a></li>
                             <@security.authorize ifAnyGranted="EDITOR">
                                 <li><a href="<@spring.url "/edit/division/new"/>"><@spring.message "simple.new" /></a>
                                 </li>
