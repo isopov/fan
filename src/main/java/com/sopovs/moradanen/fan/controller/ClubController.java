@@ -1,21 +1,20 @@
 package com.sopovs.moradanen.fan.controller;
 
-import java.util.UUID;
+import com.sopovs.moradanen.fan.domain.Club;
+import com.sopovs.moradanen.fan.service.IDaoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
-
-import com.sun.media.jfxmedia.logging.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.google.common.base.Strings;
-import com.sopovs.moradanen.fan.domain.Club;
-import com.sopovs.moradanen.fan.service.IDaoService;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/club")

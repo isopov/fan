@@ -18,7 +18,7 @@ public interface IDaoService {
 
     List<Game> lastGames(int size);
 
-    List<TeamInGame> lastGamesForTeam(UUID teamId, int size);
+    List<Game> lastGamesForTeam(UUID teamId, int size);
 
     List<Contest> listAllContests();
 
@@ -26,7 +26,7 @@ public interface IDaoService {
 
     List<PlayerInGame> lastGamesForPlayer(UUID playerId, int size);
 
-    List<TeamInGame> lastGamesForTeam(UUID teamId, int size, int startFrom);
+    List<Game> lastGamesForTeam(UUID teamId, int size, int startFrom);
 
     List<Game> lastGames(int size, int startFrom);
 

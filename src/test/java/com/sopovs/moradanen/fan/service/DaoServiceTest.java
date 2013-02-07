@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasItems;
 import static org.junit.Assert.*;
 
@@ -73,6 +74,15 @@ public class DaoServiceTest extends AbstractTransactionalServiceTest {
         for (Game game : games) {
             assertThat(game.getTeams(),hasItems(blackburn,fulham));
         }
+
+    }
+
+
+    @Test
+    public void testLastGamesForTeam() throws Exception {
+        Club blackburn = service.findClubByName(DbTestData.BLACKBURN_NAME);
+        Game game = service.lastGamesForTeam(blackburn.getId(), 1).get(0);
+       assertThat(game.getTeams(),hasItem(blackburn));
 
     }
 

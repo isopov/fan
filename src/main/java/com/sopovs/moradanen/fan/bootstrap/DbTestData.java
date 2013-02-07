@@ -41,7 +41,7 @@ public class DbTestData implements IDbTestData {
     public void createTestData() {
         if (notCreated()) {
             createTestGameWithDetails();
-//            importFootballData();
+            importFootballData();
         }
     }
 

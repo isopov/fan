@@ -6,42 +6,35 @@
 
 <@l.layout pageTitle=pageTitle>
 <h1>${pageTitle}</h1>
-View derby with: <input type="search" placeholder="<@s.message "enter.team.title" />" data-provide="typeahead"
-                        id="search"/>
+    <@s.message "view.derby.with"/>: <input type="search" placeholder="<@s.message "enter.team.title" />"
+                                            data-provide="typeahead"
+                                            id="search"/>
 <script type="text/javascript">
-    var search = $('input#search');
-    $(search).typeahead({
-        source: [
+    $(function () {
+        //TODO really ugly - typeahead is not what should be used here
+        titles = [];
+        map = {};
+        var data = [
             <#list teamsPlayedWith as team>
-                '${team.getTitle(lang)}',
+                {"teamId": "${team.id}", "teamTitle": "${team.getTitle(lang)}"},
             </#list>
-        ],
-        items: 5
-    });
-    $(search).change(function () {
-                alert('Handler for .change() called.');
-            }
-    );
+        ];
+        $.each(data, function (i, team) {
+            map[team.teamTitle] = team;
+            titles.push(team.teamTitle);
+        });
 
+        var search = $('input#search');
+        $(search).typeahead({
+            source: function (query, process) {
+                process(titles);
+            },
+            updater: function (item) {
+                document.location.href = "<@s.url "/club/derby/" />" + "${club.id}" + "/vs/" + map[item].teamId;
+            },
+            items: 5
+        });
+    });
 </script>
-<table class="table table-striped table-bordered table-condensed">
-    <caption>Last games</caption>
-    <thead>
-    <tr>
-        <th>Position</th>
-        <th>Score</th>
-        <th>vs</th>
-    </tr>
-    </thead>
-    <#list lastGames as teamInGame>
-        <tr>
-            <td>${teamInGame.position}</td>
-            <td><a href="<@s.url "/games/view/${teamInGame.game.id}" />">${teamInGame.goals}
-                :${teamInGame.other().goals}</a></td>
-            <td>
-                <a href="<@s.url "/club/view?id=${teamInGame.other().team.id}" />">${teamInGame.other().team.getTitle(lang)}</a>
-            </td>
-        </tr>
-    </#list>
-</table>
+<@c.gamesTable lastGames />
 </@l.layout>

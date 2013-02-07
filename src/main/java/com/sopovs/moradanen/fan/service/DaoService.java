@@ -152,10 +152,11 @@ public class DaoService implements IDaoService {
     }
 
     @Override
-    public List<TeamInGame> lastGamesForTeam(UUID teamId, int size, int startFrom) {
+    public List<Game> lastGamesForTeam(UUID teamId, int size, int startFrom) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<TeamInGame> cq = cb.createQuery(TeamInGame.class);
+        CriteriaQuery<Game> cq = cb.createQuery(Game.class);
         Root<TeamInGame> from = cq.from(TeamInGame.class);
+        cq.select(from.<Game>get("game"));
         cq.where(cb.equal(from.get("team").get("id"), teamId));
         cq.orderBy(cb.desc(from.get("game").get("gameDate")));
         return em.createQuery(cq).setFirstResult(startFrom)
@@ -211,7 +212,7 @@ public class DaoService implements IDaoService {
 
 
     @Override
-    public List<TeamInGame> lastGamesForTeam(UUID teamId, int size) {
+    public List<Game> lastGamesForTeam(UUID teamId, int size) {
         return lastGamesForTeam(teamId, size, 0);
     }
 
