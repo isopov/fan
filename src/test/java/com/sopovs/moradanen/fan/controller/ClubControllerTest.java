@@ -5,11 +5,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.sopovs.moradanen.fan.domain.Game;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sopovs.moradanen.fan.domain.Club;
 import com.sopovs.moradanen.fan.service.IDaoService;
+
+import java.util.List;
 
 public class ClubControllerTest extends AbstractControllerTest {
 
@@ -23,4 +26,19 @@ public class ClubControllerTest extends AbstractControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(content().contentType("text/html;charset=UTF-8"));
 	}
+
+    @Test
+    public void testList() throws Exception {
+        this.mockMvc.perform(get("/club/list"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("text/html;charset=UTF-8"));
+    }
+
+    @Test
+    public void testDerby()throws Exception{
+        Game game = daoService.lastGames(1).get(0);
+        this.mockMvc.perform(get("/club/derby/" + game.getHost().getTeam().getId().toString() + "/vs/" + game.getGuest().getTeam().getId().toString()))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("text/html;charset=UTF-8"));
+    }
 }
