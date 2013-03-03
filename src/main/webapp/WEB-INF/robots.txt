@@ -1,0 +1,6 @@
+User-agent: *
+# These pages will not have stable addresses during development
+Disallow: /club/view
+Disallow: /games/view
+Disallow: /players/view
+Disallow: /contest/season/
