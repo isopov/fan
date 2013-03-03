@@ -12,12 +12,17 @@
     </#if>
 </#macro>
 
-<#macro head pageTitle>
+<#macro head pageTitle extraCss="">
 <head>
     <meta charset="utf-8">
     <title>${pageTitle}</title>
 
     <link href="<@spring.url "/css/bootstrap.css"/>" rel="stylesheet">
+    <#if extraCss?has_content >
+        <#list extraCss as css>
+            <link href="<@spring.url "/css/${css}"/>" rel="stylesheet">
+        </#list>
+    </#if>
     <style>
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -38,20 +43,23 @@
         _gaq.push(['_setDomainName', 'football-analytics.com']);
         _gaq.push(['_trackPageview']);
 
-        (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
         })();
 
     </script>
 </head>
 </#macro>
 
-<#macro layout pageTitle>
+<#macro layout pageTitle extraCss="">
 <!DOCTYPE html>
 <html>
-    <@head pageTitle/>
+    <@head pageTitle extraCss/>
 <body>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
@@ -75,7 +83,9 @@
                             <li class="divider"></li>
                             <li class="nav-header">Quick view</li>
                             <li><a href="<@spring.url "/contest/games"/>"><@spring.message "simple.games" /></a></li>
-                            <li><a href="<@spring.url "/contest/teams"/>"><@spring.message "simple.teams" /></a></li>
+                            <li>
+                                <a href="<@spring.url "/contest/teamsInGame"/>"><@spring.message "simple.teamsInGame" /></a>
+                            </li>
                             <@security.authorize ifAnyGranted="EDITOR">
                                 <li><a href="<@spring.url "/edit/division/new"/>"><@spring.message "simple.new" /></a>
                                 </li>
@@ -111,7 +121,8 @@
                         <ul class="dropdown-menu">
                             <li><a href="<@spring.url "/players/list"/>"><@spring.message "simple.list" /></a></li>
                             <@security.authorize ifAnyGranted="EDITOR">
-                                <li><a href="<@spring.url "/edit/player/new"/>"><@spring.message "simple.new" /></a></li>
+                                <li><a href="<@spring.url "/edit/player/new"/>"><@spring.message "simple.new" /></a>
+                                </li>
                             </@security.authorize>
                         </ul>
                     </li>

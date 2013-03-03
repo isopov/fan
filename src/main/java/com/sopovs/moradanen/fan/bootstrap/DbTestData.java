@@ -60,6 +60,7 @@ public class DbTestData implements IDbTestData {
 
 
         Game game = new Game();
+        game.setGameDate(LocalDateTime.now());
         Club rovers = new Club(BLACKBURN_NAME);
 
 
@@ -119,7 +120,7 @@ public class DbTestData implements IDbTestData {
         fillBackLinkOnPlayers(fulhamTeam);
 
 
-        game.setTeams(Arrays.asList(roversTeam, fulhamTeam));
+        game.setTeamsInGame(Arrays.asList(roversTeam, fulhamTeam));
 
 
         Season season = new Season();
@@ -196,7 +197,7 @@ public class DbTestData implements IDbTestData {
                 game.setGameDate(date);
                 game.setSeason(season);
                 season.addGame(game);
-                game.setTeams(Arrays.asList(new TeamInGame(guest, game, TeamPosition.GUEST), new TeamInGame(host, game, TeamPosition.HOST)));
+                game.setTeamsInGame(Arrays.asList(new TeamInGame(guest, game, TeamPosition.GUEST), new TeamInGame(host, game, TeamPosition.HOST)));
 
                 game.getHost().setGoals(h.value(gameString, "FTHG"));
 

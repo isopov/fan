@@ -1,7 +1,6 @@
 package com.sopovs.moradanen.fan;
 
 import com.google.common.base.Function;
-import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -89,7 +88,7 @@ public class FootballDataImporter extends AbstractServiceTest {
                 game.setGameDate(date);
                 game.setSeason(season);
                 season.addGame(game);
-                game.setTeams(Arrays.asList(new TeamInGame(guest, game, TeamPosition.GUEST), new TeamInGame(host, game, TeamPosition.HOST)));
+                game.setTeamsInGame(Arrays.asList(new TeamInGame(guest, game, TeamPosition.GUEST), new TeamInGame(host, game, TeamPosition.HOST)));
 
                 game.getHost().setGoals(h.value(gameString, "FTHG"));
 

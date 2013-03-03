@@ -2,9 +2,7 @@ package com.sopovs.moradanen.fan.service;
 
 import com.sopovs.moradanen.fan.AbstractTransactionalServiceTest;
 import com.sopovs.moradanen.fan.bootstrap.DbTestData;
-import com.sopovs.moradanen.fan.domain.Club;
-import com.sopovs.moradanen.fan.domain.Contest;
-import com.sopovs.moradanen.fan.domain.Season;
+import com.sopovs.moradanen.fan.domain.*;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +11,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
+import static org.junit.Assert.*;
 
 public class DaoServiceTest extends AbstractTransactionalServiceTest {
 
@@ -27,6 +26,15 @@ public class DaoServiceTest extends AbstractTransactionalServiceTest {
     @PersistenceContext
     private EntityManager em;
 
+    @Test
+    public void testTeamsPlayedWith() throws Exception {
+        UUID blackId = service.findClubByName(DbTestData.BLACKBURN_NAME).getId();
+        List<Team> teams = service.teamsPlayedWith(blackId, 0);
+        assertTrue(teams.size() >= 1);
+        assertEquals(service.findClubByName(DbTestData.FULHAM), teams.get(0));
+        assertFalse(teams.contains(service.findClubByName(DbTestData.BLACKBURN_NAME)));
+
+    }
 
     @Test
     public void testFindContestByName() throws Exception {
@@ -54,6 +62,27 @@ public class DaoServiceTest extends AbstractTransactionalServiceTest {
         assertEquals(service.lastSeasons(), Arrays.asList(season));
         newSeason(season.getContest());
         assertEquals(season, service.lastSeasonByClubName(DbTestData.BLACKBURN_NAME));
+
+    }
+
+    @Test
+    public void testGetGames() throws Exception {
+        Team blackburn = service.findClubByName(DbTestData.BLACKBURN_NAME);
+        Team fulham = service.findClubByName(DbTestData.FULHAM);
+        List<Game> games = service.getGames(blackburn.getId(), fulham.getId());
+        assertTrue(games.size() >= 1);
+        for (Game game : games) {
+            assertThat(game.getTeams(),hasItems(blackburn,fulham));
+        }
+
+    }
+
+
+    @Test
+    public void testLastGamesForTeam() throws Exception {
+        Club blackburn = service.findClubByName(DbTestData.BLACKBURN_NAME);
+        Game game = service.lastGamesForTeam(blackburn.getId(), 1).get(0);
+       assertThat(game.getTeams(),hasItem(blackburn));
 
     }
 
