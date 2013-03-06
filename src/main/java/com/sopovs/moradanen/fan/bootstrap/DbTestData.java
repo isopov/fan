@@ -9,12 +9,15 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.sopovs.moradanen.fan.domain.*;
+import com.sopovs.moradanen.fan.domain.infra.User;
+import com.sopovs.moradanen.fan.domain.infra.UserRole;
 import com.sopovs.moradanen.fan.service.IDaoService;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -40,9 +43,32 @@ public class DbTestData implements IDbTestData {
     @Override
     public void createTestData() {
         if (notCreated()) {
+            createUsers();
             createTestGameWithDetails();
             importFootballData();
         }
+    }
+
+    private void createUsers() {
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        {
+            User editor = new User();
+            editor.setUsername("editor");
+            editor.setPassword(encoder.encode("editor"));
+            editor.setRoles(Arrays.asList(new UserRole(UserRole.Role.EDITOR, editor)));
+
+            em.persist(editor);
+        }
+        {
+            User viewer = new User();
+            viewer.setUsername("viewer");
+            viewer.setPassword(encoder.encode("viewer"));
+            viewer.setRoles(Arrays.asList(new UserRole(UserRole.Role.USER, viewer)));
+
+            em.persist(viewer);
+        }
+
     }
 
 

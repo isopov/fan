@@ -5,26 +5,26 @@
                         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
 
-	<!-- <http pattern="/**" security="none" /> -->
-
 	<http use-expressions="true">
 		<intercept-url pattern="/edit/**" access="hasRole('EDITOR')" />
 		<form-login login-page="/login" authentication-failure-url="/loginfailed" />
 		<logout logout-success-url="/" delete-cookies="JSESSIONID" />
-		<remember-me />
+		<remember-me user-service-ref="userDetailsService"/>
 	</http>
 
 
 
 	<b:bean id="encoder"
-		class="org.springframework.security.crypto.password.NoOpPasswordEncoder" />
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
 	<authentication-manager>
-		<authentication-provider>
-			<password-encoder ref="encoder" />	
+		<authentication-provider user-service-ref="userDetailsService">
+			<password-encoder ref="encoder" />
+			<!--
 			<user-service>
 				<user name="editor" password="editor" authorities="EDITOR" />
 			</user-service>
+			-->
 		</authentication-provider>
 	</authentication-manager>
 

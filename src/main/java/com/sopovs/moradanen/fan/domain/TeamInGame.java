@@ -52,11 +52,11 @@ public class TeamInGame extends AbstractEntity {
         return null;
     }
 
-    public boolean isHost(){
+    public boolean isHost() {
         return position == TeamPosition.HOST;
     }
 
-    public boolean isGuest(){
+    public boolean isGuest() {
         return position == TeamPosition.GUEST;
     }
 

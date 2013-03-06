@@ -9,6 +9,6 @@ import org.hibernate.annotations.ForeignKey;
 @Table(name = "REFEREE")
 @ForeignKey(name = "REFEREE_PERSON_FK")
 public class Referee extends Person {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
 }

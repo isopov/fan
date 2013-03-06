@@ -10,44 +10,44 @@ import org.hibernate.annotations.ForeignKey;
 @Entity
 @Table(name = "COUNTRY")
 @ForeignKey(name = "COUNTRY_CONTEST_HOLDER_FK")
-public class Country extends ContestHolder  implements I18nedDomain<I18nCoutry>{
+public class Country extends ContestHolder implements I18nedDomain<I18nCoutry> {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public String code;
+    public String code;
 
-	public String name;
+    public String name;
 
-	@OneToMany(mappedBy = "country")
-	public List<NationalTeam> nationalTeams;
+    @OneToMany(mappedBy = "country")
+    public List<NationalTeam> nationalTeams;
 
     @OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
     @MapKey(name = "lang")
-    public Map<Lang,I18nCoutry> i18ns;
+    public Map<Lang, I18nCoutry> i18ns;
 
-	public String getCode() {
-		return code;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public List<NationalTeam> getNationalTeams() {
-		return nationalTeams;
-	}
+    public List<NationalTeam> getNationalTeams() {
+        return nationalTeams;
+    }
 
-	public void setNationalTeams(List<NationalTeam> nationalTeams) {
-		this.nationalTeams = nationalTeams;
-	}
+    public void setNationalTeams(List<NationalTeam> nationalTeams) {
+        this.nationalTeams = nationalTeams;
+    }
 
     @Override
     public Map<Lang, I18nCoutry> getI18ns() {
@@ -56,6 +56,6 @@ public class Country extends ContestHolder  implements I18nedDomain<I18nCoutry>{
 
     @Override
     public I18nCoutry getI18n(String lang) {
-        return DefaultI18nedDomain.getI18n(i18ns,lang);
+        return DefaultI18nedDomain.getI18n(i18ns, lang);
     }
 }

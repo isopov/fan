@@ -10,6 +10,6 @@ import org.hibernate.annotations.ForeignKey;
 @Table(name = "COACH")
 public class Coach extends Person {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
 }

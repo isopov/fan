@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "I18N_CONTEST")
 public class I18nContest implements I18nDomain<Contest> {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @ManyToOne

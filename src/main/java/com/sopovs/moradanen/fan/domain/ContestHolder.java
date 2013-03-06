@@ -12,17 +12,17 @@ import javax.persistence.Table;
 @Table(name = "CONTEST_HOLDER")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class ContestHolder extends AbstractEntity {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "holder")
-	public List<Contest> contests;
+    @OneToMany(mappedBy = "holder")
+    public List<Contest> contests;
 
-	public List<Contest> getContests() {
-		return contests;
-	}
+    public List<Contest> getContests() {
+        return contests;
+    }
 
-	public void setContests(List<Contest> contests) {
-		this.contests = contests;
-	}
+    public void setContests(List<Contest> contests) {
+        this.contests = contests;
+    }
 
 }

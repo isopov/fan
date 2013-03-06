@@ -12,21 +12,21 @@ import org.joda.time.LocalDate;
 @Entity
 @Table(name = "PLAYER_IN_TEAM")
 public class PlayerInTeam extends AbstractEntity {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-	private LocalDate startDate;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+    private LocalDate startDate;
 
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
-	private LocalDate endDate;
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
+    private LocalDate endDate;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@ForeignKey(name = "PLAYER_IN_TEAM_PLAYER_FK")
-	private Player player;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @ForeignKey(name = "PLAYER_IN_TEAM_PLAYER_FK")
+    private Player player;
 
-	@ManyToOne
-	@ForeignKey(name = "PLAYER_IN_TEAM_TEAM_FK")
-	private Team team;
+    @ManyToOne
+    @ForeignKey(name = "PLAYER_IN_TEAM_TEAM_FK")
+    private Team team;
 
     public PlayerInTeam() {
     }
@@ -37,35 +37,35 @@ public class PlayerInTeam extends AbstractEntity {
     }
 
     public LocalDate getStartDate() {
-		return startDate;
-	}
+        return startDate;
+    }
 
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
-	}
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
 
-	public LocalDate getEndDate() {
-		return endDate;
-	}
+    public LocalDate getEndDate() {
+        return endDate;
+    }
 
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
-	}
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
 
-	public Player getPlayer() {
-		return player;
-	}
+    public Player getPlayer() {
+        return player;
+    }
 
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 
-	public Team getTeam() {
-		return team;
-	}
+    public Team getTeam() {
+        return team;
+    }
 
-	public void setTeam(Team team) {
-		this.team = team;
-	}
+    public void setTeam(Team team) {
+        this.team = team;
+    }
 
 }

@@ -63,7 +63,7 @@ public class PlayerInGame extends AbstractEntity {
 
 
     public PlayerInGame addGoal(Goal goal) {
-        if(goals == null){
+        if (goals == null) {
             goals = new ArrayList<>();
         }
         goal.setScorer(this);
@@ -85,10 +85,12 @@ public class PlayerInGame extends AbstractEntity {
         this.shots = attempts;
         return this;
     }
+
     public PlayerInGame addFaildPasses(Integer faildPasses) {
         this.faildPasses = faildPasses;
         return this;
     }
+
     public PlayerInGame addStart(Integer minuteStart) {
         this.minuteStart = minuteStart;
         return this;
@@ -113,6 +115,7 @@ public class PlayerInGame extends AbstractEntity {
         this.redCards = redCards;
         return this;
     }
+
     public PlayerInGame addPasses(Integer passes) {
         this.passes = passes;
         return this;

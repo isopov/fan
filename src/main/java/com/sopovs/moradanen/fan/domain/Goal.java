@@ -11,16 +11,16 @@ import org.hibernate.annotations.ForeignKey;
 @Entity
 @Table(name = "GOAL")
 public class Goal extends AbstractEntity {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Enumerated(EnumType.STRING)
-	private GoalType type;
+    @Enumerated(EnumType.STRING)
+    private GoalType type;
 
-	@ManyToOne
-	@ForeignKey(name = "GOAL_PLAYER_IN_GAME_FK")
-	private PlayerInGame scorer;
+    @ManyToOne
+    @ForeignKey(name = "GOAL_PLAYER_IN_GAME_FK")
+    private PlayerInGame scorer;
 
-	private Integer minute;
+    private Integer minute;
 
 
     public Goal() {
@@ -51,19 +51,19 @@ public class Goal extends AbstractEntity {
     }
 
     public GoalType getType() {
-		return type;
-	}
+        return type;
+    }
 
-	public void setType(GoalType type) {
-		this.type = type;
-	}
+    public void setType(GoalType type) {
+        this.type = type;
+    }
 
-	public Integer getMinute() {
-		return minute;
-	}
+    public Integer getMinute() {
+        return minute;
+    }
 
-	public void setMinute(Integer minute) {
-		this.minute = minute;
-	}
+    public void setMinute(Integer minute) {
+        this.minute = minute;
+    }
 
 }

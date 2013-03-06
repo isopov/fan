@@ -26,7 +26,6 @@ public class Contest extends DefaultI18nedDomain<I18nContest> {
     private Map<Lang, I18nContest> i18ns;
 
 
-
     public String getName() {
         return name;
     }
