@@ -13,8 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 @SuppressWarnings("deprecation")
-@ActiveProfiles("postgres")
-@Ignore
+//@ActiveProfiles("postgres")
 public class DbSchemaGenerator extends AbstractServiceTest{
 
 	@Autowired

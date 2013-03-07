@@ -77,6 +77,18 @@
                 <ul class="nav">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle"
+                           data-toggle="dropdown"><@spring.message "simple.articles" /> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <#list categories as category>
+                                <li class="nav-header">${category.name}</li>
+                                <list category.articles as article>
+                                    <li><a href="<@spring.url "/articles/${article.shortTitle}"/>">${article.title}</a></li>
+                                </list>
+                            </#list>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"
                            data-toggle="dropdown"><@spring.message "simple.divisions" /> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="<@spring.url "/contest/list"/>"><@spring.message "simple.list" /></a></li>

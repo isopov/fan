@@ -59,4 +59,5 @@ public class ClubController extends AbstractController {
                     .addObject("secondTeam", club2);
         }
     }
+
 }

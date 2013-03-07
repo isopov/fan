@@ -9,6 +9,8 @@ import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.sopovs.moradanen.fan.domain.*;
+import com.sopovs.moradanen.fan.domain.infra.I18nPage;
+import com.sopovs.moradanen.fan.domain.infra.IndexPage;
 import com.sopovs.moradanen.fan.domain.infra.User;
 import com.sopovs.moradanen.fan.domain.infra.UserRole;
 import com.sopovs.moradanen.fan.service.IDaoService;
@@ -17,6 +19,7 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,13 +43,36 @@ public class DbTestData implements IDbTestData {
     @Autowired
     private IDaoService service;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     @Override
     public void createTestData() {
         if (notCreated()) {
             createUsers();
+            createIndexPage();
+
             createTestGameWithDetails();
             importFootballData();
         }
+    }
+
+
+    private void createIndexPage() {
+        IndexPage page = new IndexPage();
+        page.setTitle("Welcome to the Football (Soccer) Analytics Portal");
+        page.setShortTitle("index"); //dummy and not used
+        page.setText("This site is in the early stages of development and is filled with test data.\n" +
+                "Any links to teams, games and players overviews and analysis will change, so please do " +
+                "not share them to avoid ugly \"Not found\" message.");
+        page.setAuthor((User) userDetailsService.loadUserByUsername("isopov"));
+
+        page.setI18ns(Collections.singletonMap(Lang.RU, new I18nPage(page, Lang.RU, "Добро пожаловать на портал футбольной аналитки",
+                "Этот сайт находится на начальном этапе разработки и наполнен тестовыми данными.\n" +
+                        "Любые ссылки на команды, игры или игроков поменяются, поэтому пожалуйста не сохраняйте их," +
+                        "и не отправляте никому, чтобы избежать гаденького \"Ресурс не найден\".")));
+
+        em.persist(page);
     }
 
     private void createUsers() {
@@ -54,8 +80,9 @@ public class DbTestData implements IDbTestData {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         {
             User editor = new User();
-            editor.setUsername("editor");
-            editor.setPassword(encoder.encode("editor"));
+            editor.setUsername("isopov");
+            //TODO change to something meaningful when editing functions are implemented
+            editor.setPassword(encoder.encode("isopov"));
             editor.setRoles(Arrays.asList(new UserRole(UserRole.Role.EDITOR, editor)));
 
             em.persist(editor);

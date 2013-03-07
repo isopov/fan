@@ -24,6 +24,7 @@ public class GameController extends AbstractController {
     @PersistenceContext
     private EntityManager em;
 
+
     @Autowired
     private IDaoService service;
 
@@ -46,5 +47,4 @@ public class GameController extends AbstractController {
             return new ModelAndView("games/view", "game", game);
         }
     }
-
 }

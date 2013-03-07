@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class ErrorsController {
+public class ErrorsController extends AbstractController{
 
 	@RequestMapping("500")
 	public String error500() {
