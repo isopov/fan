@@ -1,15 +1,20 @@
 package com.sopovs.moradanen.fan.domain.infra;
 
-import com.sopovs.moradanen.fan.domain.AbstractEntity;
-import org.hibernate.annotations.ForeignKey;
-
-import javax.persistence.*;
-import java.util.FormatFlagsConversionMismatchException;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import com.sopovs.moradanen.fan.domain.AbstractEntity;
 
 @Entity
 @Table(name = "ARTICLE_CATEGORY", uniqueConstraints = @UniqueConstraint(name = "ARTICLE_CATEGORY_PRIORITY_UK", columnNames = "PRIORITY"))
 public class Category extends AbstractEntity {
+
+    private static final long serialVersionUID = 1L;
 
     @OneToMany(mappedBy = "category")
     private List<Article> articles;

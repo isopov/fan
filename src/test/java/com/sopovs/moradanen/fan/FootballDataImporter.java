@@ -1,12 +1,18 @@
 package com.sopovs.moradanen.fan;
 
-import com.google.common.base.Function;
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.sopovs.moradanen.fan.bootstrap.DbTestData;
-import com.sopovs.moradanen.fan.domain.*;
-import com.sopovs.moradanen.fan.service.IDaoService;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -18,15 +24,19 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.*;
+import com.google.common.base.Function;
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.sopovs.moradanen.fan.bootstrap.DbTestData;
+import com.sopovs.moradanen.fan.domain.Club;
+import com.sopovs.moradanen.fan.domain.Contest;
+import com.sopovs.moradanen.fan.domain.Game;
+import com.sopovs.moradanen.fan.domain.Season;
+import com.sopovs.moradanen.fan.domain.TeamInGame;
+import com.sopovs.moradanen.fan.domain.TeamPosition;
+import com.sopovs.moradanen.fan.service.IDaoService;
 
-@SuppressWarnings("deprecation")
 @ActiveProfiles("postgres")
 @Ignore
 @Transactional
@@ -45,10 +55,8 @@ public class FootballDataImporter extends AbstractServiceTest {
         }
     }
 
-
-      private void importDataFromFile(InputStream inputStream) {
+    private void importDataFromFile(InputStream inputStream) {
         Contest premier = service.findContestByName(DbTestData.BARCLAYS_PREMIER_LEAGUE);
-
 
         FootbalDataGameHeader h = null;
         Season season = new Season();
@@ -65,7 +73,7 @@ public class FootballDataImporter extends AbstractServiceTest {
                     continue;
                 }
                 String[] gameString = s.split(",");
-                if(h.indexes.get("HomeTeam") >= gameString.length){
+                if (h.indexes.get("HomeTeam") >= gameString.length) {
                     System.out.println("Ouch!");
                 }
                 String hostName = gameString[h.indexes.get("HomeTeam")];
@@ -88,7 +96,8 @@ public class FootballDataImporter extends AbstractServiceTest {
                 game.setGameDate(date);
                 game.setSeason(season);
                 season.addGame(game);
-                game.setTeamsInGame(Arrays.asList(new TeamInGame(guest, game, TeamPosition.GUEST), new TeamInGame(host, game, TeamPosition.HOST)));
+                game.setTeamsInGame(Arrays.asList(new TeamInGame(guest, game, TeamPosition.GUEST), new TeamInGame(host,
+                        game, TeamPosition.HOST)));
 
                 game.getHost().setGoals(h.value(gameString, "FTHG"));
 
@@ -124,7 +133,7 @@ public class FootballDataImporter extends AbstractServiceTest {
 
                 em.persist(game);
                 games++;
-                if(games % 30 == 0){
+                if (games % 30 == 0) {
                     System.out.println(games + " games imported");
                 }
             }
@@ -141,38 +150,37 @@ public class FootballDataImporter extends AbstractServiceTest {
         }
     }
 
-    //    Div = League Division
-//    Date = Match Date (dd/mm/yy)
-//    HomeTeam = Home Team
-//    AwayTeam = Away Team
-//    FTHG = Full Time Home Team Goals
-//    FTAG = Full Time Away Team Goals
-//
-//    Match Statistics (where available)
-//    Attendance = Crowd Attendance
-//    HS = Home Team Shots
-//            AS = Away Team Shots
-//    HST = Home Team Shots on Target
-//            AST = Away Team Shots on Target
-//    HHW = Home Team Hit Woodwork
-//    AHW = Away Team Hit Woodwork
-//    HC = Home Team Corners
-//            AC = Away Team Corners
-//    HF = Home Team Fouls Committed
-//    AF = Away Team Fouls Committed
-//    HO = Home Team Offsides
-//            AO = Away Team Offsides
-//    HY = Home Team Yellow Cards
-//    AY = Away Team Yellow Cards
-//    HR = Home Team Red Cards
-//    AR = Away Team Red Cards
+    // Div = League Division
+    // Date = Match Date (dd/mm/yy)
+    // HomeTeam = Home Team
+    // AwayTeam = Away Team
+    // FTHG = Full Time Home Team Goals
+    // FTAG = Full Time Away Team Goals
+    //
+    // Match Statistics (where available)
+    // Attendance = Crowd Attendance
+    // HS = Home Team Shots
+    // AS = Away Team Shots
+    // HST = Home Team Shots on Target
+    // AST = Away Team Shots on Target
+    // HHW = Home Team Hit Woodwork
+    // AHW = Away Team Hit Woodwork
+    // HC = Home Team Corners
+    // AC = Away Team Corners
+    // HF = Home Team Fouls Committed
+    // AF = Away Team Fouls Committed
+    // HO = Home Team Offsides
+    // AO = Away Team Offsides
+    // HY = Home Team Yellow Cards
+    // AY = Away Team Yellow Cards
+    // HR = Home Team Red Cards
+    // AR = Away Team Red Cards
     private static class FootbalDataGameHeader {
 
-        private static List<String> values = Arrays.asList(
-                "Date", "HomeTeam", "AwayTeam", "FTHG", "FTAG", "Attendance", "HS", "AS", "HST", "AST",
-                "HHW", "AHW", "HC", "AC", "HF", "AF", "HO", "AO", "HY", "AY", "HR", "AR"
-        );
-        private Map<String, Integer> indexes = Maps.newHashMap();
+        private static List<String> values = Arrays.asList("Date", "HomeTeam", "AwayTeam", "FTHG", "FTAG",
+                "Attendance", "HS", "AS", "HST", "AST", "HHW", "AHW", "HC", "AC", "HF", "AF", "HO", "AO", "HY", "AY",
+                "HR", "AR");
+        private final Map<String, Integer> indexes = Maps.newHashMap();
 
         public FootbalDataGameHeader(String header) {
             List<String> headers = Arrays.asList(header.split(","));
@@ -186,9 +194,11 @@ public class FootballDataImporter extends AbstractServiceTest {
 
         public Integer value(String[] values, String header) {
             Integer index = indexes.get(header);
-            if (index == null) return null;
+            if (index == null)
+                return null;
             String value = values[index];
-            if (Strings.isNullOrEmpty(value)) return null;
+            if (Strings.isNullOrEmpty(value))
+                return null;
             return Integer.valueOf(value);
         }
     }

@@ -5,8 +5,7 @@ import java.util.Map;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class DefaultI18nedDomain<T extends I18nDomain> extends
-        AbstractEntity implements I18nedDomain<T> {
+public abstract class DefaultI18nedDomain<T extends I18nDomain<?>> extends AbstractEntity implements I18nedDomain<T> {
     private static final long serialVersionUID = 1L;
 
     @Override

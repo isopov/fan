@@ -1,6 +1,5 @@
 package com.sopovs.moradanen.fan.controller;
 
-import com.sopovs.moradanen.fan.AbstractTransactionalServiceTest;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -9,20 +8,20 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.sopovs.moradanen.fan.AbstractServiceTest;
+import com.sopovs.moradanen.fan.AbstractTransactionalServiceTest;
 
 @WebAppConfiguration
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring-servlet.xml" })
 public abstract class AbstractControllerTest extends AbstractTransactionalServiceTest {
 
-	@Autowired
-	protected WebApplicationContext wac;
+    @Autowired
+    protected WebApplicationContext wac;
 
-	protected MockMvc mockMvc;
+    protected MockMvc mockMvc;
 
-	@Before
-	public void setUp() throws Exception {
-		mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-	}
+    @Before
+    public void setUp() throws Exception {
+        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+    }
 
 }

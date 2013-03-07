@@ -1,24 +1,33 @@
 package com.sopovs.moradanen.fan.service;
 
-import com.sopovs.moradanen.fan.AbstractTransactionalServiceTest;
-import com.sopovs.moradanen.fan.bootstrap.DbTestData;
-import com.sopovs.moradanen.fan.domain.*;
-import org.joda.time.LocalDate;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasItems;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasItems;
-import static org.junit.Assert.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.joda.time.LocalDate;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.sopovs.moradanen.fan.AbstractTransactionalServiceTest;
+import com.sopovs.moradanen.fan.bootstrap.DbTestData;
+import com.sopovs.moradanen.fan.domain.Club;
+import com.sopovs.moradanen.fan.domain.Contest;
+import com.sopovs.moradanen.fan.domain.Game;
+import com.sopovs.moradanen.fan.domain.Season;
+import com.sopovs.moradanen.fan.domain.Team;
 
 public class DaoServiceTest extends AbstractTransactionalServiceTest {
-
 
     @Autowired
     private IDaoService service;
@@ -38,7 +47,8 @@ public class DaoServiceTest extends AbstractTransactionalServiceTest {
 
     @Test
     public void testFindContestByName() throws Exception {
-        assertEquals(DbTestData.BARCLAYS_PREMIER_LEAGUE, service.findContestByName(DbTestData.BARCLAYS_PREMIER_LEAGUE).getName());
+        assertEquals(DbTestData.BARCLAYS_PREMIER_LEAGUE, service.findContestByName(DbTestData.BARCLAYS_PREMIER_LEAGUE)
+                .getName());
     }
 
     @Test
@@ -72,17 +82,16 @@ public class DaoServiceTest extends AbstractTransactionalServiceTest {
         List<Game> games = service.getGames(blackburn.getId(), fulham.getId());
         assertTrue(games.size() >= 1);
         for (Game game : games) {
-            assertThat(game.getTeams(),hasItems(blackburn,fulham));
+            assertThat(game.getTeams(), hasItems(blackburn, fulham));
         }
 
     }
-
 
     @Test
     public void testLastGamesForTeam() throws Exception {
         Club blackburn = service.findClubByName(DbTestData.BLACKBURN_NAME);
         Game game = service.lastGamesForTeam(blackburn.getId(), 1).get(0);
-       assertThat(game.getTeams(),hasItem(blackburn));
+        assertThat(game.getTeams(), hasItem(blackburn));
 
     }
 
@@ -91,7 +100,7 @@ public class DaoServiceTest extends AbstractTransactionalServiceTest {
         List<Season> seasons = service.lastSeasons();
         assertEquals(1, seasons.size());
 
-        Season newSeason = newSeason(seasons.get(0).getContest());
+        newSeason(seasons.get(0).getContest());
 
         List<Season> newSeasons = service.lastSeasons();
         assertEquals(1, newSeasons.size());

@@ -1,16 +1,15 @@
 package com.sopovs.moradanen.fan.controller;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
-import com.sopovs.moradanen.fan.domain.Country;
-import com.sopovs.moradanen.fan.domain.NationalTeam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
+import com.sopovs.moradanen.fan.domain.Country;
+import com.sopovs.moradanen.fan.domain.NationalTeam;
 
 @Controller
 @RequestMapping("/edit")
@@ -18,12 +17,10 @@ public class EditController extends AbstractController {
     @PersistenceContext
     private EntityManager em;
 
-
     @RequestMapping(method = RequestMethod.GET)
     public String edit() {
         return "/edit/index";
     }
-
 
     @RequestMapping(value = "/ng/{ngTemplate}", method = RequestMethod.GET)
     public String getNgTemplate(@PathVariable String ngTemplate) {
@@ -39,6 +36,5 @@ public class EditController extends AbstractController {
     public void saveOfUpdateTeam(NationalTeam nationalTeam) {
         em.persist(nationalTeam);
     }
-
 
 }

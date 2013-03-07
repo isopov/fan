@@ -5,18 +5,27 @@ import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
-import com.sopovs.moradanen.fan.domain.*;
 import org.joda.time.LocalDate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.sopovs.moradanen.fan.domain.Club;
+import com.sopovs.moradanen.fan.domain.Contest;
+import com.sopovs.moradanen.fan.domain.Game;
+import com.sopovs.moradanen.fan.domain.Player;
+import com.sopovs.moradanen.fan.domain.PlayerInGame;
+import com.sopovs.moradanen.fan.domain.Season;
+import com.sopovs.moradanen.fan.domain.Team;
+import com.sopovs.moradanen.fan.domain.TeamInGame;
 
 @Repository
 @Transactional
@@ -72,7 +81,7 @@ public class DaoService implements IDaoService {
 
         Subquery<LocalDate> sq = cq.subquery(LocalDate.class);
         Root<Season> subRoot = sq.from(Season.class);
-        sq.select(cb.greatest(subRoot.<LocalDate>get("endDate")));
+        sq.select(cb.greatest(subRoot.<LocalDate> get("endDate")));
         sq.where(cb.equal(subRoot.get("contest"), root.get("contest")));
 
         cq.where(cb.equal(root.get("endDate"), sq));
@@ -97,7 +106,7 @@ public class DaoService implements IDaoService {
         CriteriaQuery<Season> cq = cb.createQuery(Season.class);
 
         Root<TeamInGame> root = cq.from(TeamInGame.class);
-        cq.select(root.get("game").<Season>get("season"));
+        cq.select(root.get("game").<Season> get("season"));
 
         Subquery<Club> sq = cq.subquery(Club.class);
         Root<Club> subRoot = sq.from(Club.class);
@@ -105,17 +114,18 @@ public class DaoService implements IDaoService {
         sq.where(cb.equal(subRoot.get("name"), name));
 
         cq.where(cb.equal(root.get("team"), sq));
-        cq.orderBy(cb.desc(root.get("game").get("season").<LocalDate>get("endDate")));
+        cq.orderBy(cb.desc(root.get("game").get("season").<LocalDate> get("endDate")));
 
         return getSingleResultOrNull(em.createQuery(cq).setMaxResults(1));
 
-
         // The same in JPQL - I'm not really sure that Criteria is better than
         // JPQL here...
-//        return getSingleResultOrNull(em.createQuery("Select t.game.season from TeamInGame  t" +
-//                " where t.team = (Select c from Club c where c.name=:name)" +
-//                " order by t.game.season.endDate", Season.class)
-//                .setMaxResults(1).setParameter("name", name));
+        // return
+        // getSingleResultOrNull(em.createQuery("Select t.game.season from TeamInGame  t"
+        // +
+        // " where t.team = (Select c from Club c where c.name=:name)" +
+        // " order by t.game.season.endDate", Season.class)
+        // .setMaxResults(1).setParameter("name", name));
     }
 
     @Override
@@ -156,11 +166,10 @@ public class DaoService implements IDaoService {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Game> cq = cb.createQuery(Game.class);
         Root<TeamInGame> from = cq.from(TeamInGame.class);
-        cq.select(from.<Game>get("game"));
+        cq.select(from.<Game> get("game"));
         cq.where(cb.equal(from.get("team").get("id"), teamId));
         cq.orderBy(cb.desc(from.get("game").get("gameDate")));
-        return em.createQuery(cq).setFirstResult(startFrom)
-                .setMaxResults(size).getResultList();
+        return em.createQuery(cq).setFirstResult(startFrom).setMaxResults(size).getResultList();
     }
 
     @Override
@@ -175,17 +184,18 @@ public class DaoService implements IDaoService {
 
     @Override
     public List<Team> teamsPlayedWith(UUID teamId, int size) {
-        Query query = em.createNamedQuery("teamsPlayedWith");
+        TypedQuery<Object[]> query = em.createNamedQuery("teamsPlayedWith", Object[].class);
         if (size != 0) {
             query.setMaxResults(size);
         }
 
-        return Lists.<Object[], Team>transform(query.setParameter("teamId", teamId).getResultList(), new Function<Object[], Team>() {
-            @Override
-            public Team apply(Object[] input) {
-                return (Team) input[0];
-            }
-        });
+        return Lists.<Object[], Team> transform(query.setParameter("teamId", teamId).getResultList(),
+                new Function<Object[], Team>() {
+                    @Override
+                    public Team apply(Object[] input) {
+                        return (Team) input[0];
+                    }
+                });
     }
 
     @Override
@@ -195,10 +205,10 @@ public class DaoService implements IDaoService {
 
     @Override
     public List<Game> getGames(UUID firstTeamId, UUID secondTeamId, int size, int startFrom) {
-        TypedQuery<Game> query = em.createQuery("Select g from Game g" +
-                " where exists (select 'x' from TeamInGame tg where tg.game=g and tg.team.id=:firstTeamid)" +
-                " and exists (select 'x' from TeamInGame tg where tg.game=g and tg.team.id=:secondTeamId)" +
-                " order by g.gameDate desc", Game.class);
+        TypedQuery<Game> query = em.createQuery("Select g from Game g"
+                + " where exists (select 'x' from TeamInGame tg where tg.game=g and tg.team.id=:firstTeamid)"
+                + " and exists (select 'x' from TeamInGame tg where tg.game=g and tg.team.id=:secondTeamId)"
+                + " order by g.gameDate desc", Game.class);
         query.setParameter("firstTeamid", firstTeamId);
         query.setParameter("secondTeamId", secondTeamId);
         if (size != 0) {
@@ -210,12 +220,10 @@ public class DaoService implements IDaoService {
         return query.getResultList();
     }
 
-
     @Override
     public List<Game> lastGamesForTeam(UUID teamId, int size) {
         return lastGamesForTeam(teamId, size, 0);
     }
-
 
     @Override
     public List<PlayerInGame> lastGamesForPlayer(UUID playerId, int size, int startFrom) {

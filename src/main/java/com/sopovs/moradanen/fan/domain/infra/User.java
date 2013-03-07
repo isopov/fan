@@ -1,23 +1,28 @@
 package com.sopovs.moradanen.fan.domain.infra;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Collections2;
-import com.sopovs.moradanen.fan.domain.AbstractEntity;
+import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import com.sopovs.moradanen.fan.domain.AbstractEntity;
 
 @Entity
 @Table(name = "USER", uniqueConstraints = @UniqueConstraint(columnNames = "USERNAME"))
 public class User extends AbstractEntity implements UserDetails {
-
-
+    private static final long serialVersionUID = 1L;
     private String username;
     private String email;
-    //Spring stores salt concatenated with hashed password
+    // Spring stores salt concatenated with hashed password
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -39,6 +44,7 @@ public class User extends AbstractEntity implements UserDetails {
         this.roles = roles;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
@@ -69,6 +75,7 @@ public class User extends AbstractEntity implements UserDetails {
 
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -81,7 +88,7 @@ public class User extends AbstractEntity implements UserDetails {
         this.password = password;
     }
 
-    public static final Function<UserRole,UserRole.Role> ROLE_FUNCTION = new Function<UserRole, UserRole.Role>() {
+    public static final Function<UserRole, UserRole.Role> ROLE_FUNCTION = new Function<UserRole, UserRole.Role>() {
         @Override
         public UserRole.Role apply(UserRole input) {
             return input.getRole();

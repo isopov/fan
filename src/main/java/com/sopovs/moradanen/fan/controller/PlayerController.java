@@ -1,8 +1,11 @@
 package com.sopovs.moradanen.fan.controller;
 
-import com.google.common.collect.Lists;
-import com.sopovs.moradanen.fan.domain.Player;
-import com.sopovs.moradanen.fan.service.IDaoService;
+import java.util.UUID;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -11,12 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import com.sopovs.moradanen.fan.domain.Player;
+import com.sopovs.moradanen.fan.service.IDaoService;
 
 @Controller
 @RequestMapping("/players")
@@ -35,10 +34,9 @@ public class PlayerController extends AbstractController {
     }
 
     @RequestMapping(value = "/view/{id}")
-    public ModelAndView viewPlayer(@PathVariable UUID id,
-                                   HttpServletResponse response,
-                                   @RequestParam(defaultValue = "0", required = false) int startFrom,
-                                   @RequestParam(defaultValue = DEFAULT_SHOWNUM, required = false) int showNum) {
+    public ModelAndView viewPlayer(@PathVariable UUID id, HttpServletResponse response,
+            @RequestParam(defaultValue = "0", required = false) int startFrom,
+            @RequestParam(defaultValue = DEFAULT_SHOWNUM, required = false) int showNum) {
         Player player = em.find(Player.class, id);
         if (player == null) {
             response.setStatus(HttpStatus.NOT_FOUND.value());
@@ -47,10 +45,12 @@ public class PlayerController extends AbstractController {
             return new ModelAndView("players/view", "player", player)
                     .addObject("lastGames", service.lastGamesForPlayer(id, showNum, startFrom))
                     .addObject("previousUrl", previousUrl("/players/view/" + id.toString(), showNum, startFrom))
-                    .addObject("nextUrl", nextUrl("/players/view/" + id.toString(), showNum, startFrom, service.countGamesForPlayer(id)));
+                    .addObject(
+                            "nextUrl",
+                            nextUrl("/players/view/" + id.toString(), showNum, startFrom,
+                                    service.countGamesForPlayer(id)));
         }
     }
-
 
     @Override
     protected int getDefaultShowNum() {
