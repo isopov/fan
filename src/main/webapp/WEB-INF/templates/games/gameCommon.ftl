@@ -7,13 +7,13 @@
     <@c.orNull game "gameDate" "Unknown Date"/>
 </em>
 <h3 class="text-align: center;">
-    <a href="<@s.url "/club/view?id=${game.host.team.id}" />">
+    <a href="<@s.url "/club/view/${game.host.team.id}" />">
     ${game.host.team.getTitle(lang)}
     </a>
     <a href="<@s.url "/games/view/${game.id}"/>">
     ${game.host.goals}:${game.guest.goals}
     </a>
-    <a href="<@s.url "/club/view?id=${game.guest.team.id}" />">
+    <a href="<@s.url "/club/view/${game.guest.team.id}" />">
     ${game.guest.team.getTitle(lang)}
     </a>
 </h3>
