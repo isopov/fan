@@ -143,8 +143,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><@spring.message "simple.language" />
                             <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<@spring.url "/?lang=en"/>">English version</a></li>
-                            <li><a href="<@spring.url "/?lang=ru"/>">Русская версия</a></li>
+                            <li><a href="${languageChangeUrl}en">English version</a></li>
+                            <li><a href="${languageChangeUrl}ru">Русская версия</a></li>
                         </ul>
                     </li>
 
