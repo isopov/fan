@@ -19,6 +19,11 @@ public class LoginController extends AbstractController {
         return "loginForm";
     }
 
+    @RequestMapping("register")
+    public String registerForm() {
+        return "registerForm";
+    }
+
     @RequestMapping(value = "/loginfailed", method = RequestMethod.GET)
     public String loginerror(ModelMap model) {
         model.addAttribute("error", "true");
