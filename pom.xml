@@ -10,6 +10,7 @@
 
     <modules>
         <module>core</module>
+        <module>job</module>
         <module>web</module>
     </modules>
 
