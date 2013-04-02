@@ -1,5 +1,3 @@
-package com.sopovs.moradanen.fan;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,11 +15,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.junit.Ignore;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Function;
@@ -37,18 +31,19 @@ import com.sopovs.moradanen.fan.domain.TeamInGame;
 import com.sopovs.moradanen.fan.domain.TeamPosition;
 import com.sopovs.moradanen.fan.service.IDaoService;
 
-@ActiveProfiles("postgres")
-@Ignore
+//TODO
+//@ActiveProfiles("postgres")
+//@Ignore
 @Transactional
-@TransactionConfiguration(defaultRollback = false)
-public class FootballDataImporter extends AbstractServiceTest {
+// @TransactionConfiguration(defaultRollback = false)
+public class FootballDataImporter {
     private final DateTimeFormatter df = DateTimeFormat.forPattern("dd/mm/yy");
     @PersistenceContext
     private EntityManager em;
     @Autowired
     private IDaoService service;
 
-    @Test
+    // @Test
     public void importData() throws FileNotFoundException {
         for (File f : new File("/home/isopov/Downloads/football/E0").listFiles()) {
             importDataFromFile(new FileInputStream(f));

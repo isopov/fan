@@ -1,66 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:p="http://www.springframework.org/schema/p" xmlns:c="http://www.springframework.org/schema/c"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
     					http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
     					http://www.springframework.org/schema/context						http://www.springframework.org/schema/context/spring-context.xsd
     					http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <context:annotation-config/>
-    <context:component-scan base-package="com.sopovs.moradanen.fan.service"/>
+	<import resource="securityContext.xml" />
+	<import resource="classpath:coreApplicationContext.xml" />
 
-    <import resource="securityContext.xml"/>
-
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"/>
-
-    <bean
-            class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-            p:packagesToScan="com.sopovs.moradanen.fan.domain"
-            p:jpaVendorAdapter-ref="hibernateVendor" p:dataSource-ref="ds"
-            p:jpaPropertyMap-ref="jpaPropertyMap"/>
-
-
-    <bean id="hibernateVendor"
-          class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
-          p:showSql="false"/>
-
-
-    <beans profile="default">
-        <util:map id="jpaPropertyMap">
-            <entry key="hibernate.hbm2ddl.auto" value="update"/>
-            <entry key="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-            <entry key="hibernate.format_sql" value="true"/>
-            <!-- TODO -  https://hibernate.onjira.com/browse/HHH-7457 Hibernate guys strongly suggest to not use this-->
-            <entry key="hibernate.enable_lazy_load_no_trans" value="true"/>
-        </util:map>
-
-
-        <bean id="ds" class="org.h2.jdbcx.JdbcDataSource" p:URL="jdbc:h2:mem:fan;DB_CLOSE_DELAY=-1"/>
-
-        <bean id="bootstrap" class="com.sopovs.moradanen.fan.bootstrap.DbTestData"/>
-        <bean id="bootstrapRunner" class="com.sopovs.moradanen.fan.bootstrap.DbTestDataRunner"/>
-
-    </beans>
-
-    <beans profile="postgres">
-        <util:map id="jpaPropertyMap">
-            <entry key="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
-            <entry key="hibernate.format_sql" value="true"/>
-            <!--<entry key="hibernate.hbm2ddl.auto" value="create"/>-->
-            <entry key="hibernate.default_schema" value="fan"/>
-            <!-- TODO -  https://hibernate.onjira.com/browse/HHH-7457 Hibernate guys strongly suggest to not use this-->
-            <entry key="hibernate.enable_lazy_load_no_trans" value="true"/>
-        </util:map>
-
-        <bean id="ds" class="org.apache.commons.dbcp.BasicDataSource">
-            <property name="url" value="jdbc:postgresql://localhost:5432/fan"/>
-            <property name="username" value="fan"/>
-            <property name="password" value="fan"/>
-        </bean>
-    </beans>
 
 
 </beans>

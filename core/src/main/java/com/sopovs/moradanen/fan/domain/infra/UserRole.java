@@ -3,6 +3,7 @@ package com.sopovs.moradanen.fan.domain.infra;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -21,7 +22,7 @@ public class UserRole implements Serializable {
     @ForeignKey(name = "USER_ROLE_USER_FK")
     private User user;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Id
     private Role role;
 

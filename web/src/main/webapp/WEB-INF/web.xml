@@ -4,12 +4,6 @@
 
 	<display-name>Football analytics</display-name>
 
-
-	<context-param>
-		<param-name>spring.profiles.default</param-name>
-		<param-value>default</param-value>
-	</context-param>
-
 	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>

@@ -17,9 +17,12 @@ import javax.persistence.PersistenceContext;
 
 import org.joda.time.LocalDate;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.sopovs.moradanen.fan.AbstractTransactionalServiceTest;
 import com.sopovs.moradanen.fan.bootstrap.DbTestData;
 import com.sopovs.moradanen.fan.domain.Club;
 import com.sopovs.moradanen.fan.domain.Contest;
@@ -27,7 +30,10 @@ import com.sopovs.moradanen.fan.domain.Game;
 import com.sopovs.moradanen.fan.domain.Season;
 import com.sopovs.moradanen.fan.domain.Team;
 
-public class DaoServiceTest extends AbstractTransactionalServiceTest {
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:coreApplicationContext.xml")
+@Transactional
+public class DaoServiceTest {
 
     @Autowired
     private IDaoService service;
