@@ -162,6 +162,9 @@
                                         <exclude>commons-logging</exclude>
                                     </excludes>
                                 </bannedDependencies>
+                                <requireJavaVersion>
+                                    <version>1.7.0</version>
+                                </requireJavaVersion>
                             </rules>
                         </configuration>
                     </execution>
