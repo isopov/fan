@@ -17,7 +17,7 @@ import org.hibernate.annotations.ForeignKey;
 import com.google.common.base.Preconditions;
 
 @Entity
-@Table(name = "CLUB", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
+@Table(name = "CLUB", uniqueConstraints = @UniqueConstraint(name = "CLUB_NAME_UK", columnNames = "NAME"))
 @ForeignKey(name = "CLUB_TEAM_FK")
 public class Club extends Team implements I18nedDomain<I18nClub> {
     private static final long serialVersionUID = 1L;
@@ -26,7 +26,8 @@ public class Club extends Team implements I18nedDomain<I18nClub> {
 
     @OneToMany(mappedBy = "club", fetch = FetchType.EAGER)
     @MapKey(name = "lang")
-    @Fetch(FetchMode.JOIN) //TODO why does not work?
+    @Fetch(FetchMode.JOIN)
+    // TODO why does not work?
     private Map<Lang, I18nClub> i18ns;
 
     @ManyToOne

@@ -11,7 +11,7 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
-@Table(name = "I18N_CLUB", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
+@Table(name = "I18N_CLUB", uniqueConstraints = @UniqueConstraint(name = "I18N_CLUB_NAME_UK", columnNames = "NAME"))
 public class I18nClub implements I18nDomain<Club> {
     private static final long serialVersionUID = 1L;
 

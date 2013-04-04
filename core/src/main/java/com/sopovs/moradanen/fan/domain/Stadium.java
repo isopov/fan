@@ -1,13 +1,18 @@
 package com.sopovs.moradanen.fan.domain;
 
-import javax.persistence.*;
+import java.util.Map;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapKey;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.ForeignKey;
 
-import java.util.Map;
-
 @Entity
-@Table(name = "STADIUM", uniqueConstraints = @UniqueConstraint(columnNames = "NAME"))
+@Table(name = "STADIUM", uniqueConstraints = @UniqueConstraint(name = "STADIUM_NAME_UK", columnNames = "NAME"))
 public class Stadium extends DefaultI18nedDomain<I18nStadium> {
 
     private static final long serialVersionUID = 1L;
