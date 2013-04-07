@@ -3,7 +3,12 @@ package com.sopovs.moradanen.fan.domain.infra;
 import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,6 +32,24 @@ public class User extends AbstractEntity implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserRole> roles;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserSocialConnection> socialConnections;
+
+    public User() {
+    }
+
+    public List<UserSocialConnection> getSocialConnections() {
+        return socialConnections;
+    }
+
+    public void setSocialConnections(List<UserSocialConnection> socialConnections) {
+        this.socialConnections = socialConnections;
+    }
+
+    public User(String username) {
+        this.username = username;
+    }
 
     public String getEmail() {
         return email;

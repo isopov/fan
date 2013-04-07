@@ -59,6 +59,12 @@
         <button class="btn btn-large btn-primary" type="submit" name="submit">Sign in</button>
         <a href="<@s.url "/registration" />">Registration</a>
     </form>
+    
+    
+    <form action='<@s.url "/signin/twitter"/>' method='POST'>
+    	<button type="submit"><img src="<@s.url "/img/social/twitter.png"/>" /></button>
+    </form>
+    
 
 </div>
 </@layout.layout>
