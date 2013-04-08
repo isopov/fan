@@ -46,12 +46,12 @@
 		<dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-security</artifactId>
-			<version>1.1.0.M2</version>
+			<version>${spring.social.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-twitter</artifactId>
-			<version>1.1.0.M2</version>
+			<version>${spring.social.version}</version>
 		</dependency>
 
 
@@ -78,20 +78,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<repositories>
-		<!-- TODO - remove when migrating to all release versions of spring components -->
-		<repository>
-			<id>org.springframework.maven.milestone</id>
-			<name>Spring Maven Milestone Repository</name>
-			<url>http://repo.springsource.org/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
-
 	<build>
 		<finalName>fan</finalName>
 		<plugins>
