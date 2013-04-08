@@ -10,9 +10,9 @@
 		http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/social/twitter 
-		https://raw.github.com/SpringSource/spring-social-twitter/master/spring-social-twitter/src/main/resources/org/springframework/social/twitter/config/xml/spring-social-twitter-1.1.xsd
+		http://www.springframework.org/schema/social/spring-social-twitter.xsd
 		http://www.springframework.org/schema/social 
-		https://raw.github.com/SpringSource/spring-social/master/spring-social-config/src/main/resources/org/springframework/social/config/xml/spring-social-1.1.xsd
+		http://www.springframework.org/schema/social/spring-social.xsd
 		http://www.springframework.org/schema/context 
 		http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop 
