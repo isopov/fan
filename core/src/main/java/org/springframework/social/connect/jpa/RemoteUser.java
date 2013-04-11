@@ -5,49 +5,50 @@ package org.springframework.social.connect.jpa;
  */
 public interface RemoteUser {
 
-	public String getUserId();
-	
-	public void setUserId(String id);
-	/*
-	 * Provider identifier: Facebook, Twitter, LinkedIn etc
-	 */
-	public String getProviderUserId();
+    public String getUserId();
 
-	public void setProviderUserId(String provider);
+    public void setUserId(String id);
 
-	public String getProviderId();
+    /*
+     * Provider identifier: Facebook, Twitter, LinkedIn etc
+     */
+    public String getProviderUserId();
 
-	public void setProviderId(String providerId);
+    public void setProviderUserId(String provider);
 
-	public int getRank();
+    public String getProviderId();
 
-	public void setRank(int rank);
+    public void setProviderId(String providerId);
 
-	public String getSecret();
+    // public int getRank();
+    //
+    // public void setRank(int rank);
 
-	public void setSecret(String secret);
+    public String getSecret();
 
-	public String getDisplayName();
+    public void setSecret(String secret);
 
-	public void setDisplayName(String displayName);
+    public String getDisplayName();
 
-	public String getProfileUrl();
+    public void setDisplayName(String displayName);
 
-	public void setProfileUrl(String profileUrl);
+    public String getProfileUrl();
 
-	public String getImageUrl();
+    public void setProfileUrl(String profileUrl);
 
-	public void setImageUrl(String imageUrl);
+    public String getImageUrl();
 
-	public String getAccessToken();
+    public void setImageUrl(String imageUrl);
 
-	public void setAccessToken(String accessToken);
+    public String getAccessToken();
 
-	public String getRefreshToken();
+    public void setAccessToken(String accessToken);
 
-	public void setRefreshToken(String refreshToken);
+    public String getRefreshToken();
 
-	public Long getExpireTime();
+    public void setRefreshToken(String refreshToken);
 
-	public void setExpireTime(Long expireTime);
+    public Long getExpireTime();
+
+    public void setExpireTime(Long expireTime);
 }

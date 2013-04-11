@@ -11,6 +11,8 @@
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/social/twitter 
 		http://www.springframework.org/schema/social/spring-social-twitter.xsd
+		http://www.springframework.org/schema/social/facebook
+		http://www.springframework.org/schema/social/spring-social-facebook.xsd
 		http://www.springframework.org/schema/social 
 		http://www.springframework.org/schema/social/spring-social.xsd
 		http://www.springframework.org/schema/context 
@@ -20,6 +22,8 @@
 
 	<!-- TODO <facebook:config app-id="${facebook.clientId}" app-secret="${facebook.clientSecret}" 
 		app-namespace="socialshowcase" /> -->
+	<facebook:config app-id="237558196383816"
+		app-secret="a954b865206d8051374a01d14bd560f3" app-namespace="football-analytics" />
 	<twitter:config app-id="BoX32LW3MmuLKLqf2fh1yQ"
 		app-secret="C9uNk6WgbikXpfK3veZfBgxgwKnYdiLvNm4dko8" />
 
@@ -33,7 +37,7 @@
 		id="connectionRepository" factory-method="createConnectionRepository"
 		factory-bean="usersConnectionRepository" scope="request">
 		<!-- TODO https://github.com/michaellavelle/socialsignin-roo-showcase/blob/spring-social-jpa-and-xml/src/main/resources/META-INF/spring/applicationContext.xml -->
-		<constructor-arg value="#{request.userPrincipal.name}" />
+		<constructor-arg value="#{request.userPrincipal.principal.id.toString()}" />
 		<aop:scoped-proxy proxy-target-class="false" />
 	</bean>
 

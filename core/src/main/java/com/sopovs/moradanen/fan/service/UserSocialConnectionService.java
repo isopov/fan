@@ -50,17 +50,17 @@ public class UserSocialConnectionService implements JpaTemplate {
         return getAll(userId, providerId);
     }
 
-    @Override
-    public int getRank(String userId, String providerId) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Integer> cq = cb.createQuery(Integer.class);
-        Root<UserSocialConnection> from = cq.from(UserSocialConnection.class);
-        cq.select(from.<Integer> get("rank"));
-        cq.where(cb.and(cb.equal(from.get("providerId"), providerId),
-                cb.equal(from.get("user").get("id"), UUID.fromString(userId))));
-
-        return em.createQuery(cq).getSingleResult();
-    }
+    // @Override
+    // public int getRank(String userId, String providerId) {
+    // CriteriaBuilder cb = em.getCriteriaBuilder();
+    // CriteriaQuery<Integer> cq = cb.createQuery(Integer.class);
+    // Root<UserSocialConnection> from = cq.from(UserSocialConnection.class);
+    // cq.select(from.<Integer> get("rank"));
+    // cq.where(cb.and(cb.equal(from.get("providerId"), providerId),
+    // cb.equal(from.get("user").get("id"), UUID.fromString(userId))));
+    //
+    // return em.createQuery(cq).getSingleResult();
+    // }
 
     @Override
     public List<RemoteUser> getAll(String userId, MultiValueMap<String, String> providerUsers) {
@@ -155,7 +155,7 @@ public class UserSocialConnectionService implements JpaTemplate {
     }
 
     @Override
-    public RemoteUser createRemoteUser(String userId, String providerId, String providerUserId, int rank,
+    public RemoteUser createRemoteUser(String userId, String providerId, String providerUserId,
             String displayName, String profileUrl, String imageUrl, String accessToken, String secret,
             String refreshToken, Long expireTime) {
         User user = em.find(User.class, UUID.fromString(userId));
@@ -164,7 +164,6 @@ public class UserSocialConnectionService implements JpaTemplate {
         UserSocialConnection connection = new UserSocialConnection();
         connection.setProviderId(providerId);
         connection.setProviderUserId(providerUserId);
-        connection.setRank(rank);
         connection.setDisplayName(displayName);
         connection.setProfileUrl(profileUrl);
         connection.setImageUrl(imageUrl);

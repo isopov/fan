@@ -2,7 +2,6 @@ package com.sopovs.moradanen.fan.domain.infra;
 
 import java.util.UUID;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -30,8 +29,9 @@ public class UserSocialConnection extends AbstractEntity implements RemoteUser {
     private String refreshToken;
     private String displayName;
     private Long expireTime;
-    @Column(name = "IRANK")
-    private int rank;
+
+    // @Column(name = "IRANK")
+    // private int rank;
 
     public UserSocialConnection() {
     }
@@ -144,14 +144,14 @@ public class UserSocialConnection extends AbstractEntity implements RemoteUser {
         this.expireTime = expireTime;
     }
 
-    @Override
-    public int getRank() {
-        return rank;
-    }
-
-    @Override
-    public void setRank(int rank) {
-        this.rank = rank;
-    }
+    // @Override
+    // public int getRank() {
+    // return rank;
+    // }
+    //
+    // @Override
+    // public void setRank(int rank) {
+    // this.rank = rank;
+    // }
 
 }

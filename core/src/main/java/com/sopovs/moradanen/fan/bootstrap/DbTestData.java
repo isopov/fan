@@ -77,7 +77,7 @@ public class DbTestData implements IDbTestData {
             createIndexPage();
 
             createTestGameWithDetails();
-            importFootballData();
+            // importFootballData();
         }
     }
 

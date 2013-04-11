@@ -15,7 +15,7 @@ public interface JpaTemplate {
 
     public List<RemoteUser> getPrimary(String userId, String providerId);
 
-    public int getRank(String userId, String providerId);
+    // public int getRank(String userId, String providerId);
 
     public List<RemoteUser> getAll(String userId, MultiValueMap<String, String> providerUsers);
 
@@ -31,8 +31,8 @@ public interface JpaTemplate {
 
     public void remove(String userId, String providerId, String providerUserId);
 
-    public RemoteUser createRemoteUser(String userId, String providerId, String providerUserId, int rank,
-            String displayName, String profileUrl, String imageUrl, String accessToken, String secret,
+    public RemoteUser createRemoteUser(String userId, String providerId, String providerUserId, String displayName,
+            String profileUrl, String imageUrl, String accessToken, String secret,
             String refreshToken, Long expireTime);
 
     public RemoteUser save(RemoteUser user);

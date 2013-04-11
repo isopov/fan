@@ -64,6 +64,9 @@
     <form action='<@s.url "/signin/twitter"/>' method='POST'>
     	<button type="submit"><img src="<@s.url "/img/social/twitter.png"/>" /></button>
     </form>
+    <form action='<@s.url "/signin/facebook"/>' method='POST'>
+    	<button type="submit"><img src="<@s.url "/img/social/facebook.png"/>" /></button>
+    </form>
     
 
 </div>
