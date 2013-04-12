@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:facebook="http://www.springframework.org/schema/social/facebook"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:facebook="http://www.springframework.org/schema/social/facebook"
 	xmlns:twitter="http://www.springframework.org/schema/social/twitter"
-	xmlns:social="http://www.springframework.org/schema/social" xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:social="http://www.springframework.org/schema/social" 
+	xmlns:c="http://www.springframework.org/schema/c"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/social/facebook 
-	    https://raw.github.com/SpringSource/spring-social-facebook/master/spring-social-facebook/src/main/resources/org/springframework/social/facebook/config/xml/spring-social-facebook-1.1.xsd
+	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/social/twitter 
