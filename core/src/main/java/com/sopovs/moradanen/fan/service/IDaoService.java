@@ -1,14 +1,19 @@
 package com.sopovs.moradanen.fan.service;
 
 import java.util.List;
-import java.util.UUID;
 
-import com.sopovs.moradanen.fan.domain.*;
+import com.sopovs.moradanen.fan.domain.Club;
+import com.sopovs.moradanen.fan.domain.Contest;
+import com.sopovs.moradanen.fan.domain.Game;
+import com.sopovs.moradanen.fan.domain.Player;
+import com.sopovs.moradanen.fan.domain.PlayerInGame;
+import com.sopovs.moradanen.fan.domain.Season;
+import com.sopovs.moradanen.fan.domain.Team;
 
 public interface IDaoService {
-	Club findClubByName(String name);
+    Club findClubByName(String name);
 
-	List<Club> listAllClubs();
+    List<Club> listAllClubs();
 
     List<Season> lastSeasons();
 
@@ -18,29 +23,29 @@ public interface IDaoService {
 
     List<Game> lastGames(int size);
 
-    List<Game> lastGamesForTeam(UUID teamId, int size);
+    List<Game> lastGamesForTeam(Long teamId, int size);
 
     List<Contest> listAllContests();
 
     List<Player> listAllPlayers();
 
-    List<PlayerInGame> lastGamesForPlayer(UUID playerId, int size);
+    List<PlayerInGame> lastGamesForPlayer(Long playerId, int size);
 
-    List<Game> lastGamesForTeam(UUID teamId, int size, int startFrom);
+    List<Game> lastGamesForTeam(Long teamId, int size, int startFrom);
 
     List<Game> lastGames(int size, int startFrom);
 
-    List<PlayerInGame> lastGamesForPlayer(UUID playerId, int size, int startFrom);
+    List<PlayerInGame> lastGamesForPlayer(Long playerId, int size, int startFrom);
 
     int countGames();
 
-    int countGamesForTeam(UUID teamId);
+    int countGamesForTeam(Long teamId);
 
-    int countGamesForPlayer(UUID playerId);
+    int countGamesForPlayer(Long playerId);
 
-    List<Team> teamsPlayedWith(UUID teamId, int size);
+    List<Team> teamsPlayedWith(Long teamId, int size);
 
-    List<Game> getGames(UUID firstTeamId, UUID secondTeamId);
+    List<Game> getGames(Long firstTeamId, Long secondTeamId);
 
-    List<Game> getGames(UUID firstTeamId, UUID secondTeamId, int size, int startFrom);
+    List<Game> getGames(Long firstTeamId, Long secondTeamId, int size, int startFrom);
 }

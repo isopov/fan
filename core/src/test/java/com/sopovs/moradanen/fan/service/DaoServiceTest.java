@@ -10,7 +10,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -43,7 +42,7 @@ public class DaoServiceTest {
 
     @Test
     public void testTeamsPlayedWith() throws Exception {
-        UUID blackId = service.findClubByName(DbTestData.BLACKBURN_NAME).getId();
+        Long blackId = service.findClubByName(DbTestData.BLACKBURN_NAME).getId();
         List<Team> teams = service.teamsPlayedWith(blackId, 0);
         assertTrue(teams.size() >= 1);
         assertEquals(service.findClubByName(DbTestData.FULHAM), teams.get(0));

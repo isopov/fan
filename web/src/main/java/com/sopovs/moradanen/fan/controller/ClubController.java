@@ -1,7 +1,9 @@
 package com.sopovs.moradanen.fan.controller;
 
-import com.sopovs.moradanen.fan.domain.Club;
-import com.sopovs.moradanen.fan.service.IDaoService;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -11,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.servlet.http.HttpServletResponse;
-import java.util.UUID;
+import com.sopovs.moradanen.fan.domain.Club;
+import com.sopovs.moradanen.fan.service.IDaoService;
 
 @Controller
 @RequestMapping("/club")
@@ -32,7 +32,7 @@ public class ClubController extends AbstractController {
     }
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
-    public ModelAndView viewClub(@PathVariable UUID id, HttpServletResponse response) {
+    public ModelAndView viewClub(@PathVariable Long id, HttpServletResponse response) {
         Club club = em.find(Club.class, id);
 
         if (club == null) {
@@ -46,7 +46,8 @@ public class ClubController extends AbstractController {
     }
 
     @RequestMapping(value = "/derby/{firstTeamId}/vs/{secondTeamId}", method = RequestMethod.GET)
-    public ModelAndView viewDerby(@PathVariable UUID firstTeamId, @PathVariable UUID secondTeamId, HttpServletResponse response) {
+    public ModelAndView viewDerby(@PathVariable Long firstTeamId, @PathVariable Long secondTeamId,
+            HttpServletResponse response) {
         Club club1 = em.find(Club.class, firstTeamId);
         Club club2 = em.find(Club.class, secondTeamId);
         if (club1 == null || club2 == null) {

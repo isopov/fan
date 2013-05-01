@@ -1,7 +1,5 @@
 package com.sopovs.moradanen.fan.controller;
 
-import java.util.UUID;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +32,7 @@ public class PlayerController extends AbstractController {
     }
 
     @RequestMapping(value = "/view/{id}")
-    public ModelAndView viewPlayer(@PathVariable UUID id, HttpServletResponse response,
+    public ModelAndView viewPlayer(@PathVariable Long id, HttpServletResponse response,
             @RequestParam(defaultValue = "0", required = false) int startFrom,
             @RequestParam(defaultValue = DEFAULT_SHOWNUM, required = false) int showNum) {
         Player player = em.find(Player.class, id);

@@ -1,7 +1,5 @@
 package com.sopovs.moradanen.fan.controller;
 
-import java.util.UUID;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
@@ -43,7 +41,7 @@ public class ContestController extends AbstractController {
     }
 
     @RequestMapping(value = "/season/{id}", method = RequestMethod.GET)
-    public ModelAndView viewClub(@PathVariable UUID id, HttpServletResponse response) {
+    public ModelAndView viewClub(@PathVariable Long id, HttpServletResponse response) {
 
         Season season = em.find(Season.class, id);
         if (season == null) {

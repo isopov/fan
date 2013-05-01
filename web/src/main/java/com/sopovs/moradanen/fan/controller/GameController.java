@@ -1,7 +1,5 @@
 package com.sopovs.moradanen.fan.controller;
 
-import java.util.UUID;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +34,7 @@ public class GameController extends AbstractController {
     }
 
     @RequestMapping(value = "/view/{id}")
-    public ModelAndView viewGame(@PathVariable UUID id, HttpServletResponse response) {
+    public ModelAndView viewGame(@PathVariable Long id, HttpServletResponse response) {
         Game game = em.find(Game.class, id);
         if (game == null) {
             response.setStatus(HttpStatus.NOT_FOUND.value());
