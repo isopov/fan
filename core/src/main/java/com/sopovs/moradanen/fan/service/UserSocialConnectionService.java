@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,10 +37,10 @@ public class UserSocialConnectionService implements JpaTemplate {
     @Override
     public Set<String> findUsersConnectedTo(String providerId, Set<String> providerUserIds) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<UUID> cq = cb.createQuery(UUID.class);
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<UserSocialConnection> from = cq.from(UserSocialConnection.class);
         cq.where(cb.and(cb.equal(from.get("providerId"), providerId), from.get("providerUserId").in(providerUserIds)));
-        cq.select(from.get("user").<UUID> get("id"));
+        cq.select(from.get("user").<Long> get("id"));
         return Sets.newHashSet(toStringList(em.createQuery(cq).getResultList()));
     }
 
@@ -57,7 +56,7 @@ public class UserSocialConnectionService implements JpaTemplate {
     // Root<UserSocialConnection> from = cq.from(UserSocialConnection.class);
     // cq.select(from.<Integer> get("rank"));
     // cq.where(cb.and(cb.equal(from.get("providerId"), providerId),
-    // cb.equal(from.get("user").get("id"), UUID.fromString(userId))));
+    // cb.equal(from.get("user").get("id"), Long.fromString(userId))));
     //
     // return em.createQuery(cq).getSingleResult();
     // }
@@ -72,7 +71,7 @@ public class UserSocialConnectionService implements JpaTemplate {
         CriteriaQuery<UserSocialConnection> cq = cb.createQuery(UserSocialConnection.class);
 
         Root<UserSocialConnection> from = cq.from(UserSocialConnection.class);
-        cq.where(cb.equal(from.get("user").get("id"), UUID.fromString(userId)));
+        cq.where(cb.equal(from.get("user").get("id"), Long.valueOf(userId)));
 
         List<Predicate> usersRestrictions = Lists.newArrayListWithCapacity(providerUsers.size());
         for (Iterator<Entry<String, List<String>>> it = providerUsers
@@ -83,7 +82,7 @@ public class UserSocialConnectionService implements JpaTemplate {
                     from.get("providerUserId").in(entry.getValue()));
             usersRestrictions.add(and);
         }
-        cq.where(cb.and(cb.equal(from.get("user").get("id"), UUID.fromString(userId)),
+        cq.where(cb.and(cb.equal(from.get("user").get("id"), Long.valueOf(userId)),
                 cb.or(usersRestrictions.toArray(new Predicate[usersRestrictions.size()]))));
 
         return Lists.<RemoteUser> newArrayList(em.createQuery(cq).getResultList());
@@ -94,7 +93,7 @@ public class UserSocialConnectionService implements JpaTemplate {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<UserSocialConnection> cq = cb.createQuery(UserSocialConnection.class);
         Root<UserSocialConnection> from = cq.from(UserSocialConnection.class);
-        cq.where(cb.equal(from.get("user").get("id"), UUID.fromString(userId)));
+        cq.where(cb.equal(from.get("user").get("id"), Long.valueOf(userId)));
         return Lists.<RemoteUser> newArrayList(em.createQuery(cq).getResultList());
     }
 
@@ -104,7 +103,7 @@ public class UserSocialConnectionService implements JpaTemplate {
         CriteriaQuery<UserSocialConnection> cq = cb.createQuery(UserSocialConnection.class);
         Root<UserSocialConnection> from = cq.from(UserSocialConnection.class);
         cq.where(cb.and(cb.equal(from.get("providerId"), providerId),
-                cb.equal(from.get("user").get("id"), UUID.fromString(userId))));
+                cb.equal(from.get("user").get("id"), Long.valueOf(userId))));
 
         return Lists.<RemoteUser> newArrayList(em.createQuery(cq).getResultList());
     }
@@ -117,7 +116,7 @@ public class UserSocialConnectionService implements JpaTemplate {
         Root<UserSocialConnection> from = cq.from(UserSocialConnection.class);
         cq.where(cb.and(cb.equal(from.get("providerId"), providerId),
                 cb.equal(from.get("providerUserId"), providerUserId),
-                cb.equal(from.get("user").get("id"), UUID.fromString(userId))));
+                cb.equal(from.get("user").get("id"), Long.valueOf(userId))));
 
         return em.createQuery(cq).getSingleResult();
     }
@@ -150,7 +149,7 @@ public class UserSocialConnectionService implements JpaTemplate {
                 + " and providerUserId=:providerUserId")
                 .setParameter("providerId", providerId)
                 .setParameter("providerUserId", providerUserId)
-                .setParameter("userId", UUID.fromString(userId)).executeUpdate();
+                .setParameter("userId", Long.valueOf(userId)).executeUpdate();
 
     }
 
@@ -158,7 +157,7 @@ public class UserSocialConnectionService implements JpaTemplate {
     public RemoteUser createRemoteUser(String userId, String providerId, String providerUserId,
             String displayName, String profileUrl, String imageUrl, String accessToken, String secret,
             String refreshToken, Long expireTime) {
-        User user = em.find(User.class, UUID.fromString(userId));
+        User user = em.find(User.class, Long.valueOf(userId));
         Preconditions.checkNotNull(user);
 
         UserSocialConnection connection = new UserSocialConnection();
@@ -189,10 +188,10 @@ public class UserSocialConnectionService implements JpaTemplate {
     }
 
     private static <E> List<String> toStringList(List<E> list) {
-        return Lists.transform(list, UUID_TO_STRING_FUNCTION);
+        return Lists.transform(list, OBJECT_TO_STRING_FUNCTION);
     }
 
-    private static final Function<Object, String> UUID_TO_STRING_FUNCTION = new Function<Object, String>() {
+    private static final Function<Object, String> OBJECT_TO_STRING_FUNCTION = new Function<Object, String>() {
         @Override
         public String apply(Object input) {
             return input.toString();

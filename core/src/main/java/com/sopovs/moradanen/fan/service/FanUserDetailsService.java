@@ -1,7 +1,5 @@
 package com.sopovs.moradanen.fan.service;
 
-import java.util.UUID;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -73,7 +71,7 @@ public class FanUserDetailsService implements IFanUserDetailsService {
     }
 
     @Override
-    public User loadUserById(UUID id) {
+    public User loadUserById(Long id) {
         return em.find(User.class, id);
     }
 }

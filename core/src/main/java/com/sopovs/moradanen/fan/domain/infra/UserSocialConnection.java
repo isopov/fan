@@ -1,7 +1,5 @@
 package com.sopovs.moradanen.fan.domain.infra;
 
-import java.util.UUID;
-
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -61,7 +59,7 @@ public class UserSocialConnection extends AbstractEntity implements RemoteUser {
 
     @Override
     public void setUserId(String id) {
-        setId(UUID.fromString(id));
+        setId(Long.valueOf(id));
     }
 
     @Override

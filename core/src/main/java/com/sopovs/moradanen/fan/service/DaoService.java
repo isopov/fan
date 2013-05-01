@@ -1,7 +1,6 @@
 package com.sopovs.moradanen.fan.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -162,7 +161,7 @@ public class DaoService implements IDaoService {
     }
 
     @Override
-    public List<Game> lastGamesForTeam(UUID teamId, int size, int startFrom) {
+    public List<Game> lastGamesForTeam(Long teamId, int size, int startFrom) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Game> cq = cb.createQuery(Game.class);
         Root<TeamInGame> from = cq.from(TeamInGame.class);
@@ -173,7 +172,7 @@ public class DaoService implements IDaoService {
     }
 
     @Override
-    public int countGamesForTeam(UUID teamId) {
+    public int countGamesForTeam(Long teamId) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<TeamInGame> from = cq.from(TeamInGame.class);
@@ -183,7 +182,7 @@ public class DaoService implements IDaoService {
     }
 
     @Override
-    public List<Team> teamsPlayedWith(UUID teamId, int size) {
+    public List<Team> teamsPlayedWith(Long teamId, int size) {
         TypedQuery<Object[]> query = em.createNamedQuery("teamsPlayedWith", Object[].class);
         if (size != 0) {
             query.setMaxResults(size);
@@ -199,12 +198,12 @@ public class DaoService implements IDaoService {
     }
 
     @Override
-    public List<Game> getGames(UUID firstTeamId, UUID secondTeamId) {
+    public List<Game> getGames(Long firstTeamId, Long secondTeamId) {
         return getGames(firstTeamId, secondTeamId, 0, 0);
     }
 
     @Override
-    public List<Game> getGames(UUID firstTeamId, UUID secondTeamId, int size, int startFrom) {
+    public List<Game> getGames(Long firstTeamId, Long secondTeamId, int size, int startFrom) {
         TypedQuery<Game> query = em.createQuery("Select g from Game g"
                 + " where exists (select 'x' from TeamInGame tg where tg.game=g and tg.team.id=:firstTeamid)"
                 + " and exists (select 'x' from TeamInGame tg where tg.game=g and tg.team.id=:secondTeamId)"
@@ -221,12 +220,12 @@ public class DaoService implements IDaoService {
     }
 
     @Override
-    public List<Game> lastGamesForTeam(UUID teamId, int size) {
+    public List<Game> lastGamesForTeam(Long teamId, int size) {
         return lastGamesForTeam(teamId, size, 0);
     }
 
     @Override
-    public List<PlayerInGame> lastGamesForPlayer(UUID playerId, int size, int startFrom) {
+    public List<PlayerInGame> lastGamesForPlayer(Long playerId, int size, int startFrom) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<PlayerInGame> cq = cb.createQuery(PlayerInGame.class);
         Root<PlayerInGame> from = cq.from(PlayerInGame.class);
@@ -236,13 +235,13 @@ public class DaoService implements IDaoService {
     }
 
     @Override
-    public List<PlayerInGame> lastGamesForPlayer(UUID playerId, int size) {
+    public List<PlayerInGame> lastGamesForPlayer(Long playerId, int size) {
         return lastGamesForPlayer(playerId, size, 0);
 
     }
 
     @Override
-    public int countGamesForPlayer(UUID playerId) {
+    public int countGamesForPlayer(Long playerId) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<PlayerInGame> from = cq.from(PlayerInGame.class);
