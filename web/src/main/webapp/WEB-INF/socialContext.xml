@@ -21,8 +21,6 @@
 		http://www.springframework.org/schema/aop 
 		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<!-- TODO <facebook:config app-id="${facebook.clientId}" app-secret="${facebook.clientSecret}" 
-		app-namespace="socialshowcase" /> -->
 	<facebook:config app-id="237558196383816"
 		app-secret="a954b865206d8051374a01d14bd560f3" app-namespace="football-analytics" />
 	<twitter:config app-id="BoX32LW3MmuLKLqf2fh1yQ"
