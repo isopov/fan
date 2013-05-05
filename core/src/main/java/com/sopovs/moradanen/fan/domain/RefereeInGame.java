@@ -6,10 +6,15 @@ import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "REFEREE_IN_GAME")
+@Getter
+@Setter
 public class RefereeInGame extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;
@@ -24,29 +29,5 @@ public class RefereeInGame extends AbstractEntity {
 
     @Enumerated(EnumType.STRING)
     private RefereePosition position;
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
-    public RefereePosition getPosition() {
-        return position;
-    }
-
-    public void setPosition(RefereePosition position) {
-        this.position = position;
-    }
-
-    public Referee getReferee() {
-        return referee;
-    }
-
-    public void setReferee(Referee referee) {
-        this.referee = referee;
-    }
 
 }

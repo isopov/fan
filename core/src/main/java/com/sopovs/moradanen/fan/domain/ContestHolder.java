@@ -8,21 +8,18 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "CONTEST_HOLDER")
 @Inheritance(strategy = InheritanceType.JOINED)
+@Getter
+@Setter
 public class ContestHolder extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
     @OneToMany(mappedBy = "holder")
     public List<Contest> contests;
-
-    public List<Contest> getContests() {
-        return contests;
-    }
-
-    public void setContests(List<Contest> contests) {
-        this.contests = contests;
-    }
 
 }

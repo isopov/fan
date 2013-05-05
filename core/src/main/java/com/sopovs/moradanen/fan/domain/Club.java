@@ -1,5 +1,7 @@
 package com.sopovs.moradanen.fan.domain;
 
+import static com.google.common.base.Preconditions.checkState;
+
 import java.util.Map;
 
 import javax.persistence.Entity;
@@ -10,15 +12,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.ForeignKey;
 
-import com.google.common.base.Preconditions;
-
 @Entity
 @Table(name = "CLUB", uniqueConstraints = @UniqueConstraint(name = "CLUB_NAME_UK", columnNames = "NAME"))
 @ForeignKey(name = "CLUB_TEAM_FK")
+@Getter
+@Setter
 public class Club extends Team implements I18nedDomain<I18nClub> {
     private static final long serialVersionUID = 1L;
 
@@ -42,33 +47,8 @@ public class Club extends Team implements I18nedDomain<I18nClub> {
     }
 
     public void addI18n(I18nClub i18n) {
-        Preconditions.checkState(i18ns.put(i18n.getLang(), i18n) == null);
+        checkState(i18ns.put(i18n.getLang(), i18n) == null);
         i18n.setClub(this);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setHomeStadium(Stadium homeStadium) {
-        this.homeStadium = homeStadium;
-    }
-
-    public Stadium getHomeStadium() {
-        return homeStadium;
-    }
-
-    @Override
-    public Map<Lang, I18nClub> getI18ns() {
-        return i18ns;
-    }
-
-    public void setI18ns(Map<Lang, I18nClub> i18ns) {
-        this.i18ns = i18ns;
     }
 
     @Override

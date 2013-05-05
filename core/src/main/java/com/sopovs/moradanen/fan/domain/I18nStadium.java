@@ -7,10 +7,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "I18N_STADIUM")
+@Getter
+@Setter
 public class I18nStadium implements I18nDomain<Stadium> {
 
     private static final long serialVersionUID = 1L;
@@ -22,31 +27,6 @@ public class I18nStadium implements I18nDomain<Stadium> {
     @ForeignKey(name = "I18N_STADIUM_STADIUM_FK")
     private Stadium stadium;
     private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Stadium getStadium() {
-        return stadium;
-    }
-
-    public void setStadium(Stadium stadium) {
-        this.stadium = stadium;
-    }
-
-    @Override
-    public Lang getLang() {
-        return lang;
-    }
-
-    public void setLang(Lang lang) {
-        this.lang = lang;
-    }
 
     @Override
     public boolean equals(Object o) {

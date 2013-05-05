@@ -7,10 +7,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "I18N_COUNTRY")
+@Getter
+@Setter
 public class I18nCoutry implements I18nDomain<Country> {
 
     private static final long serialVersionUID = 1L;
@@ -23,31 +28,6 @@ public class I18nCoutry implements I18nDomain<Country> {
     private Country country;
 
     private String name;
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    @Override
-    public Lang getLang() {
-        return lang;
-    }
-
-    public void setLang(Lang lang) {
-        this.lang = lang;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @Override
     public boolean equals(Object o) {

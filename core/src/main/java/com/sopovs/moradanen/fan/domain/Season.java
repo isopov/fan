@@ -8,6 +8,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
@@ -16,6 +19,8 @@ import com.google.common.collect.Lists;
 
 @Entity
 @Table(name = "SEASON")
+@Getter
+@Setter
 public class Season extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;
@@ -37,51 +42,11 @@ public class Season extends AbstractEntity {
     @OneToMany(mappedBy = "season")
     private List<TeamInSeason> teamsInSeason;
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public Contest getContest() {
-        return contest;
-    }
-
-    public void setContest(Contest contest) {
-        this.contest = contest;
-    }
-
     public void addGame(Game game) {
         if (games == null) {
             games = Lists.newArrayList();
         }
         games.add(game);
-    }
-
-    public List<Game> getGames() {
-        return games;
-    }
-
-    public List<TeamInSeason> getTeamsInSeason() {
-        return teamsInSeason;
-    }
-
-    public void setTeamsInSeason(List<TeamInSeason> teamsInSeason) {
-        this.teamsInSeason = teamsInSeason;
-    }
-
-    public void setGames(List<Game> games) {
-        this.games = games;
     }
 
     @Override

@@ -6,10 +6,17 @@ import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "GOAL")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Goal extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
@@ -21,11 +28,6 @@ public class Goal extends AbstractEntity {
     private PlayerInGame scorer;
 
     private Integer minute;
-
-
-    public Goal() {
-    }
-
 
     public Goal(Integer minute) {
         this.minute = minute;
@@ -39,30 +41,6 @@ public class Goal extends AbstractEntity {
     public Goal(GoalType type, PlayerInGame scorer, Integer minute) {
         this.type = type;
         this.scorer = scorer;
-        this.minute = minute;
-    }
-
-    public PlayerInGame getScorer() {
-        return scorer;
-    }
-
-    public void setScorer(PlayerInGame scorer) {
-        this.scorer = scorer;
-    }
-
-    public GoalType getType() {
-        return type;
-    }
-
-    public void setType(GoalType type) {
-        this.type = type;
-    }
-
-    public Integer getMinute() {
-        return minute;
-    }
-
-    public void setMinute(Integer minute) {
         this.minute = minute;
     }
 

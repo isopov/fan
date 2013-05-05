@@ -3,12 +3,25 @@ package com.sopovs.moradanen.fan.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "PLAYER_IN_GAME")
+@Getter
+@Setter
+@NoArgsConstructor
 public class PlayerInGame extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
@@ -45,10 +58,6 @@ public class PlayerInGame extends AbstractEntity {
     private Integer shotsOnTarget;
     private Integer saves;
 
-
-    public PlayerInGame() {
-    }
-
     public PlayerInGame(PlayerInTeam player, PlayerInGamePosition position) {
         this.playerInTeam = player;
         this.position = position;
@@ -60,7 +69,6 @@ public class PlayerInGame extends AbstractEntity {
         this.goals = goals;
         this.position = position;
     }
-
 
     public PlayerInGame addGoal(Goal goal) {
         if (goals == null) {
@@ -121,129 +129,8 @@ public class PlayerInGame extends AbstractEntity {
         return this;
     }
 
-
     public boolean isCaptain() {
         return captainStart != null;
-    }
-
-    public Integer getSaves() {
-        return saves;
-    }
-
-    public void setSaves(Integer saves) {
-        this.saves = saves;
-    }
-
-    public Integer getMinuteStart() {
-        return minuteStart;
-    }
-
-    public void setMinuteStart(Integer minuteStart) {
-        this.minuteStart = minuteStart;
-    }
-
-    public Integer getMinuteEnd() {
-        return minuteEnd;
-    }
-
-    public void setMinuteEnd(Integer minuteEnd) {
-        this.minuteEnd = minuteEnd;
-    }
-
-    public Integer getCaptainStart() {
-        return captainStart;
-    }
-
-    public void setCaptainStart(Integer captainStart) {
-        this.captainStart = captainStart;
-    }
-
-    public Integer getFouls() {
-        return fouls;
-    }
-
-    public void setFouls(Integer fouls) {
-        this.fouls = fouls;
-    }
-
-    public Integer getYellowCards() {
-        return yellowCards;
-    }
-
-    public void setYellowCards(Integer yellowCards) {
-        this.yellowCards = yellowCards;
-    }
-
-    public Integer getRedCards() {
-        return redCards;
-    }
-
-    public void setRedCards(Integer redCards) {
-        this.redCards = redCards;
-    }
-
-    public Integer getPasses() {
-        return passes;
-    }
-
-    public void setPasses(Integer passes) {
-        this.passes = passes;
-    }
-
-    public Integer getFaildPasses() {
-        return faildPasses;
-    }
-
-    public void setFaildPasses(Integer faildPasses) {
-        this.faildPasses = faildPasses;
-    }
-
-    public TeamInGame getTeamInGame() {
-        return teamInGame;
-    }
-
-    public void setTeamInGame(TeamInGame teamInGame) {
-        this.teamInGame = teamInGame;
-    }
-
-    public Integer getShots() {
-        return shots;
-    }
-
-    public void setShots(Integer shots) {
-        this.shots = shots;
-    }
-
-    public Integer getShotsOnTarget() {
-        return shotsOnTarget;
-    }
-
-    public void setShotsOnTarget(Integer shotsOnTarget) {
-        this.shotsOnTarget = shotsOnTarget;
-    }
-
-    public List<Goal> getGoals() {
-        return goals;
-    }
-
-    public void setGoals(List<Goal> goals) {
-        this.goals = goals;
-    }
-
-    public PlayerInTeam getPlayerInTeam() {
-        return playerInTeam;
-    }
-
-    public void setPlayerInTeam(PlayerInTeam playerInTeam) {
-        this.playerInTeam = playerInTeam;
-    }
-
-    public PlayerInGamePosition getPosition() {
-        return position;
-    }
-
-    public void setPosition(PlayerInGamePosition position) {
-        this.position = position;
     }
 
 }

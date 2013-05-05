@@ -94,5 +94,13 @@
 			<artifactId>spring-social-core</artifactId>
 			<version>${spring.social.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>0.11.8</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 </project>
