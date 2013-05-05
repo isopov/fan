@@ -8,10 +8,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "I18N_CLUB", uniqueConstraints = @UniqueConstraint(name = "I18N_CLUB_NAME_UK", columnNames = "NAME"))
+@Getter
+@Setter
+@NoArgsConstructor
 public class I18nClub implements I18nDomain<Club> {
     private static final long serialVersionUID = 1L;
 
@@ -26,37 +33,8 @@ public class I18nClub implements I18nDomain<Club> {
 
     private String name;
 
-    public I18nClub() {
-
-    }
-
     public I18nClub(Lang lang, String name) {
         this.lang = lang;
-        this.name = name;
-    }
-
-    public Club getClub() {
-        return club;
-    }
-
-    public void setClub(Club club) {
-        this.club = club;
-    }
-
-    @Override
-    public Lang getLang() {
-        return lang;
-    }
-
-    public void setLang(Lang lang) {
-        this.lang = lang;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
         this.name = name;
     }
 

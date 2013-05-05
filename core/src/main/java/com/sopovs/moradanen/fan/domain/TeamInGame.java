@@ -12,10 +12,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "TEAM_IN_GAME")
+@Getter
+@Setter
+@NoArgsConstructor
 public class TeamInGame extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
@@ -64,65 +71,6 @@ public class TeamInGame extends AbstractEntity {
 
     public boolean isGuest() {
         return position == TeamPosition.GUEST;
-    }
-
-    public Integer getFailedPasses() {
-        return failedPasses;
-    }
-
-    public void setFailedPasses(Integer failedPasses) {
-        this.failedPasses = failedPasses;
-    }
-
-    public Integer getPasses() {
-        return passes;
-    }
-
-    public void setPasses(Integer passes) {
-        this.passes = passes;
-    }
-
-    public Integer getOffsides() {
-        return offsides;
-    }
-
-    public void setOffsides(Integer offsides) {
-        this.offsides = offsides;
-    }
-
-    public Integer getFouls() {
-        return fouls;
-    }
-
-    public void setFouls(Integer fouls) {
-        this.fouls = fouls;
-    }
-
-    public Integer getCorners() {
-        return corners;
-    }
-
-    public void setCorners(Integer corners) {
-        this.corners = corners;
-    }
-
-    public Integer getYellowCards() {
-        return yellowCards;
-    }
-
-    public void setYellowCards(Integer yellowCards) {
-        this.yellowCards = yellowCards;
-    }
-
-    public Integer getRedCards() {
-        return redCards;
-    }
-
-    public void setRedCards(Integer redCards) {
-        this.redCards = redCards;
-    }
-
-    public TeamInGame() {
     }
 
     public TeamInGame(TeamInSeason teamInSeason, Game game, TeamPosition position) {
@@ -179,62 +127,6 @@ public class TeamInGame extends AbstractEntity {
         this.players = players;
         this.game = game;
         this.position = position;
-    }
-
-    public Integer getShots() {
-        return shots;
-    }
-
-    public void setShots(Integer shots) {
-        this.shots = shots;
-    }
-
-    public Integer getShotsOnTarget() {
-        return shotsOnTarget;
-    }
-
-    public void setShotsOnTarget(Integer shotsOnTarget) {
-        this.shotsOnTarget = shotsOnTarget;
-    }
-
-    public Integer getGoals() {
-        return goals;
-    }
-
-    public void setGoals(Integer goals) {
-        this.goals = goals;
-    }
-
-    public TeamPosition getPosition() {
-        return position;
-    }
-
-    public void setPosition(TeamPosition position) {
-        this.position = position;
-    }
-
-    public List<PlayerInGame> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(List<PlayerInGame> players) {
-        this.players = players;
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
-    public TeamInSeason getTeamInSeason() {
-        return teamInSeason;
-    }
-
-    public void setTeamInSeason(TeamInSeason teamInSeason) {
-        this.teamInSeason = teamInSeason;
     }
 
 }

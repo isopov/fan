@@ -5,12 +5,19 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 
 @Entity
 @Table(name = "PLAYER_IN_TEAM")
+@Getter
+@Setter
+@NoArgsConstructor
 public class PlayerInTeam extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
@@ -28,43 +35,8 @@ public class PlayerInTeam extends AbstractEntity {
     @ForeignKey(name = "PLAYER_IN_TEAM_TEAM_FK")
     private Team team;
 
-    public PlayerInTeam() {
-    }
-
     public PlayerInTeam(Player player, Team team) {
         this.player = player;
-        this.team = team;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-    public Team getTeam() {
-        return team;
-    }
-
-    public void setTeam(Team team) {
         this.team = team;
     }
 

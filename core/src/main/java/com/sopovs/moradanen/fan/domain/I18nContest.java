@@ -1,11 +1,21 @@
 package com.sopovs.moradanen.fan.domain;
 
-import org.hibernate.annotations.ForeignKey;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import org.hibernate.annotations.ForeignKey;
 
 @Entity
 @Table(name = "I18N_CONTEST")
+@Getter
+@Setter
 public class I18nContest implements I18nDomain<Contest> {
     private static final long serialVersionUID = 1L;
 
@@ -20,41 +30,19 @@ public class I18nContest implements I18nDomain<Contest> {
 
     private String name;
 
-    public Contest getContest() {
-        return contest;
-    }
-
-    public void setContest(Contest contest) {
-        this.contest = contest;
-    }
-
-    @Override
-    public Lang getLang() {
-        return lang;
-    }
-
-    public void setLang(Lang lang) {
-        this.lang = lang;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         I18nContest that = (I18nContest) o;
 
-        if (contest != null ? !contest.equals(that.contest) : that.contest != null) return false;
-        if (lang != that.lang) return false;
+        if (contest != null ? !contest.equals(that.contest) : that.contest != null)
+            return false;
+        if (lang != that.lang)
+            return false;
 
         return true;
     }
