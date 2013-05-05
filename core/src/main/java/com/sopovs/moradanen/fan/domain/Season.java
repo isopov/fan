@@ -1,7 +1,6 @@
 package com.sopovs.moradanen.fan.domain;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -14,7 +13,6 @@ import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 @Entity
 @Table(name = "SEASON")
@@ -35,6 +33,9 @@ public class Season extends AbstractEntity {
 
     @OneToMany(mappedBy = "season")
     private List<Game> games;
+
+    @OneToMany(mappedBy = "season")
+    private List<TeamInSeason> teamsInSeason;
 
     public LocalDate getStartDate() {
         return startDate;
@@ -67,18 +68,16 @@ public class Season extends AbstractEntity {
         games.add(game);
     }
 
-    public List<Team> getTeams() {
-        Set<Team> result = Sets.newHashSet();
-        for (Game g : games) {
-            for (TeamInGame t : g.getTeamsInGame()) {
-                result.add(t.getTeam());
-            }
-        }
-        return Lists.newArrayList(result);
-    }
-
     public List<Game> getGames() {
         return games;
+    }
+
+    public List<TeamInSeason> getTeamsInSeason() {
+        return teamsInSeason;
+    }
+
+    public void setTeamsInSeason(List<TeamInSeason> teamsInSeason) {
+        this.teamsInSeason = teamsInSeason;
     }
 
     public void setGames(List<Game> games) {

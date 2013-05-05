@@ -3,7 +3,7 @@
 <#import "../common.ftl" as c />
 <#import "gameCommon.ftl" as g />
 
-<#assign pageTitle>${game.host.team.getTitle(lang)} - ${game.guest.team.getTitle(lang)}</#assign>
+<#assign pageTitle>${game.host.teamInSeason.team.getTitle(lang)} - ${game.guest.teamInSeason.team.getTitle(lang)}</#assign>
 
 <@l.layout pageTitle=pageTitle>
     <@g.gameView game />

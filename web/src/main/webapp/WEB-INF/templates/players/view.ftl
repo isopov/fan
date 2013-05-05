@@ -31,10 +31,10 @@
                         <a href="<@s.url "/games/view/${playerInGame.teamInGame.game.id}" />">
                         ${playerInGame.teamInGame.goals}:${playerInGame.teamInGame.other().goals}
                         </a>&nbsp;
-                    <a href="<@s.url "/club/view?id=${playerInGame.teamInGame.other().team.id}" />">
+                    <a href="<@s.url "/club/view?id=${playerInGame.teamInGame.other().teamInSeason.team.id}" />">
                         <#if (playerInGame.teamInGame.other().isHost()) >
                             <i class="icon-home"></i>
-                        </#if>${playerInGame.teamInGame.other().team.getTitle(lang)}
+                        </#if>${playerInGame.teamInGame.other().teamInSeason.team.getTitle(lang)}
                         <a/>
                     </@compress>
                 </div>

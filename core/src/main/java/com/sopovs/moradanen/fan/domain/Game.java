@@ -2,13 +2,18 @@ package com.sopovs.moradanen.fan.domain;
 
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
 import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDateTime;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 
 @Entity
 @Table(name = "GAME")
@@ -85,7 +90,7 @@ public class Game extends AbstractEntity {
         return Lists.transform(teamsInGame, new Function<TeamInGame, Team>() {
             @Override
             public Team apply(TeamInGame input) {
-                return input.getTeam();
+                return input.getTeamInSeason().getTeam();
             }
         });
     }

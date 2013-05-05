@@ -8,9 +8,9 @@
     <h3>${season.contest.name}</h3>
         <caption>Season ${season.startDate} - ${season.endDate}</caption>
         	 <ul>
-             <#list season.teams as team>
+             <#list season.teamsInSeason as teamInSeason>
              	<li>
-             		 ${team.getTitle(lang)}
+             		 ${teamInSeason.team.getTitle(lang)}
              	</li>
             </#list>
         	</ul>

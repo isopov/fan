@@ -7,22 +7,22 @@
     <@c.orNull game "gameDate" "Unknown Date"/>
 </em>
 <h3 class="text-align: center;">
-    <a href="<@s.url "/club/view/${game.host.team.id}" />">
-    ${game.host.team.getTitle(lang)}
+    <a href="<@s.url "/club/view/${game.host.teamInSeason.team.id}" />">
+    ${game.host.teamInSeason.team.getTitle(lang)}
     </a>
     <a href="<@s.url "/games/view/${game.id}"/>">
     ${game.host.goals}:${game.guest.goals}
     </a>
-    <a href="<@s.url "/club/view/${game.guest.team.id}" />">
-    ${game.guest.team.getTitle(lang)}
+    <a href="<@s.url "/club/view/${game.guest.teamInSeason.team.id}" />">
+    ${game.guest.teamInSeason.team.getTitle(lang)}
     </a>
 </h3>
 <table class="table table-striped table-bordered table-condensed">
     <thead>
     <tr>
         <th>#</th>
-        <th>${game.host.team.getTitle(lang)}</th>
-        <th>${game.guest.team.getTitle(lang)}</th>
+        <th>${game.host.teamInSeason.team.getTitle(lang)}</th>
+        <th>${game.guest.teamInSeason.team.getTitle(lang)}</th>
     </tr>
     </thead>
 
@@ -86,7 +86,7 @@
         <div class="row-fluid">
             <div class="span9">
                 <table class="table table-striped table-bordered table-condensed">
-                    <caption>${teamInGame.team.getTitle(lang)} Detailed Statistics</caption>
+                    <caption>${teamInGame.teamInSeason.team.getTitle(lang)} Detailed Statistics</caption>
                     <@playersInGameDetailsHeader />
                     <tbody>
                         <#list game.host.players as playerInGame >
@@ -99,7 +99,7 @@
             </div>
             <div class="span3">
                 <ul>
-                    <caption>${teamInGame.team.getTitle(lang)} Substitutes</caption>
+                    <caption>${teamInGame.teamInSeason.team.getTitle(lang)} Substitutes</caption>
                     <#list game.host.players as playerInGame >
                         <#if (!playerInGame.minuteStart??)>
                             <li><@c.i18ned playerInGame.playerInTeam.player "firstName" /> <@c.i18nedOrNull playerInGame.playerInTeam.player "middleName" /> <@c.i18nedOrNull playerInGame.playerInTeam.player "lastName" /></li>
