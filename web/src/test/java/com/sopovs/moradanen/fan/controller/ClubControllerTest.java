@@ -35,8 +35,8 @@ public class ClubControllerTest extends AbstractControllerTest {
         Game game = daoService.lastGames(1).get(0);
         this.mockMvc
                 .perform(
-                        get("/club/derby/" + game.getHost().getTeam().getId().toString() + "/vs/"
-                                + game.getGuest().getTeam().getId().toString())).andExpect(status().isOk())
-                .andExpect(content().contentType("text/html;charset=UTF-8"));
+                        get("/club/derby/" + game.getHost().getTeamInSeason().getTeam().getId() + "/vs/"
+                                + game.getGuest().getTeamInSeason().getTeam().getId().toString()))
+                .andExpect(status().isOk()).andExpect(content().contentType("text/html;charset=UTF-8"));
     }
 }

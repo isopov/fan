@@ -1,9 +1,13 @@
 package com.sopovs.moradanen.fan.bootstrap;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.collect.Lists.transform;
 import static com.sopovs.moradanen.fan.domain.PlayerInGamePosition.DEFENDER;
 import static com.sopovs.moradanen.fan.domain.PlayerInGamePosition.FORWARD;
 import static com.sopovs.moradanen.fan.domain.PlayerInGamePosition.GOALKEEPER;
 import static com.sopovs.moradanen.fan.domain.PlayerInGamePosition.MIDFIELDER;
+import static java.util.Collections.max;
+import static java.util.Collections.min;
 
 import java.io.InputStream;
 import java.util.Arrays;
@@ -29,7 +33,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.sopovs.moradanen.fan.domain.Club;
 import com.sopovs.moradanen.fan.domain.Contest;
@@ -43,6 +46,7 @@ import com.sopovs.moradanen.fan.domain.PlayerInGame;
 import com.sopovs.moradanen.fan.domain.PlayerInTeam;
 import com.sopovs.moradanen.fan.domain.Season;
 import com.sopovs.moradanen.fan.domain.TeamInGame;
+import com.sopovs.moradanen.fan.domain.TeamInSeason;
 import com.sopovs.moradanen.fan.domain.TeamPosition;
 import com.sopovs.moradanen.fan.domain.infra.I18nPage;
 import com.sopovs.moradanen.fan.domain.infra.IndexPage;
@@ -76,6 +80,7 @@ public class DbTestData implements IDbTestData {
             createUsers();
             createIndexPage();
 
+            createEnglandPremiership();
             createTestGameWithDetails();
             // importFootballData();
         }
@@ -125,24 +130,38 @@ public class DbTestData implements IDbTestData {
 
     }
 
-    private void createTestGameWithDetails() {
-        logger.info("Creating test game with details");
+    private void createEnglandPremiership() {
+        logger.info("Creating Englend Premiership");
         Country england = new Country();
         england.setCode("EN");
         england.setName("England");
+        em.persist(england);
 
         Contest premier = new Contest();
         england.setContests(Arrays.asList(premier));
         premier.setHolder(england);
         premier.setPosition(ContestType.FIRST);
         premier.setName(BARCLAYS_PREMIER_LEAGUE);
+        em.persist(premier);
+        checkNotNull(premier.getId());
+    }
+
+    private void createTestGameWithDetails() {
+        logger.info("Creating test game with details");
 
         Game game = new Game();
         game.setGameDate(LocalDateTime.now());
         Club rovers = new Club(BLACKBURN_NAME);
 
+        Season season = new Season();
+        season.setContest(service.findContestByName(DbTestData.BARCLAYS_PREMIER_LEAGUE));
+
+        TeamInSeason roversInSeason = new TeamInSeason();
+        roversInSeason.setTeam(rovers);
+        roversInSeason.setSeason(season);
+
         TeamInGame roversTeam = new TeamInGame(
-                rovers,
+                roversInSeason,
                 game,
                 new PlayerInGame(new PlayerInTeam(new Player("Paul", "Robinson"), rovers), GOALKEEPER).addStart(0),
                 new PlayerInGame(new PlayerInTeam(new Player("Martin", "Olsson"), rovers), DEFENDER).addStart(0),
@@ -173,8 +192,12 @@ public class DbTestData implements IDbTestData {
         fillBackLinkOnPlayers(roversTeam);
 
         Club fulham = new Club(FULHAM);
+        TeamInSeason fulhamInSeason = new TeamInSeason();
+        fulhamInSeason.setTeam(fulham);
+        fulhamInSeason.setSeason(season);
 
-        TeamInGame fulhamTeam = new TeamInGame(fulham, game, new PlayerInGame(new PlayerInTeam(new Player("David",
+        TeamInGame fulhamTeam = new TeamInGame(fulhamInSeason, game, new PlayerInGame(new PlayerInTeam(new Player(
+                "David",
                 "Stockdale"), fulham), GOALKEEPER).addStart(0), new PlayerInGame(new PlayerInTeam(new Player("Stephen",
                 "Kelly"), fulham), DEFENDER).addStart(0), new PlayerInGame(new PlayerInTeam(new Player("John", "Arne",
                 "Riise"), fulham), DEFENDER).addStart(0).addEnd(74), new PlayerInGame(new PlayerInTeam(new Player(
@@ -200,22 +223,18 @@ public class DbTestData implements IDbTestData {
 
         game.setTeamsInGame(Arrays.asList(roversTeam, fulhamTeam));
 
-        Season season = new Season();
-        season.setContest(premier);
         season.setGames(Arrays.asList(game));
         game.setSeason(season);
         season.setStartDate(LocalDate.now().minusMonths(6));
         season.setEndDate(LocalDate.now().plusMonths(6));
 
         em.persist(game);
-        em.persist(premier);
         em.persist(rovers);
         em.persist(fulham);
         em.persist(season);
+        em.persist(roversInSeason);
+        em.persist(fulhamInSeason);
 
-        em.persist(england);
-
-        Preconditions.checkNotNull(premier.getId());
         Preconditions.checkNotNull(fulhamTeam.getId());
         Preconditions.checkNotNull(fulham.getId());
         Preconditions.checkNotNull(roversTeam.getId());
@@ -237,11 +256,9 @@ public class DbTestData implements IDbTestData {
     }
 
     private void importDataFromFile(InputStream inputStream) {
-        Contest premier = service.findContestByName(DbTestData.BARCLAYS_PREMIER_LEAGUE);
-
         FootbalDataGameHeader h = null;
         Season season = new Season();
-        season.setContest(premier);
+        season.setContest(service.findContestByName(DbTestData.BARCLAYS_PREMIER_LEAGUE));
         season.setStartDate(LocalDate.now());
         season.setEndDate(LocalDate.now());
         em.persist(season);
@@ -261,11 +278,27 @@ public class DbTestData implements IDbTestData {
                     em.persist(host);
                 }
 
+                TeamInSeason hostInSeason = service.findTeamInSeasonByTeamAndSeason(host.getId(), season.getId());
+                if (hostInSeason == null) {
+                    hostInSeason = new TeamInSeason();
+                    hostInSeason.setTeam(host);
+                    hostInSeason.setSeason(season);
+                    em.persist(hostInSeason);
+                }
+
                 String guestName = gameString[h.indexes.get("AwayTeam")];
                 Club guest = service.findClubByName(guestName);
                 if (guest == null) {
                     guest = new Club(guestName);
                     em.persist(guest);
+                }
+
+                TeamInSeason guestInSeason = service.findTeamInSeasonByTeamAndSeason(guest.getId(), season.getId());
+                if (guestInSeason == null) {
+                    guestInSeason = new TeamInSeason();
+                    guestInSeason.setTeam(guest);
+                    guestInSeason.setSeason(season);
+                    em.persist(guestInSeason);
                 }
 
                 Game game = new Game();
@@ -274,8 +307,9 @@ public class DbTestData implements IDbTestData {
                 game.setGameDate(date);
                 game.setSeason(season);
                 season.addGame(game);
-                game.setTeamsInGame(Arrays.asList(new TeamInGame(guest, game, TeamPosition.GUEST), new TeamInGame(host,
-                        game, TeamPosition.HOST)));
+                game.setTeamsInGame(Arrays.asList(new TeamInGame(guestInSeason, game, TeamPosition.GUEST),
+                        new TeamInGame(hostInSeason,
+                                game, TeamPosition.HOST)));
 
                 game.getHost().setGoals(h.value(gameString, "FTHG"));
 
@@ -311,15 +345,15 @@ public class DbTestData implements IDbTestData {
 
                 em.persist(game);
             }
-            List<LocalDateTime> dates = Lists.transform(season.getGames(), new Function<Game, LocalDateTime>() {
+            List<LocalDateTime> dates = transform(season.getGames(), new Function<Game, LocalDateTime>() {
                 @Override
                 public LocalDateTime apply(Game input) {
                     return input.getGameDate();
                 }
             });
 
-            season.setEndDate(Collections.max(dates).toLocalDate());
-            season.setStartDate(Collections.min(dates).toLocalDate());
+            season.setEndDate(max(dates).toLocalDate());
+            season.setStartDate(min(dates).toLocalDate());
             em.persist(season);
         }
     }

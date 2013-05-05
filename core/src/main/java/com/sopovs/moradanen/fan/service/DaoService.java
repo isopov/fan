@@ -25,6 +25,7 @@ import com.sopovs.moradanen.fan.domain.PlayerInGame;
 import com.sopovs.moradanen.fan.domain.Season;
 import com.sopovs.moradanen.fan.domain.Team;
 import com.sopovs.moradanen.fan.domain.TeamInGame;
+import com.sopovs.moradanen.fan.domain.TeamInSeason;
 
 @Repository
 @Transactional
@@ -112,7 +113,7 @@ public class DaoService implements IDaoService {
         sq.select(subRoot);
         sq.where(cb.equal(subRoot.get("name"), name));
 
-        cq.where(cb.equal(root.get("team"), sq));
+        cq.where(cb.equal(root.get("teamInSeason").get("team"), sq));
         cq.orderBy(cb.desc(root.get("game").get("season").<LocalDate> get("endDate")));
 
         return getSingleResultOrNull(em.createQuery(cq).setMaxResults(1));
@@ -166,7 +167,7 @@ public class DaoService implements IDaoService {
         CriteriaQuery<Game> cq = cb.createQuery(Game.class);
         Root<TeamInGame> from = cq.from(TeamInGame.class);
         cq.select(from.<Game> get("game"));
-        cq.where(cb.equal(from.get("team").get("id"), teamId));
+        cq.where(cb.equal(from.get("teamInSeason").get("team").get("id"), teamId));
         cq.orderBy(cb.desc(from.get("game").get("gameDate")));
         return em.createQuery(cq).setFirstResult(startFrom).setMaxResults(size).getResultList();
     }
@@ -204,10 +205,12 @@ public class DaoService implements IDaoService {
 
     @Override
     public List<Game> getGames(Long firstTeamId, Long secondTeamId, int size, int startFrom) {
-        TypedQuery<Game> query = em.createQuery("Select g from Game g"
-                + " where exists (select 'x' from TeamInGame tg where tg.game=g and tg.team.id=:firstTeamid)"
-                + " and exists (select 'x' from TeamInGame tg where tg.game=g and tg.team.id=:secondTeamId)"
-                + " order by g.gameDate desc", Game.class);
+        TypedQuery<Game> query = em
+                .createQuery(
+                        "Select g from Game g"
+                                + " where exists (select 'x' from TeamInGame tg where tg.game=g and tg.teamInSeason.team.id=:firstTeamid)"
+                                + " and exists (select 'x' from TeamInGame tg where tg.game=g and tg.teamInSeason.team.id=:secondTeamId)"
+                                + " order by g.gameDate desc", Game.class);
         query.setParameter("firstTeamid", firstTeamId);
         query.setParameter("secondTeamId", secondTeamId);
         if (size != 0) {
@@ -248,6 +251,17 @@ public class DaoService implements IDaoService {
         cq.select(cb.count(from));
         cq.where(cb.equal(from.get("playerInTeam").get("player").get("id"), playerId));
         return em.createQuery(cq).getSingleResult().intValue();
+    }
+
+    @Override
+    public TeamInSeason findTeamInSeasonByTeamAndSeason(Long teamId, Long seasonId) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<TeamInSeason> cq = cb.createQuery(TeamInSeason.class);
+        Root<TeamInSeason> from = cq.from(TeamInSeason.class);
+        cq.where(cb.and(cb.equal(from.get("team").get("id"), teamId),
+                cb.equal(from.get("season").get("id"), seasonId)));
+
+        return getSingleResultOrNull(em.createQuery(cq));
     }
 
 }
