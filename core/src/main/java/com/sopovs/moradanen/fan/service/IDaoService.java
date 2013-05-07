@@ -38,7 +38,7 @@ public interface IDaoService {
 
     List<PlayerInGame> lastGamesForPlayer(Long playerId, int size, int startFrom);
 
-    int countGames();
+    long countGames();
 
     int countGamesForTeam(Long teamId);
 

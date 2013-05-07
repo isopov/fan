@@ -11,7 +11,8 @@ import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
 import org.joda.time.LocalDate;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Function;
@@ -26,26 +27,30 @@ import com.sopovs.moradanen.fan.domain.Season;
 import com.sopovs.moradanen.fan.domain.Team;
 import com.sopovs.moradanen.fan.domain.TeamInGame;
 import com.sopovs.moradanen.fan.domain.TeamInSeason;
+import com.sopovs.moradanen.fan.repository.ClubRepository;
+import com.sopovs.moradanen.fan.repository.ContestRepository;
+import com.sopovs.moradanen.fan.repository.GameRepository;
+import com.sopovs.moradanen.fan.repository.PlayerRepository;
 
-@Repository
+@Service
 @Transactional
 public class DaoService implements IDaoService {
 
     @PersistenceContext
     private EntityManager em;
 
-    private TypedQuery<Club> clubByNameQuery(String name) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Club> cq = cb.createQuery(Club.class);
-        Root<Club> from = cq.from(Club.class);
-        cq.where(cb.equal(from.get("name"), name));
-
-        return em.createQuery(cq);
-    }
+    @Autowired
+    private ClubRepository clubRepository;
+    @Autowired
+    private GameRepository gameRepository;
+    @Autowired
+    private PlayerRepository playerRepository;
+    @Autowired
+    private ContestRepository contestRepository;
 
     @Override
     public Club findClubByName(String name) {
-        return getSingleResultOrNull(clubByNameQuery(name).setMaxResults(1));
+        return clubRepository.findByName(name);
     }
 
     private static <T> T getSingleResultOrNull(final TypedQuery<T> query) {
@@ -54,23 +59,17 @@ public class DaoService implements IDaoService {
 
     @Override
     public List<Club> listAllClubs() {
-        CriteriaQuery<Club> q = em.getCriteriaBuilder().createQuery(Club.class);
-        q.from(Club.class);
-        return em.createQuery(q).getResultList();
+        return clubRepository.findAll();
     }
 
     @Override
     public List<Contest> listAllContests() {
-        CriteriaQuery<Contest> q = em.getCriteriaBuilder().createQuery(Contest.class);
-        q.from(Contest.class);
-        return em.createQuery(q).getResultList();
+        return contestRepository.findAll();
     }
 
     @Override
     public List<Player> listAllPlayers() {
-        CriteriaQuery<Player> q = em.getCriteriaBuilder().createQuery(Player.class);
-        q.from(Player.class);
-        return em.createQuery(q).getResultList();
+        return playerRepository.findAll();
     }
 
     @Override
@@ -130,14 +129,7 @@ public class DaoService implements IDaoService {
 
     @Override
     public Contest findContestByName(String value) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Contest> cq = cb.createQuery(Contest.class);
-
-        Root<Contest> from = cq.from(Contest.class);
-        cq.select(from);
-
-        cq.where(cb.equal(from.get("name"), value));
-        return getSingleResultOrNull(em.createQuery(cq));
+        return contestRepository.findByName(value);
     }
 
     @Override
@@ -154,11 +146,9 @@ public class DaoService implements IDaoService {
     }
 
     @Override
-    public int countGames() {
-        CriteriaBuilder qb = em.getCriteriaBuilder();
-        CriteriaQuery<Long> cq = qb.createQuery(Long.class);
-        cq.select(qb.count(cq.from(Game.class)));
-        return em.createQuery(cq).getSingleResult().intValue();
+    public long countGames() {
+        return gameRepository.count();
+
     }
 
     @Override

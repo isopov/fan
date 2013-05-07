@@ -1,6 +1,5 @@
 package com.sopovs.moradanen.fan.controller;
 
-
 public abstract class AbstractController {
     protected final String previousUrl(String url, int showNum, int startFrom) {
         if (startFrom - showNum < 0) {
@@ -10,7 +9,7 @@ public abstract class AbstractController {
                 + ((showNum != getDefaultShowNum()) ? "&showNum=" + showNum : "");
     }
 
-    protected final String nextUrl(String url, int showNum, int startFrom, int countAll) {
+    protected final String nextUrl(String url, int showNum, int startFrom, long countAll) {
         if (startFrom + showNum >= countAll) {
             return "";
         }

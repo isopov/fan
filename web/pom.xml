@@ -53,17 +53,17 @@
 			<artifactId>spring-social-twitter</artifactId>
 			<version>${spring.social.version}</version>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>org.springframework.social</groupId>
-		    <artifactId>spring-social-facebook</artifactId>
-	        <version>${spring.social.version}</version>
-	    </dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-facebook</artifactId>
+			<version>${spring.social.version}</version>
+		</dependency>
 		<dependency>
-		    <groupId>org.springframework.social</groupId>
-		    <artifactId>spring-social-facebook-web</artifactId>
-	        <version>${spring.social.version}</version>
-	    </dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-facebook-web</artifactId>
+			<version>${spring.social.version}</version>
+		</dependency>
 
 
 		<dependency>
