@@ -1,13 +1,16 @@
 package com.sopovs.moradanen.fan.service;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasItems;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -58,9 +61,10 @@ public class DaoServiceTest {
 
     @Test
     public void testListAllClubs() throws Exception {
-        assertTrue(service.listAllClubs().size() > 0);
-        service.listAllClubs().contains(service.findClubByName(DbTestData.BLACKBURN_NAME));
-        service.listAllClubs().contains(service.findClubByName(DbTestData.FULHAM));
+        ArrayList<Club> clubs = newArrayList(service.listAllClubs());
+        assertTrue(clubs.size() > 0);
+        clubs.contains(service.findClubByName(DbTestData.BLACKBURN_NAME));
+        clubs.contains(service.findClubByName(DbTestData.FULHAM));
     }
 
     @Test
@@ -111,6 +115,14 @@ public class DaoServiceTest {
         assertEquals(1, newSeasons.size());
         assertNotEquals(seasons, newSeasons);
         assertEquals(seasons.get(0).getContest(), newSeasons.get(0).getContest());
+    }
+
+    @Test
+    public void testFindTeamInSeasonByTeamAndSeason() {
+        assertNotNull(service.findTeamInSeasonByTeamAndSeason(
+                service.findClubByName(DbTestData.BLACKBURN_NAME).getId(),
+                service.lastSeasonByClubName(DbTestData.BLACKBURN_NAME).getId()));
+
     }
 
     private Season newSeason(Contest contest) {
