@@ -8,10 +8,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import com.sopovs.moradanen.fan.domain.AbstractEntity;
 
 @Entity
 @Table(name = "ARTICLE_CATEGORY", uniqueConstraints = @UniqueConstraint(name = "ARTICLE_CATEGORY_PRIORITY_UK", columnNames = "PRIORITY"))
+@Getter
+@Setter
 public class Category extends AbstractEntity {
 
     private static final long serialVersionUID = 1L;
@@ -24,27 +29,4 @@ public class Category extends AbstractEntity {
 
     private String name;
 
-    public List<Article> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(List<Article> articles) {
-        this.articles = articles;
-    }
-
-    public Integer getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

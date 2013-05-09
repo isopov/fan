@@ -15,6 +15,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.annotations.ForeignKey;
 import org.joda.time.LocalDate;
 
@@ -25,6 +28,8 @@ import com.sopovs.moradanen.fan.domain.Lang;
 @Table(name = "PAGE", uniqueConstraints = @UniqueConstraint(name = "PAGE_ADDRESS_UK", columnNames = { "SHORT_TITLE",
         "PUB_DATE" }))
 @Inheritance(strategy = InheritanceType.JOINED)
+@Getter
+@Setter
 public class AbstractPage extends DefaultI18nedDomain<I18nPage> {
 
     private static final long serialVersionUID = 1L;
@@ -67,60 +72,4 @@ public class AbstractPage extends DefaultI18nedDomain<I18nPage> {
     @ForeignKey(name = "PAGE_AUTHOR_FK")
     private User author;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getShortTitle() {
-        return shortTitle;
-    }
-
-    public void setShortTitle(String shortTitle) {
-        this.shortTitle = shortTitle;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public LocalDate getPubDate() {
-        return pubDate;
-    }
-
-    public void setPubDate(LocalDate pubDate) {
-        this.pubDate = pubDate;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    @Override
-    public Map<Lang, I18nPage> getI18ns() {
-        return i18ns;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
-    }
-
-    public void setI18ns(Map<Lang, I18nPage> i18ns) {
-        this.i18ns = i18ns;
-    }
 }

@@ -8,12 +8,17 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.annotations.ForeignKey;
 
 import com.sopovs.moradanen.fan.domain.AbstractEntity;
 
 @Entity
 @Table(name = "TAG", uniqueConstraints = @UniqueConstraint(name = "TAG_VALUE_UK", columnNames = "VALUE"))
+@Getter
+@Setter
 public class Tag extends AbstractEntity {
     private static final long serialVersionUID = 1L;
 
@@ -31,19 +36,4 @@ public class Tag extends AbstractEntity {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public List<AbstractPage> getPages() {
-        return pages;
-    }
-
-    public void setPages(List<AbstractPage> pages) {
-        this.pages = pages;
-    }
 }
