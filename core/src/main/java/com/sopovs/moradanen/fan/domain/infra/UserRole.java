@@ -9,11 +9,16 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.annotations.ForeignKey;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 @Table(name = "USER_ROLE")
+@Getter
+@Setter
 public class UserRole implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -32,22 +37,6 @@ public class UserRole implements Serializable {
     public UserRole(Role role, User user) {
         this.role = role;
         this.user = user;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     @Override

@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.hibernate.annotations.ForeignKey;
 
 import com.sopovs.moradanen.fan.domain.I18nDomain;
@@ -14,6 +17,8 @@ import com.sopovs.moradanen.fan.domain.Lang;
 
 @Entity
 @Table(name = "I18N_PAGE")
+@Getter
+@Setter
 public class I18nPage implements I18nDomain<AbstractPage> {
 
     private static final long serialVersionUID = 1L;
@@ -38,39 +43,6 @@ public class I18nPage implements I18nDomain<AbstractPage> {
         this.lang = lang;
         this.text = text;
         this.title = title;
-    }
-
-    @Override
-    public Lang getLang() {
-        return lang;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setLang(Lang lang) {
-        this.lang = lang;
-    }
-
-    public AbstractPage getPage() {
-        return page;
-    }
-
-    public void setPage(AbstractPage page) {
-        this.page = page;
     }
 
     @Override
