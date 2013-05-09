@@ -40,9 +40,7 @@ public interface IDaoService {
 
     long countGames();
 
-    int countGamesForTeam(Long teamId);
-
-    int countGamesForPlayer(Long playerId);
+    long countGamesForPlayer(Long playerId);
 
     List<Team> teamsPlayedWith(Long teamId, int size);
 
