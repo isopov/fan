@@ -151,14 +151,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.hibernate.javax.persistence</groupId>
-				<artifactId>hibernate-jpa-2.0-api</artifactId>
-				<version>1.0.0.Final</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 </project>
