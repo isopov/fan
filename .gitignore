@@ -11,5 +11,6 @@ target
 #For gradle builds
 build
 .gradle
+bin
 #TODO - why querydsl generated source are in src?
 generated
