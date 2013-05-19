@@ -1,0 +1,60 @@
+sourceSets {
+    generated {
+        java {
+            srcDirs = ['src/main/generated']
+        }
+    }
+}
+
+configurations {
+    querydslapt
+}
+
+dependencies {
+    compile 'com.google.guava:guava:14.0.1'
+    compile 'org.hibernate:hibernate-entitymanager:4.2.1.Final'
+    compile 'org.jadira.usertype:usertype.jodatime:2.0.1'
+    compile 'joda-time:joda-time:2.2'
+    compile 'commons-dbcp:commons-dbcp:1.4'
+    compile 'com.h2database:h2:1.3.171'
+    compile 'postgresql:postgresql:9.1-901-1.jdbc4'
+    compile(group: 'org.springframework', name: 'spring-core', version:"$springVersion") {
+        exclude(module: 'commons-logging')
+    }
+    compile 'javax.validation:validation-api:1.1.0.Final'
+    compile "org.springframework:spring-context-support:$springVersion"
+    compile "org.springframework.security:spring-security-core:$springSecurityVersion"
+    compile "org.springframework:spring-orm:$springVersion"
+    compile "org.springframework.social:spring-social-core:$springSocialVersion"
+    compile 'org.springframework.data:spring-data-jpa:1.3.2.RELEASE'
+    //TODO - remvoe from compile dependencies to "provided"
+    compile 'org.projectlombok:lombok:0.11.8'
+
+    compile "com.mysema.querydsl:querydsl-jpa:$querydslVersion"
+    querydslapt "com.mysema.querydsl:querydsl-apt:$querydslVersion"
+}
+
+task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types') {
+    source = sourceSets.main.java
+    classpath = configurations.compile + configurations.querydslapt
+    options.compilerArgs = [
+            "-proc:only",
+            "-processor", "com.mysema.query.apt.jpa.JPAAnnotationProcessor"
+    ]
+    destinationDir = sourceSets.generated.java.srcDirs.iterator().next()
+}
+
+compileJava {
+    dependsOn generateQueryDSL
+    source generateQueryDSL.destinationDir
+}
+
+compileGeneratedJava {
+    dependsOn generateQueryDSL
+    options.warnings = false
+    classpath += sourceSets.main.runtimeClasspath
+}
+
+clean {
+    delete sourceSets.generated.java.srcDirs
+}
