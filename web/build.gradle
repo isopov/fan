@@ -1,5 +1,8 @@
 apply plugin: 'war'
 
+configurations{
+    taglibs { transitive = false }
+}
 
 dependencies {
     compile project(':core')
@@ -8,6 +11,7 @@ dependencies {
     compile "org.springframework.security:spring-security-config:$springSecurityVersion"
     compile "org.springframework.security:spring-security-web:$springSecurityVersion"
     compile "org.springframework.security:spring-security-taglibs:$springSecurityVersion"
+    taglibs "org.springframework.security:spring-security-taglibs:$springSecurityVersion"
     compile "org.springframework.social:spring-social-security:$springSocialVersion"
     compile "org.springframework.social:spring-social-twitter:$springSocialVersion"
     compile "org.springframework.social:spring-social-facebook:$springSocialVersion"
@@ -19,5 +23,16 @@ dependencies {
     //in the Application Server - spring-test can not run tests for spring-mvc 
     //without them...
     providedCompile 'javax.servlet:jsp-api:2.0'
-
 }
+
+task copytaglibs << { 
+   copy { 
+      from configurations.taglibs
+      into 'src/main/webapp/WEB-INF/lib'
+   }
+} 
+
+compileTestJava{
+   dependsOn copytaglibs
+}
+
