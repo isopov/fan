@@ -1,0 +1,23 @@
+apply plugin: 'war'
+
+
+dependencies {
+    compile project(':core')
+    compile "org.hibernate:hibernate-validator:5.0.1.Final"
+    compile "org.springframework:spring-webmvc:forced"
+    compile "org.springframework.security:spring-security-config:$springSecurityVersion"
+    compile "org.springframework.security:spring-security-web:$springSecurityVersion"
+    compile "org.springframework.security:spring-security-taglibs:$springSecurityVersion"
+    compile "org.springframework.social:spring-social-security:$springSocialVersion"
+    compile "org.springframework.social:spring-social-twitter:$springSocialVersion"
+    compile "org.springframework.social:spring-social-facebook:$springSocialVersion"
+    compile "org.springframework.social:spring-social-facebook-web:$springSocialVersion"
+    compile "org.freemarker:freemarker:2.3.19"
+
+    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+    //Despite the fact that JSPs are not used at all and can be turned off 
+    //in the Application Server - spring-test can not run tests for spring-mvc 
+    //without them...
+    providedCompile 'javax.servlet:jsp-api:2.0'
+
+}

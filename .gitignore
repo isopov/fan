@@ -8,3 +8,8 @@ target
 #For Idea project files
 .idea
 *.iml
+#For gradle builds
+build
+.gradle
+#TODO - why querydsl generated source are in src?
+generated
