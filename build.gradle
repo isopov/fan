@@ -14,6 +14,7 @@ task wrapper(type: Wrapper) {
 
 apply plugin: 'java'
 apply plugin: 'release'
+//user ./gradlew dependencyUpdates -Drevision=release
 apply plugin: 'versions'
 
 sourceCompatibility = 1.7
@@ -22,7 +23,7 @@ ext {
     slf4jVersion = "1.7.5"
     springVersion = "3.2.3.RELEASE"
     logbackVersion = "1.0.13"
-    querydslVersion = "3.1.1"
+    querydslVersion = "3.2.0"
     springSecurityVersion = "3.2.0.M1"
     springSocialVersion = "1.1.0.M2"
 }
