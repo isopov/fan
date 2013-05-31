@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class SigninController {
 
-	@RequestMapping(value="/signin", method=RequestMethod.GET)
-	public void signin() {
-	}
+    @RequestMapping(value = "/signin", method = RequestMethod.GET)
+    public void signin() {
+    }
 }

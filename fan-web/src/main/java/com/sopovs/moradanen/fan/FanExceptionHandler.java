@@ -15,8 +15,7 @@ public class FanExceptionHandler implements HandlerExceptionResolver {
 
     @Override
     public ModelAndView resolveException(HttpServletRequest request,
-
-    HttpServletResponse response, Object handler, Exception ex) {
+            HttpServletResponse response, Object handler, Exception ex) {
         logger.error(ex.getMessage(), ex);
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return new ModelAndView("errors/500");

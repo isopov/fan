@@ -11,7 +11,6 @@ import org.hibernate.annotations.ForeignKey;
 public class Player extends Person {
     private static final long serialVersionUID = 1L;
 
-
     public Player() {
     }
 
