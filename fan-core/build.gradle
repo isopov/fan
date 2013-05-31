@@ -27,7 +27,7 @@ dependencies {
     compile "org.springframework:spring-orm:$springVersion"
     compile "org.springframework.social:spring-social-core:$springSocialVersion"
     compile 'org.springframework.data:spring-data-jpa:1.3.2.RELEASE'
-    //TODO - remvoe from compile dependencies to "provided"
+    //TODO - remove from compile dependencies to "provided"
     compile 'org.projectlombok:lombok:0.11.8'
 
     compile "com.mysema.querydsl:querydsl-jpa:$querydslVersion"

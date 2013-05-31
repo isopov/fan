@@ -5,7 +5,7 @@ configurations{
 }
 
 dependencies {
-    compile project(':core')
+    compile project(':fan-core')
     compile "org.hibernate:hibernate-validator:5.0.1.Final"
     compile "org.springframework:spring-webmvc:$springVersion"
     compile "org.springframework.security:spring-security-config:$springSecurityVersion"

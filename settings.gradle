@@ -1,1 +1,1 @@
-include "core", "job", "web"
+include "fan-core", "fan-job", "fan-web"
