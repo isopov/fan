@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:facebook="http://www.springframework.org/schema/social/facebook"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:facebook="http://www.springframework.org/schema/social/facebook"
 	xmlns:twitter="http://www.springframework.org/schema/social/twitter"
-	xmlns:social="http://www.springframework.org/schema/social" 
-	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:social="http://www.springframework.org/schema/social" xmlns:c="http://www.springframework.org/schema/c"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="
@@ -21,10 +19,9 @@
 		http://www.springframework.org/schema/aop 
 		http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<facebook:config app-id="237558196383816"
-		app-secret="a954b865206d8051374a01d14bd560f3" app-namespace="football-analytics" />
-	<twitter:config app-id="BoX32LW3MmuLKLqf2fh1yQ"
-		app-secret="C9uNk6WgbikXpfK3veZfBgxgwKnYdiLvNm4dko8" />
+	<facebook:config app-id="${facebook.appid}" app-secret="${facebook.secret}"
+		app-namespace="${facebook.namespace}" />
+	<twitter:config app-id="${twitter.appid}" app-secret="${twitter.secret" />
 
 	<!-- <social:jdbc-connection-repository /> -->
 
