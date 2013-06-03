@@ -1,1 +1,20 @@
-Nothing here yet
+This is my (Ivan Sopov - http://moradanen.sopovs.com, http://github.com/isopov) current pet-project. It can be observed live at http://football-analytics.com
+
+It is primarly used to test some techniques and libraries I'm interested in the not so small project. 
+Currently the following is used:
+* Gradle for building the project. Until recently Maven was used to build this project and the migration to Gradle was done "just because I can" - to try Gradle on something bigger, than the helloworld example. Some nuances of the gradle build include using the querydsl metamodel generation (googled) and hack for the freemarker working with spring-security-taglibs inside spring-test MockServletContext (hand written). Also gradle-versions-plugin is used.
+* Hibernate as the JPA implementation
+* Querydsl - not used it in any commercial project so far, but I'm very enthusiastic about this library
+* Spring, Spring-webmvc, Spring-test - just the framework providing many options but not enforcing some decisions like Grails or Play (this does not mean that I do not want to try Grails or Play in work)
+* Spring-security, Spring-social - integration with custom domain model is not really trivial
+* Bootstrap, Freemarker
+* H2 in-memory database for tests. Currently is used not only in tests.
+
+* Jetty - recently migrated to Jetty-9
+* Nginx - Java web application servers are not really well suited to serve the default http port 80, since this port requires root. Nginx and Apache httpd are built in multi-process way to allow single root process to listen to 80 port and to handle connections in other non-root processes. There may be other reasons to use Ngnix or Apache httpd as a front-end (reverse proxy or through mod_ajp) for Jetty or Tomcat or whatever.
+
+TODO (What I want to use in this project):
+* Postgresql as a real database
+* DB migrations
+* Google charts (or/and some other charts - maybe d3.js)
+* spring-batch for backend jobs
