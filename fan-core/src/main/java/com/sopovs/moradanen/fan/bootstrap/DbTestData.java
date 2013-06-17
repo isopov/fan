@@ -82,7 +82,7 @@ public class DbTestData implements IDbTestData {
 
             createEnglandPremiership();
             createTestGameWithDetails();
-            // importFootballData();
+            importFootballData();
         }
     }
 

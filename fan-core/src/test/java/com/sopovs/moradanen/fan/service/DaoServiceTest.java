@@ -128,7 +128,7 @@ public class DaoServiceTest {
 
     @Test
     public void testGetCumulativeGoals() {
-        service.getCumulativeGoals(service.findClubByName(DbTestData.BLACKBURN_NAME).getId(),
+        service.getCumulativeGoals(Arrays.asList(service.findClubByName(DbTestData.BLACKBURN_NAME).getId()),
                 service.lastSeasonByClubName(DbTestData.BLACKBURN_NAME).getId());
     }
 

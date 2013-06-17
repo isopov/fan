@@ -51,5 +51,5 @@ public interface IDaoService {
 
     TeamInSeason findTeamInSeasonByTeamAndSeason(Long teamId, Long seasonId);
 
-    List<CumulativeGoals> getCumulativeGoals(Long teamId, Long seasonId);
+    List<CumulativeGoals> getCumulativeGoals(List<Long> teamIds, Long seasonId);
 }

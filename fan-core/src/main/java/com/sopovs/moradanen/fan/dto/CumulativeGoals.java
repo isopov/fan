@@ -1,32 +1,24 @@
 package com.sopovs.moradanen.fan.dto;
 
+import lombok.Getter;
+
 import org.joda.time.LocalDateTime;
 
 import com.mysema.query.annotations.QueryProjection;
+import com.sopovs.moradanen.fan.domain.Team;
 
+@Getter
 public class CumulativeGoals {
 
-    private final Long teamId;
+    private final Team team;
     private final LocalDateTime gameDate;
     private final Integer goals;
 
     @QueryProjection
-    public CumulativeGoals(Long teamId, LocalDateTime gameDate, Integer goals) {
-        this.teamId = teamId;
+    public CumulativeGoals(Team team, LocalDateTime gameDate, Integer goals) {
+        this.team = team;
         this.gameDate = gameDate;
         this.goals = goals;
-    }
-
-    public Long getTeamId() {
-        return teamId;
-    }
-
-    public LocalDateTime getGameDate() {
-        return gameDate;
-    }
-
-    public Integer getGoals() {
-        return goals;
     }
 
 }
