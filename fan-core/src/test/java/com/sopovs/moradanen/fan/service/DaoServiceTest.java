@@ -18,6 +18,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.joda.time.LocalDate;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,6 +124,12 @@ public class DaoServiceTest {
                 service.findClubByName(DbTestData.BLACKBURN_NAME).getId(),
                 service.lastSeasonByClubName(DbTestData.BLACKBURN_NAME).getId()));
 
+    }
+
+    @Test
+    public void testGetCumulativeGoals() {
+        service.getCumulativeGoals(service.findClubByName(DbTestData.BLACKBURN_NAME).getId(),
+                service.lastSeasonByClubName(DbTestData.BLACKBURN_NAME).getId());
     }
 
     private Season newSeason(Contest contest) {

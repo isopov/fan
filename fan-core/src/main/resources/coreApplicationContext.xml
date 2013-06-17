@@ -45,11 +45,7 @@
 			<entry key="hibernate.enable_lazy_load_no_trans" value="true" />
 		</util:map>
 
-		<jdbc:embedded-database id="dataSource" type="H2">
-			<jdbc:script location="classpath:/USERCONNECTION.sql" />
-		</jdbc:embedded-database>
-
-		<bean id="dataSource" class="org.h2.jdbcx.JdbcDataSource" p:URL="jdbc:h2:mem:fan;DB_CLOSE_DELAY=-1" />
+		<jdbc:embedded-database id="dataSource" type="H2" />
 
 		<bean id="bootstrap" class="com.sopovs.moradanen.fan.bootstrap.DbTestData" />
 		<bean id="bootstrapRunner" class="com.sopovs.moradanen.fan.bootstrap.DbTestDataRunner" />

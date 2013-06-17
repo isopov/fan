@@ -10,6 +10,7 @@ import com.sopovs.moradanen.fan.domain.PlayerInGame;
 import com.sopovs.moradanen.fan.domain.Season;
 import com.sopovs.moradanen.fan.domain.Team;
 import com.sopovs.moradanen.fan.domain.TeamInSeason;
+import com.sopovs.moradanen.fan.dto.CumulativeGoals;
 
 public interface IDaoService {
     Club findClubByName(String name);
@@ -49,4 +50,6 @@ public interface IDaoService {
     List<Game> getGames(Long firstTeamId, Long secondTeamId, int size, int startFrom);
 
     TeamInSeason findTeamInSeasonByTeamAndSeason(Long teamId, Long seasonId);
+
+    List<CumulativeGoals> getCumulativeGoals(Long teamId, Long seasonId);
 }

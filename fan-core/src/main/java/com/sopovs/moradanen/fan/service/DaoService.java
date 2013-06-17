@@ -28,6 +28,8 @@ import com.sopovs.moradanen.fan.domain.QTeamInGame;
 import com.sopovs.moradanen.fan.domain.Season;
 import com.sopovs.moradanen.fan.domain.Team;
 import com.sopovs.moradanen.fan.domain.TeamInSeason;
+import com.sopovs.moradanen.fan.dto.CumulativeGoals;
+import com.sopovs.moradanen.fan.dto.QCumulativeGoals;
 import com.sopovs.moradanen.fan.repository.ClubRepository;
 import com.sopovs.moradanen.fan.repository.ContestRepository;
 import com.sopovs.moradanen.fan.repository.GameRepository;
@@ -220,4 +222,39 @@ public class DaoService implements IDaoService {
                 .uniqueResult(teamInSeason);
     }
 
+    @Override
+    public List<CumulativeGoals> getCumulativeGoals(Long teamId, Long seasonId) {
+        // new JPAQuery(em).from(teamInGame)
+
+        QTeamInGame teamInGame2 = new QTeamInGame("teamInGame2");
+
+        return new JPAQuery(em)
+                .from(teamInGame, teamInGame2)
+                .where(teamInGame.teamInSeason.team.id.eq(teamId)
+                        .and(teamInGame2.teamInSeason.team.id.eq(teamId)
+                                .and(teamInGame.teamInSeason.season.id.eq(seasonId))
+                                .and(teamInGame2.teamInSeason.season.id.eq(seasonId))
+                                .and(teamInGame.game.gameDate.goe(teamInGame2.game.gameDate)))
+                )
+                .orderBy(teamInGame.game.gameDate.asc())
+                .groupBy(teamInGame.game.gameDate)
+                .list(new QCumulativeGoals(teamInGame.teamInSeason.team.id, teamInGame.game.gameDate, teamInGame2.goals
+                        .sum()));
+
+        // return
+        // em.createQuery("select tg1.teamInSeason.teamId, sum(tg2.goals)" +
+        // " from TeamInGame tg1" +
+        // " join tg1 tg2" +
+        // " where tg1.teamInSeason.team.id=tg2.teamInSeason.team.id" +
+        // " and tg1.teamInSeason.season.id=tg2.teamInSeason.season.id" +
+        // " and tg1.game.gameDate >= tg2.game.gameDate" +
+        // " where tg1.teamInSeason.team.id=:teamId" +
+        // " and tg1.teamInSeason.season.id=:seasonId" +
+        // " group by tg1.teamInSeason.teamId" +
+        // " order by tg1.game.gameDate", Object[].class)
+        // .setParameter("teamId", teamId)
+        // .setParameter("seasonId", seasonId)
+        // .getResultList();
+
+    }
 }
