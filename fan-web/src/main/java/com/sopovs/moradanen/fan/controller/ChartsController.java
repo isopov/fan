@@ -19,16 +19,23 @@ import com.sopovs.moradanen.fan.service.IDaoService;
 @RequestMapping("/chart")
 public class ChartsController extends AbstractController {
 
-	@PersistenceContext
-	private EntityManager em;
+    @PersistenceContext
+    private EntityManager em;
 
-	@Autowired
-	private IDaoService service;
+    @Autowired
+    private IDaoService service;
 
-	@RequestMapping(value = "/data/goals/{teamIds}/season/{seasonId}", method = RequestMethod.GET)
-	@ResponseBody
-	public DataTable goalsChartData(@PathVariable List<Long> teamIds, @PathVariable Long seasonId) {
-		return new DataTable(service.getCumulativeGoals(teamIds, seasonId));
-	}
+    @RequestMapping(value = "/goals/{teamIds}/season/{seasonId}", method = RequestMethod.GET)
+    @ResponseBody
+    public String goalsChart(@PathVariable("teamIds") List<Long> teamIds,
+            @PathVariable("teamIds") String teamIdsString, @PathVariable Long seasonId) {
+        return "Foo";
+    }
+
+    @RequestMapping(value = "/data/goals/{teamIds}/season/{seasonId}", method = RequestMethod.GET)
+    @ResponseBody
+    public DataTable goalsChartData(@PathVariable List<Long> teamIds, @PathVariable Long seasonId) {
+        return new DataTable(service.getCumulativeGoals(teamIds, seasonId));
+    }
 
 }
