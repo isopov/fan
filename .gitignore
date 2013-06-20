@@ -7,6 +7,7 @@ target
 #For Idea project files
 .idea
 *.iml
+gradle-app.setting
 #idea output folder - why here?
 out
 #For gradle builds
