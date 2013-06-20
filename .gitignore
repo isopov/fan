@@ -7,9 +7,12 @@ target
 #For Idea project files
 .idea
 *.iml
+#idea output folder - why here?
+out
 #For gradle builds
 build
 .gradle
 bin
 #TODO - why querydsl generated source are in src?
 generated
+

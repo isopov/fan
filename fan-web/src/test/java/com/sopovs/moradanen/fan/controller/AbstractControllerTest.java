@@ -11,7 +11,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.sopovs.moradanen.fan.AbstractTransactionalServiceTest;
 
 @WebAppConfiguration
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring-servlet.xml" })
+@ContextConfiguration(locations = { "classpath:webApplicationContext.xml" })
 public abstract class AbstractControllerTest extends AbstractTransactionalServiceTest {
 
     @Autowired

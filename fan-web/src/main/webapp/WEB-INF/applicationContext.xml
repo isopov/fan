@@ -20,7 +20,7 @@
 	</bean>
 
 
-	<import resource="securityContext.xml" />
+	<import resource="classpath:securityContext.xml" />
 	<import resource="classpath:coreApplicationContext.xml" />
 
 

@@ -59,19 +59,80 @@ public class DbTestData implements IDbTestData {
     public static final String FULHAM = "Fulham";
     public static final String BLACKBURN_NAME = "Blackburn";
     public static final String BARCLAYS_PREMIER_LEAGUE = "Barclays Premier League";
-
     private final DateTimeFormatter df = DateTimeFormat.forPattern("dd/mm/yy");
-
     private final Logger logger = LoggerFactory.getLogger(DbTestData.class);
-
     @PersistenceContext
     private EntityManager em;
-
     @Autowired
     private IDaoService service;
-
     @Autowired
     private UserDetailsService userDetailsService;
+
+    private static void fillBackLinkOnPlayers(TeamInGame teamInGame) {
+        int goals = 0;
+        int shots = 0;
+        int shotsOnTarget = 0;
+        int passes = 0;
+        int failedPasses = 0;
+        int fouls = 0;
+        int yellows = 0;
+        int reds = 0;
+
+        for (PlayerInGame p : teamInGame.getPlayers()) {
+            p.setTeamInGame(teamInGame);
+            if (p.getGoals() != null) {
+                goals += p.getGoals().size();
+            }
+            if (p.getShots() != null) {
+                shots += p.getShots();
+            }
+            if (p.getShotsOnTarget() != null) {
+                shotsOnTarget += p.getShotsOnTarget();
+            }
+            if (p.getPasses() != null) {
+                passes += p.getPasses();
+            }
+            if (p.getFaildPasses() != null) {
+                passes += p.getFaildPasses();
+            }
+            if (p.getFouls() != null) {
+                fouls += p.getFouls();
+            }
+            if (p.getYellowCards() != null) {
+                yellows += p.getYellowCards();
+            }
+            if (p.getRedCards() != null) {
+                reds += p.getRedCards();
+            }
+
+        }
+
+        teamInGame.setGoals(goals);
+        teamInGame.setShots(shots);
+        teamInGame.setShotsOnTarget(shotsOnTarget);
+        teamInGame.setPasses(passes);
+        teamInGame.setFailedPasses(failedPasses);
+        teamInGame.setFouls(fouls);
+        teamInGame.setYellowCards(yellows);
+        teamInGame.setRedCards(reds);
+
+    }
+
+    private static void checkPLayers(TeamInGame teamInGame) {
+        for (PlayerInGame p : teamInGame.getPlayers()) {
+            Preconditions.checkNotNull(p.getId());
+            if (p.getGoals() != null) {
+                for (Goal g : p.getGoals()) {
+                    Preconditions.checkNotNull(g.getId());
+                }
+            }
+            Preconditions.checkNotNull(p.getPlayerInTeam().getId());
+            Preconditions.checkNotNull(p.getPlayerInTeam().getPlayer().getId());
+            Preconditions.checkNotNull(p.getPlayerInTeam().getTeam().getId());
+            Preconditions.checkNotNull(p.getTeamInGame().getId());
+        }
+
+    }
 
     @Override
     public void createTestData() {
@@ -82,7 +143,7 @@ public class DbTestData implements IDbTestData {
 
             createEnglandPremiership();
             createTestGameWithDetails();
-            importFootballData();
+            // importFootballData();
         }
     }
 
@@ -362,72 +423,6 @@ public class DbTestData implements IDbTestData {
         return service.findClubByName(BLACKBURN_NAME) == null;
     }
 
-    private static void fillBackLinkOnPlayers(TeamInGame teamInGame) {
-        int goals = 0;
-        int shots = 0;
-        int shotsOnTarget = 0;
-        int passes = 0;
-        int failedPasses = 0;
-        int fouls = 0;
-        int yellows = 0;
-        int reds = 0;
-
-        for (PlayerInGame p : teamInGame.getPlayers()) {
-            p.setTeamInGame(teamInGame);
-            if (p.getGoals() != null) {
-                goals += p.getGoals().size();
-            }
-            if (p.getShots() != null) {
-                shots += p.getShots();
-            }
-            if (p.getShotsOnTarget() != null) {
-                shotsOnTarget += p.getShotsOnTarget();
-            }
-            if (p.getPasses() != null) {
-                passes += p.getPasses();
-            }
-            if (p.getFaildPasses() != null) {
-                passes += p.getFaildPasses();
-            }
-            if (p.getFouls() != null) {
-                fouls += p.getFouls();
-            }
-            if (p.getYellowCards() != null) {
-                yellows += p.getYellowCards();
-            }
-            if (p.getRedCards() != null) {
-                reds += p.getRedCards();
-            }
-
-        }
-
-        teamInGame.setGoals(goals);
-        teamInGame.setShots(shots);
-        teamInGame.setShotsOnTarget(shotsOnTarget);
-        teamInGame.setPasses(passes);
-        teamInGame.setFailedPasses(failedPasses);
-        teamInGame.setFouls(fouls);
-        teamInGame.setYellowCards(yellows);
-        teamInGame.setRedCards(reds);
-
-    }
-
-    private static void checkPLayers(TeamInGame teamInGame) {
-        for (PlayerInGame p : teamInGame.getPlayers()) {
-            Preconditions.checkNotNull(p.getId());
-            if (p.getGoals() != null) {
-                for (Goal g : p.getGoals()) {
-                    Preconditions.checkNotNull(g.getId());
-                }
-            }
-            Preconditions.checkNotNull(p.getPlayerInTeam().getId());
-            Preconditions.checkNotNull(p.getPlayerInTeam().getPlayer().getId());
-            Preconditions.checkNotNull(p.getPlayerInTeam().getTeam().getId());
-            Preconditions.checkNotNull(p.getTeamInGame().getId());
-        }
-
-    }
-
     // Div = League Division
     // Date = Match Date (dd/mm/yy)
     // HomeTeam = Home Team
@@ -458,7 +453,6 @@ public class DbTestData implements IDbTestData {
         private static List<String> values = Arrays.asList("Date", "HomeTeam", "AwayTeam", "FTHG", "FTAG",
                 "Attendance", "HS", "AS", "HST", "AST", "HHW", "AHW", "HC", "AC", "HF", "AF", "HO", "AO", "HY", "AY",
                 "HR", "AR");
-
         private final Map<String, Integer> indexes = Maps.newHashMap();
 
         public FootbalDataGameHeader(String header) {
