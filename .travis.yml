@@ -2,3 +2,4 @@ language: java
 jdk:
   - oraclejdk7
 script: ./gradlew clean test
+before_script:
