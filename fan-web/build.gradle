@@ -9,7 +9,7 @@ dependencies {
     compile "org.hibernate:hibernate-validator:5.0.1.Final"
     compile "org.springframework:spring-webmvc:$springVersion"
     compile "org.springframework.security:spring-security-config:$springSecurityVersion"
-    compile "org.codehaus.jackson:jackson-mapper-asl:1.9.9"
+    compile "org.codehaus.jackson:jackson-mapper-asl:1.9.11"
     compile "org.springframework.social:spring-social-facebook-web:$springSocialVersion"
     compile "org.springframework.security:spring-security-taglibs:$springSecurityVersion"
     taglibs "org.springframework.security:spring-security-taglibs:$springSecurityVersion"
@@ -17,7 +17,7 @@ dependencies {
     compile "org.springframework.social:spring-social-twitter:$springSocialVersion"
     compile "org.springframework.social:spring-social-facebook:$springSocialVersion"
     compile "org.springframework.social:spring-social-facebook-web:$springSocialVersion"
-    compile "org.freemarker:freemarker:2.3.19"
+    compile "org.freemarker:freemarker:2.3.20"
 
     providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
     //Despite the fact that JSPs are not used at all and can be turned off 
