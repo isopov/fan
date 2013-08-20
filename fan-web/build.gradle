@@ -6,7 +6,7 @@ configurations{
 
 dependencies {
     compile project(':fan-core')
-    compile "org.hibernate:hibernate-validator:5.0.1.Final"
+    compile "org.hibernate:hibernate-validator:5.1.0.Alpha1"
     compile "org.springframework:spring-webmvc:$springVersion"
     compile "org.springframework.security:spring-security-config:$springSecurityVersion"
     compile "org.codehaus.jackson:jackson-mapper-asl:1.9.11"

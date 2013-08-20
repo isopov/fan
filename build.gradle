@@ -25,7 +25,7 @@ ext {
     logbackVersion = "1.0.13"
     querydslVersion = "3.2.2"
     springSecurityVersion = "3.2.0.RC1"
-    springSocialVersion = "1.1.0.M2"
+    springSocialVersion = "1.1.0.M3"
 }
 
 subprojects {
