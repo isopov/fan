@@ -18,7 +18,7 @@
 
 	<mvc:resources mapping="/favicon.ico" location="/WEB-INF/favicon.ico" />
 	<mvc:resources mapping="/robots.txt" location="/WEB-INF/robots.txt" />
-	<mvc:resources mapping="/css/**" location="/WEB-INF/css/" />
+	<!-- <mvc:resources mapping="/css/**" location="/WEB-INF/css/" /> -->
 	<mvc:resources mapping="/js/**" location="/WEB-INF/js/" />
 	<mvc:resources mapping="/img/**" location="/WEB-INF/img/" />
 

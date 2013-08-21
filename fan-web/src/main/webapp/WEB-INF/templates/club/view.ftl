@@ -3,9 +3,9 @@
 <#import "../common.ftl" as c />
 
 <#assign pageTitle><@c.i18ned club "name" /></#assign>
-<#assign extraCss = ["chosen.css"] />
-<@l.layout pageTitle=pageTitle extraCss=extraCss>
-<script type="text/javascript" src="<@s.url "/js/chosen.jquery.js" />"></script>
+<@l.layout pageTitle=pageTitle>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.jquery.min.js"></script>
 <script type="text/javascript">
     $(function(){
         var select = $(".chzn-select");

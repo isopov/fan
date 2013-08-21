@@ -6,7 +6,7 @@
 
 <@layout.layout pageTitle="${pageTitle}">
 
-<script src="<@spring.url "/js/jquery.validate-1.10.0.js"/>" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function(){

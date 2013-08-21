@@ -12,17 +12,14 @@
     </#if>
 </#macro>
 
-<#macro head pageTitle extraCss="">
+<#macro head pageTitle>
 <head>
     <meta charset="utf-8">
     <title>${pageTitle}</title>
 
-    <link href="<@spring.url "/css/bootstrap.css"/>" rel="stylesheet">
-    <#if extraCss?has_content >
-        <#list extraCss as css>
-            <link href="<@spring.url "/css/${css}"/>" rel="stylesheet">
-        </#list>
-    </#if>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.min.css" rel="stylesheet">
+
     <style>
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -34,8 +31,8 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <script src="<@spring.url "/js/jquery-1.8.3.js"/>" type="text/javascript"></script>
-    <script src="<@spring.url "/js/bootstrap-2.2.2.js"/>" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script type="text/javascript">
 
         var _gaq = _gaq || [];
@@ -56,10 +53,10 @@
 </head>
 </#macro>
 
-<#macro layout pageTitle extraCss="">
+<#macro layout pageTitle>
 <!DOCTYPE html>
 <html>
-    <@head pageTitle extraCss/>
+    <@head pageTitle/>
 <body>
 
 <div class="navbar navbar-inverse navbar-fixed-top">
