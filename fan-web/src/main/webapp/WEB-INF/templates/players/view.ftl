@@ -22,9 +22,9 @@
                 <div style="white-space: nowrap;">
                     <@compress single_line=true>
                         <a href="<@s.url "/club/view?id=${playerInGame.playerInTeam.team.id}" />">
-                            <i class="icon-user"></i>
+                            <span class="glyphicon glyphicon-user"></span>
                             <#if (playerInGame.teamInGame.isHost()) >
-                                <i class="icon-home"></i>
+                                <span class="glyphicon glyphicon-home"></span>
                             </#if>
                         ${playerInGame.playerInTeam.team.getTitle(lang)}
                         </a>&nbsp;
@@ -33,7 +33,7 @@
                         </a>&nbsp;
                     <a href="<@s.url "/club/view?id=${playerInGame.teamInGame.other().teamInSeason.team.id}" />">
                         <#if (playerInGame.teamInGame.other().isHost()) >
-                            <i class="icon-home"></i>
+                                <span class="glyphicon glyphicon-home"></span>
                         </#if>${playerInGame.teamInGame.other().teamInSeason.team.getTitle(lang)}
                         <a/>
                     </@compress>

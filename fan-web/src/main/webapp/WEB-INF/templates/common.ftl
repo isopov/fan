@@ -7,6 +7,9 @@
     <@gamesTable season.games />
 </#macro>
 
+<#macro jqueryValidate>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
+</#macro>
 
 <#macro pages previousUrl nextUrl >
     <@compress single_line=true>

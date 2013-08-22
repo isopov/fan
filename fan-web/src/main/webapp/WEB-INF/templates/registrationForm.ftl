@@ -6,7 +6,7 @@
 
 <@layout.layout pageTitle="${pageTitle}">
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js"></script>
+<@c.jqueryValidate />
 <script type="text/javascript">
 
     $(document).ready(function(){

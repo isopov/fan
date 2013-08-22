@@ -17,22 +17,18 @@
     <meta charset="utf-8">
     <title>${pageTitle}</title>
 
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.min.css" rel="stylesheet">
 
-    <style>
-        body {
-            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-        }
-    </style>
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!-- Don't know if it will work with Jquery 2 - in either case I don't test on IE ever -->
     <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    	<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.min.js"></script>
+   		<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.min.js"></script>
     <![endif]-->
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script type="text/javascript">
 
         var _gaq = _gaq || [];
@@ -58,103 +54,101 @@
 <html>
     <@head pageTitle/>
 <body>
-
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-        <#-- TODO what is this btn-navbar for? -->
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+<div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-            </a>
-            <a class="brand" href="<@spring.url "/"/>"><@spring.message "index.title" /></a>
-
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle"
-                           data-toggle="dropdown"><@spring.message "simple.articles" /> <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <#list categories as category>
-                                <li class="nav-header">${category.name}</li>
-                                <list category.articles as article>
-                                    <li><a href="<@spring.url "/articles/${article.shortTitle}"/>">${article.title}</a></li>
-                                </list>
-                            </#list>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle"
-                           data-toggle="dropdown"><@spring.message "simple.divisions" /> <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="<@spring.url "/contest/list"/>"><@spring.message "simple.list" /></a></li>
-                            <li class="divider"></li>
-                            <li class="nav-header">Quick view</li>
-                            <li><a href="<@spring.url "/contest/games"/>"><@spring.message "simple.games" /></a></li>
-                            <li><a href="<@spring.url "/contest/teams"/>"><@spring.message "simple.teamsInGame" /></a></li>
-                            <@security.authorize ifAnyGranted="EDITOR">
-                                <li><a href="<@spring.url "/edit/division/new"/>"><@spring.message "simple.new" /></a>
-                                </li>
-                            </@security.authorize>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><@spring.message "simple.clubs" /> <b
-                                class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="<@spring.url "/club/list"/>"><@spring.message "simple.list" /></a></li>
-                            <@security.authorize ifAnyGranted="EDITOR">
-                                <li><a href="<@spring.url "/edit/club/new"/>"><@spring.message "simple.new" /></a></li>
-                            </@security.authorize>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><@spring.message "simple.games" /> <b
-                                class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="<@spring.url "/games/list"/>"><@spring.message "simple.list" /></a></li>
-                            <@security.authorize ifAnyGranted="EDITOR">
-                                <li><a href="<@spring.url "/edit/game/new"/>"><@spring.message "simple.new" /></a></li>
-                            </@security.authorize>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><@spring.message "simple.players" />
-                            <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="<@spring.url "/players/list"/>"><@spring.message "simple.list" /></a></li>
-                            <@security.authorize ifAnyGranted="EDITOR">
-                                <li><a href="<@spring.url "/edit/player/new"/>"><@spring.message "simple.new" /></a>
-                                </li>
-                            </@security.authorize>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><@spring.message "simple.language" />
-                            <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="${languageChangeUrl}en">English version</a></li>
-                            <li><a href="${languageChangeUrl}ru">Русская версия</a></li>
-                        </ul>
-                    </li>
-
-                    <@security.authorize access="isAuthenticated()">
-                        <li><a href="<@spring.url "/j_spring_security_logout"/>"><@spring.message "simple.logout" /></a>
-                        </li>
-                    </@security.authorize>
-                    <@security.authorize access="isAnonymous()">
-                        <li><a href="<@spring.url "/login"/>"><@spring.message "simple.login" /></a></li>
-                    </@security.authorize>
-
-                </ul>
-            </div>
-            <!--/.nav-collapse -->
+            </button>
+            <a class="navbar-brand" href="<@spring.url "/"/>"><@spring.message "index.title" /></a>
         </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"
+                       data-toggle="dropdown"><@spring.message "simple.articles" /> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <#list categories as category>
+                            <li class="nav-header">${category.name}</li>
+                            <list category.articles as article>
+                                <li><a href="<@spring.url "/articles/${article.shortTitle}"/>">${article.title}</a></li>
+                            </list>
+                        </#list>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"
+                       data-toggle="dropdown"><@spring.message "simple.divisions" /> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<@spring.url "/contest/list"/>"><@spring.message "simple.list" /></a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">Quick view</li>
+                        <li><a href="<@spring.url "/contest/games"/>"><@spring.message "simple.games" /></a></li>
+                        <li><a href="<@spring.url "/contest/teams"/>"><@spring.message "simple.teamsInGame" /></a></li>
+                        <@security.authorize ifAnyGranted="EDITOR">
+                            <li><a href="<@spring.url "/edit/division/new"/>"><@spring.message "simple.new" /></a>
+                            </li>
+                        </@security.authorize>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><@spring.message "simple.clubs" /> <b
+                            class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<@spring.url "/club/list"/>"><@spring.message "simple.list" /></a></li>
+                        <@security.authorize ifAnyGranted="EDITOR">
+                            <li><a href="<@spring.url "/edit/club/new"/>"><@spring.message "simple.new" /></a></li>
+                        </@security.authorize>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><@spring.message "simple.games" /> <b
+                            class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<@spring.url "/games/list"/>"><@spring.message "simple.list" /></a></li>
+                        <@security.authorize ifAnyGranted="EDITOR">
+                            <li><a href="<@spring.url "/edit/game/new"/>"><@spring.message "simple.new" /></a></li>
+                        </@security.authorize>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><@spring.message "simple.players" />
+                        <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<@spring.url "/players/list"/>"><@spring.message "simple.list" /></a></li>
+                        <@security.authorize ifAnyGranted="EDITOR">
+                            <li><a href="<@spring.url "/edit/player/new"/>"><@spring.message "simple.new" /></a>
+                            </li>
+                        </@security.authorize>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><@spring.message "simple.language" />
+                        <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="${languageChangeUrl}en">English version</a></li>
+                        <li><a href="${languageChangeUrl}ru">Русская версия</a></li>
+                    </ul>
+                </li>
+
+                <@security.authorize access="isAuthenticated()">
+                    <li><a href="<@spring.url "/j_spring_security_logout"/>"><@spring.message "simple.logout" /></a>
+                    </li>
+                </@security.authorize>
+                <@security.authorize access="isAnonymous()">
+                    <li><a href="<@spring.url "/login"/>"><@spring.message "simple.login" /></a></li>
+                </@security.authorize>
+
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
     </div>
 </div>
 

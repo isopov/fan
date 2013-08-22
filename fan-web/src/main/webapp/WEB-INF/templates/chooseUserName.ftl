@@ -5,8 +5,7 @@
 <#assign pageTitle><@spring.message "simple.register" /></#assign>
 
 <@layout.layout pageTitle="${pageTitle}">
-
-<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<@c.jqueryValidate />
 <script type="text/javascript">
 
     $(document).ready(function(){
