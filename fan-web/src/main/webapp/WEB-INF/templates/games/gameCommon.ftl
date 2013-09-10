@@ -89,7 +89,7 @@
                     <caption>${teamInGame.teamInSeason.team.getTitle(lang)} Detailed Statistics</caption>
                     <@playersInGameDetailsHeader />
                     <tbody>
-                        <#list game.host.players as playerInGame >
+                        <#list teamInGame.players as playerInGame >
                         <#if (playerInGame.minuteStart??)>
                             <@playerInGameDetailsRow playerInGame />
                         </#if>
@@ -100,7 +100,7 @@
             <div class="span3">
                 <ul>
                     <caption>${teamInGame.teamInSeason.team.getTitle(lang)} Substitutes</caption>
-                    <#list game.host.players as playerInGame >
+                    <#list teamInGame.players as playerInGame >
                         <#if (!playerInGame.minuteStart??)>
                             <li><@c.i18ned playerInGame.playerInTeam.player "firstName" /> <@c.i18nedOrNull playerInGame.playerInTeam.player "middleName" /> <@c.i18nedOrNull playerInGame.playerInTeam.player "lastName" /></li>
                         </#if>

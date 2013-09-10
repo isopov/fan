@@ -1,6 +1,7 @@
 package com.sopovs.moradanen.fan.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+//import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -24,7 +25,9 @@ public class GameControllerTest extends AbstractControllerTest {
     @Test
     public void testView() throws Exception {
         Game game = service.lastGames(1).get(0);
-        this.mockMvc.perform(get("/games/view/" + game.getId().toString())).andExpect(status().isOk())
+        this.mockMvc.perform(get("/games/view/" + game.getId().toString()))
+                // .andDo(print())
+                .andExpect(status().isOk())
                 .andExpect(content().contentType("text/html;charset=UTF-8"));
     }
 }
