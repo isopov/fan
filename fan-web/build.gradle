@@ -19,7 +19,7 @@ dependencies {
     compile "org.springframework.social:spring-social-facebook-web:$springSocialVersion"
     compile "org.freemarker:freemarker:2.3.20"
 
-    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
     //Despite the fact that JSPs are not used at all and can be turned off 
     //in the Application Server - spring-test can not run tests for spring-mvc 
     //without them...
