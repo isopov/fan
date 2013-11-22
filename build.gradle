@@ -21,10 +21,10 @@ sourceCompatibility = 1.7
 
 ext {
     slf4jVersion = "1.7.5"
-    springVersion = "4.0.0.M3"
+    springVersion = "4.0.0.RC1"
     logbackVersion = "1.0.13"
-    querydslVersion = "3.2.3"
-    springSecurityVersion = "3.2.0.RC1"
+    querydslVersion = "3.3.0.BETA1"
+    springSecurityVersion = "3.2.0.RC2"
     springSocialVersion = "1.1.0.M4"
 }
 
