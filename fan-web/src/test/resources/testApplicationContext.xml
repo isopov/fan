@@ -13,7 +13,7 @@
           lazy-init="false">
         <property name="locations">
             <list>
-                <value>classpath:fan.test.properties</value>
+                <value>classpath:application.properties</value>
             </list>
         </property>
     </bean>
