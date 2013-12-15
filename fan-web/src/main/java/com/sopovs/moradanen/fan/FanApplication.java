@@ -2,6 +2,7 @@ package com.sopovs.moradanen.fan;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
@@ -13,10 +14,9 @@ import org.springframework.http.HttpStatus;
 import com.google.common.collect.ImmutableSet;
 
 @Configuration
-@EnableAutoConfiguration
-@ImportResource({ "classpath:securityContext.xml",
-        "classpath:coreApplicationContext.xml" })
-@Import(WebApplicationConfiguration.class)
+@EnableAutoConfiguration(exclude = HibernateJpaAutoConfiguration.class)
+@Import({ CoreApplicationConfiguration.class, WebApplicationConfiguration.class })
+@ImportResource({ "classpath:securityContext.xml" })
 public class FanApplication {
 
     @Bean

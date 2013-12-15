@@ -20,11 +20,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Sets;
+import com.sopovs.moradanen.fan.CoreApplicationConfiguration;
 import com.sopovs.moradanen.fan.domain.infra.User;
 import com.sopovs.moradanen.fan.domain.infra.UserSocialConnection;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:coreApplicationContext.xml")
+@ContextConfiguration(classes = CoreApplicationConfiguration.class)
 @Transactional
 public class UserSocialConnectionServiceTest {
 

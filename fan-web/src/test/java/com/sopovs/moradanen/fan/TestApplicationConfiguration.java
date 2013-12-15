@@ -3,12 +3,14 @@ package com.sopovs.moradanen.fan;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.ClassPathResource;
 
 @Configuration
-@ImportResource({ "classpath:securityContext.xml", "classpath:coreApplicationContext.xml" })
+@Import(CoreApplicationConfiguration.class)
+@ImportResource({ "classpath:securityContext.xml" })
 public class TestApplicationConfiguration {
 
     @Bean

@@ -26,6 +26,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sopovs.moradanen.fan.CoreApplicationConfiguration;
 import com.sopovs.moradanen.fan.bootstrap.DbTestData;
 import com.sopovs.moradanen.fan.domain.Club;
 import com.sopovs.moradanen.fan.domain.Contest;
@@ -34,7 +35,7 @@ import com.sopovs.moradanen.fan.domain.Season;
 import com.sopovs.moradanen.fan.domain.Team;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:coreApplicationContext.xml")
+@ContextConfiguration(classes = CoreApplicationConfiguration.class)
 @Transactional
 public class DaoServiceTest {
 
