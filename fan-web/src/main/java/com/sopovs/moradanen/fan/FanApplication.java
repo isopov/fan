@@ -6,6 +6,7 @@ import org.springframework.boot.context.embedded.ErrorPage;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.HttpStatus;
 
@@ -14,8 +15,8 @@ import com.google.common.collect.ImmutableSet;
 @Configuration
 @EnableAutoConfiguration
 @ImportResource({ "classpath:securityContext.xml",
-        "classpath:coreApplicationContext.xml",
-        "classpath:webApplicationContext.xml" })
+        "classpath:coreApplicationContext.xml" })
+@Import(WebApplicationConfiguration.class)
 public class FanApplication {
 
     @Bean
