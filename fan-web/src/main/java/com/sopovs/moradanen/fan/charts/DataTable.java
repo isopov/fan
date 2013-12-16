@@ -1,11 +1,12 @@
 package com.sopovs.moradanen.fan.charts;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import lombok.Getter;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
 import com.sopovs.moradanen.fan.dto.CumulativeGoals;
 
 @Getter
@@ -47,14 +48,15 @@ public class DataTable {
                 numRows = currentRow;
             }
         }
-        List<Column> cols = new ArrayList<>();
+        
+        Builder<Column> cols = ImmutableList.<Column>builder();
         cols.add(new Column("gameId", "Game Id"));
         for (int i = 0; i < teamIds.size(); i++) {
             cols.add(new Column("team-".concat(String.valueOf(teamIds.get(i))), teamNames.get(i)));
         }
-        this.cols = Collections.unmodifiableList(cols);
+        this.cols = cols.build();
 
-        List<Row> rows = new ArrayList<>();
+        Builder<Row> rows = ImmutableList.<Row>builder();
         for (int i = 0; i < numRows; i++) {
             List<Cell> cells = new ArrayList<>(teamIds.size() + 1);
             cells.add(new Cell(String.valueOf(i + 1)));
@@ -64,7 +66,7 @@ public class DataTable {
             rows.add(new Row(cells));
         }
 
-        this.rows = Collections.unmodifiableList(rows);
+        this.rows = rows.build();
 
     }
 

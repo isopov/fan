@@ -35,6 +35,8 @@ dependencies {
     //in the Application Server - spring-test can not run tests for spring-mvc 
     //without them...
     providedCompile 'javax.servlet:jsp-api:2.0'
+    
+    testCompile "com.jayway.jsonpath:json-path:0.9.1"
 }
 
 task copytaglibs << { 

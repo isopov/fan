@@ -20,7 +20,7 @@ public class ClubControllerTest extends AbstractControllerTest {
     @Test
     public void testView() throws Exception {
         Club blackburn = daoService.findClubByName(BLACKBURN_NAME);
-        this.mockMvc.perform(get("/club/view/" + blackburn.getId().toString())).andExpect(status().isOk())
+        this.mockMvc.perform(get("/club/view/" + blackburn.getId())).andExpect(status().isOk())
                 .andExpect(content().contentType("text/html;charset=UTF-8"));
     }
 
