@@ -20,7 +20,7 @@ dependencies {
     compile "org.hibernate:hibernate-validator:5.1.0.Alpha1"
     compile "org.springframework:spring-webmvc:$springVersion"
     compile "org.springframework.security:spring-security-config:$springSecurityVersion"
-    compile "org.codehaus.jackson:jackson-mapper-asl:1.9.11"
+    compile "com.fasterxml.jackson.core:jackson-databind:$springVersion"
     compile "org.springframework.social:spring-social-facebook-web:$springSocialVersion"
     compile "org.springframework.security:spring-security-taglibs:$springSecurityVersion"
     taglibs "org.springframework.security:spring-security-taglibs:$springSecurityVersion"

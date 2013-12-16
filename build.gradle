@@ -26,6 +26,7 @@ ext {
     querydslVersion = "3.3.0.BETA1"
     springSecurityVersion = "3.2.0.RC2"
     springSocialVersion = "1.1.0.M4"
+    jacksonVersion = "2.3.0"
 }
 
 subprojects {
@@ -58,7 +59,9 @@ subprojects {
             force "org.springframework:spring-orm:$springVersion"
             force "org.springframework:spring-web:$springVersion"
             force "org.springframework:spring-webmvc:$springVersion"
-            force "org.codehaus.jackson:jackson-mapper-asl:1.9.11"
+            force "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+            force "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+            force "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
             force "org.springframework.security:spring-security-web:$springSecurityVersion"
             //For hibernate internal dependency convergence
             force 'org.jboss.logging:jboss-logging:3.1.3.GA'

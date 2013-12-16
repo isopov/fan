@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -71,12 +72,6 @@ public class WebApplicationConfiguration extends WebMvcConfigurerAdapter {
         viewResolver.setSuffix(".ftl");
         viewResolver.setContentType("text/html;charset=UTF-8");
         return viewResolver;
-    }
-
-    @Bean
-    // TODO Migrate to Jackson 2
-    public MappingJacksonHttpMessageConverter jsonConverter() {
-        return new MappingJacksonHttpMessageConverter();
     }
 
     @Bean
