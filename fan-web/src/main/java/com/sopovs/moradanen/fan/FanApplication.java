@@ -8,15 +8,13 @@ import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletCon
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.http.HttpStatus;
 
 import com.google.common.collect.ImmutableSet;
 
 @Configuration
 @EnableAutoConfiguration(exclude = HibernateJpaAutoConfiguration.class)
-@Import({ CoreApplicationConfiguration.class, WebApplicationConfiguration.class })
-@ImportResource({ "classpath:securityContext.xml" })
+@Import({ CoreApplicationConfiguration.class, WebApplicationConfiguration.class, SecurityConfiguration.class })
 public class FanApplication {
 
     @Bean

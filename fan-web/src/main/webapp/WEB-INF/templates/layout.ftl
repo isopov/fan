@@ -139,7 +139,7 @@
                 </li>
 
                 <@security.authorize access="isAuthenticated()">
-                    <li><a href="<@spring.url "/j_spring_security_logout"/>"><@spring.message "simple.logout" /></a>
+                    <li><a href="<@spring.url "/logout"/>"><@spring.message "simple.logout" /></a>
                     </li>
                 </@security.authorize>
                 <@security.authorize access="isAnonymous()">

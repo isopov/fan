@@ -49,14 +49,15 @@
             Login attempt failed
         </div>
     </#if>
-    <form class="form-signin" action='<@s.url "/j_spring_security_check"/>' method='POST'>
+    <form class="form-signin" action='<@s.url "/login"/>' method='POST'>
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="input-block-level" name='j_username' placeholder="Login">
-        <input type="password" class="input-block-level" name='j_password' placeholder="Password">
+        <input type="text" class="input-block-level" name='username' placeholder="Login">
+        <input type="password" class="input-block-level" name='password' placeholder="Password">
         <label class="checkbox">
             <input type="checkbox" name='_spring_security_remember_me' value="remember-me"> Remember me
         </label>
         <button class="btn btn-large btn-primary" type="submit" name="submit">Sign in</button>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <a href="<@s.url "/registration" />">Registration</a>
     </form>
     
