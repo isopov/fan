@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -19,7 +20,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.google.common.collect.ImmutableMap;
 import com.sopovs.moradanen.fan.bootstrap.DbTestData;
 import com.sopovs.moradanen.fan.bootstrap.DbTestDataRunner;
+import com.sopovs.moradanen.fan.bootstrap.FootballData;
 import com.sopovs.moradanen.fan.bootstrap.IDbTestData;
+import com.sopovs.moradanen.fan.bootstrap.IFootballData;
 
 @Configuration
 @ComponentScan(basePackages = "com.sopovs.moradanen.fan.service")
@@ -72,4 +75,11 @@ public class CoreApplicationConfiguration {
     public DbTestDataRunner bootstrapRunner() {
         return new DbTestDataRunner();
     }
+
+    @Bean
+    @Profile("football-data")
+    public IFootballData footballData() {
+        return new FootballData();
+    }
+
 }

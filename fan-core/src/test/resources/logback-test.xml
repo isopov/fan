@@ -5,7 +5,10 @@
 		</encoder>
 	</appender>
 
+	<!-- 
 	<logger name="org.hibernate.SQL" level="DEBUG"/>
+	<logger name="org.hibernate.tool.hbm2ddl" level="TRACE"/>
+	 -->
 
 	<root level="warn">
 		<appender-ref ref="STDOUT" />

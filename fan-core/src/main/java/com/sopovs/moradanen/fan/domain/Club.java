@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
@@ -37,6 +38,7 @@ public class Club extends Team implements I18nedDomain<I18nClub> {
 
     @ManyToOne
     @ForeignKey(name = "CLUB_STADIUM_FK")
+    @JoinColumn(name = "home_stadium_id")
     private Stadium homeStadium;
 
     public Club(String name) {
