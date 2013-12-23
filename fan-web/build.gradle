@@ -3,7 +3,7 @@ buildscript {
         maven { url "http://repo.spring.io/libs-snapshot" }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:0.5.0.M6")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:0.5.0.M7")
     }
 }
 apply plugin: 'spring-boot'
@@ -16,7 +16,7 @@ configurations{
 dependencies {
     compile project(':fan-core')
     compile 'org.aspectj:aspectjweaver:1.7.2'
-    compile "org.springframework.boot:spring-boot-starter-web:0.5.0.M6"
+    compile "org.springframework.boot:spring-boot-starter-web:0.5.0.M7"
     compile "org.hibernate:hibernate-validator:5.1.0.Alpha1"
     compile "org.springframework:spring-webmvc:$springVersion"
     compile "org.springframework.security:spring-security-config:$springSecurityVersion"
