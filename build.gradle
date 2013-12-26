@@ -23,7 +23,7 @@ ext {
     slf4jVersion = "1.7.5"
     springVersion = "4.0.0.RELEASE"
     logbackVersion = "1.0.13"
-    querydslVersion = "3.3.0.BETA2"
+    querydslVersion = "3.3.0"
     springSecurityVersion = "3.2.0.RELEASE"
     springSocialVersion = "1.1.0.M4"
     jacksonVersion = "2.3.0"

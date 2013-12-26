@@ -11,7 +11,7 @@ configurations {
 }
 
 dependencies {
-    compile 'com.google.guava:guava:15.0'
+    compile 'com.google.guava:guava:16.0-rc1'
     compile 'org.hibernate:hibernate-entitymanager:4.3.0.Final'
     compile 'org.jadira.usertype:usertype.jodatime:2.0.1'
     compile 'joda-time:joda-time:2.3'
