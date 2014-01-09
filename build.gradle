@@ -6,6 +6,9 @@ buildscript {
       classpath 'com.github.townsfolk:gradle-release:1.2'
       classpath 'com.github.ben-manes:gradle-versions-plugin:0.4'
    }
+   tasks.withType(Compile) {
+      options.encoding = "UTF-8"
+   }
 }
 
 task wrapper(type: Wrapper) {
