@@ -32,7 +32,7 @@ public class SharedModelAttributes {
     public String languageChangeUrl(HttpServletRequest req) {
         if (Strings.isNullOrEmpty(req.getParameter("lang"))) {
 
-            String currentUrl = UrlUtils.buildFullRequestUrl(req);
+            String currentUrl = UrlUtils.buildRequestUrl(req);
             if (currentUrl.contains("?")) {
                 return currentUrl.concat("&lang=");
             } else {
@@ -41,8 +41,8 @@ public class SharedModelAttributes {
         } else {
             String queryString = UriComponentsBuilder.fromHttpUrl(UrlUtils.buildFullRequestUrl(req))
                     .replaceQueryParam("lang").build().getQuery();
-            String currentUrl = UrlUtils.buildFullRequestUrl(req.getScheme(), req.getServerName(), req.getServerPort(),
-                    req.getRequestURI(), queryString);
+            String currentUrl = buildRequestUrl(req.getServletPath(), req.getRequestURI(),
+                    req.getContextPath(), req.getPathInfo(), queryString);
             if (currentUrl.contains("?")) {
                 return currentUrl.concat("&lang=");
             } else {
@@ -59,4 +59,27 @@ public class SharedModelAttributes {
         q.orderBy(cb.asc(from.get("priority")));
         return em.createQuery(q).getResultList();
     }
+
+    // copy&pasted from UrlUtils.buildRequestUrl since it is private
+    private static String buildRequestUrl(String servletPath, String requestURI, String contextPath, String pathInfo,
+            String queryString) {
+
+        StringBuilder url = new StringBuilder();
+
+        if (servletPath != null) {
+            url.append(servletPath);
+            if (pathInfo != null) {
+                url.append(pathInfo);
+            }
+        } else {
+            url.append(requestURI.substring(contextPath.length()));
+        }
+
+        if (queryString != null) {
+            url.append("?").append(queryString);
+        }
+
+        return url.toString();
+    }
+
 }
