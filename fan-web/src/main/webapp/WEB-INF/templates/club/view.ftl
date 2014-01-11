@@ -11,7 +11,7 @@
         var select = $(".chzn-select");
         select.chosen();
         select.change(function(){
-            document.location.href = "<@s.url "/club/derby/" />${club.id}/vs/" + select.val();
+            document.location.href = "<@s.url "/club/derby/" />${club.id?c}/vs/" + select.val();
         });
     });
 </script>
@@ -22,7 +22,7 @@
 <select data-placeholder="<@s.message "teams.choose" />" class="chzn-select" style="width:350px;">
     <option value=""></option>
     <#list teamsPlayedWith as team>
-        <option value="${team.id}">${team.getTitle(lang)}</option>
+        <option value="${team.id?c}">${team.getTitle(lang)}</option>
     </#list>
 </select>
 
@@ -39,7 +39,7 @@
         map = {};
         var data = [
             <#list teamsPlayedWith as team>
-                {"teamId": "${team.id}", "teamTitle": "${team.getTitle(lang)}"},
+                {"teamId": "${team.id?c}", "teamTitle": "${team.getTitle(lang)}"},
             </#list>
         ];
         $.each(data, function (i, team) {
@@ -53,7 +53,7 @@
                 process(titles);
             },
             updater: function (item) {
-                document.location.href = "<@s.url "/club/derby/" />" + "${club.id}" + "/vs/" + map[item].teamId;
+                document.location.href = "<@s.url "/club/derby/" />" + "${club.id?c}" + "/vs/" + map[item].teamId;
             },
             items: 5
         });

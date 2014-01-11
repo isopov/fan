@@ -13,7 +13,7 @@
 	<#list clubs as club>
 		<tr>
 			<td>
-				<a href="<@spring.url "/club/view/${club.id}"/>">
+				<a href="<@spring.url "/club/view/${club.id?c}"/>">
                     <@layout.i18nedProperty club "name" />
 				</a>
 			</td>

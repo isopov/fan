@@ -1,7 +1,7 @@
 package com.sopovs.moradanen.fan.controller;
 
-import static com.sopovs.moradanen.fan.bootstrap.DbTestData.BLACKBURN_NAME;
-import static com.sopovs.moradanen.fan.bootstrap.DbTestData.FULHAM;
+import static com.sopovs.moradanen.fan.bootstrap.TestGameWithDetailsData.BLACKBURN_NAME;
+import static com.sopovs.moradanen.fan.bootstrap.TestGameWithDetailsData.FULHAM;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

@@ -7,7 +7,7 @@
 <@l.layout pageTitle="${pageTitle}">
 <ul>
     <#list players as player>
-        <a href="<@s.url "/players/view/${player.id}" />">
+        <a href="<@s.url "/players/view/${player.id?c}" />">
             <li><@c.i18nedOrNull player "firstName"/> <@c.i18nedOrNull player "middleName"/> <@c.i18nedOrNull player "lastName"/></li>
         </a>
     </#list>

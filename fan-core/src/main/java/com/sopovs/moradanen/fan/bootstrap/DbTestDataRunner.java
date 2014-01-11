@@ -12,15 +12,21 @@ public class DbTestDataRunner implements InitializingBean {
     private IDbTestData td;
 
     @Autowired(required = false)
-    private IFootballData fd;
+    private FootballData fd;
 
     @Autowired
     private IDaoService service;
+
+    @Autowired(required = false)
+    private ITestGameWithDetailsData testGameWithDetailsData;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         if (notCreated()) {
             td.createTestData();
+            if (testGameWithDetailsData != null) {
+                testGameWithDetailsData.createTestGameWithDetails();
+            }
             if (fd != null) {
                 fd.importFootballData();
             }
@@ -28,7 +34,7 @@ public class DbTestDataRunner implements InitializingBean {
     }
 
     private boolean notCreated() {
-        return service.findClubByName(DbTestData.BLACKBURN_NAME) == null;
+        return service.findContestByName(DbTestData.BARCLAYS_PREMIER_LEAGUE) == null;
     }
 
 }

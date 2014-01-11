@@ -77,17 +77,17 @@
                 <@orNull game "gameDate" />
             </td>
             <td>
-                <a href="<@s.url "/club/view/${game.host.teamInSeason.team.id}" />">
+                <a href="<@s.url "/club/view/${game.host.teamInSeason.team.id?c}" />">
                 ${game.host.teamInSeason.team.getTitle(lang)}
                 </a>
             </td>
             <td>
-                <a href="<@s.url "/games/view/${game.id}"/>">
+                <a href="<@s.url "/games/view/${game.id?c}"/>">
                 ${game.host.goals}:${game.guest.goals}
                 </a>
             </td>
             <td>
-                <a href="<@s.url "/club/view/${game.guest.teamInSeason.team.id}" />">
+                <a href="<@s.url "/club/view/${game.guest.teamInSeason.team.id?c}" />">
                 ${game.guest.teamInSeason.team.getTitle(lang)}
                 </a>
             </td>

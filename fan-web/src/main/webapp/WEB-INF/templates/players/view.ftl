@@ -21,17 +21,17 @@
             <th>
                 <div style="white-space: nowrap;">
                     <@compress single_line=true>
-                        <a href="<@s.url "/club/view?id=${playerInGame.playerInTeam.team.id}" />">
+                        <a href="<@s.url "/club/view?id=${playerInGame.playerInTeam.team.id?c}" />">
                             <span class="glyphicon glyphicon-user"></span>
                             <#if (playerInGame.teamInGame.isHost()) >
                                 <span class="glyphicon glyphicon-home"></span>
                             </#if>
                         ${playerInGame.playerInTeam.team.getTitle(lang)}
                         </a>&nbsp;
-                        <a href="<@s.url "/games/view/${playerInGame.teamInGame.game.id}" />">
+                        <a href="<@s.url "/games/view/${playerInGame.teamInGame.game.id?c}" />">
                         ${playerInGame.teamInGame.goals}:${playerInGame.teamInGame.other().goals}
                         </a>&nbsp;
-                    <a href="<@s.url "/club/view?id=${playerInGame.teamInGame.other().teamInSeason.team.id}" />">
+                    <a href="<@s.url "/club/view?id=${playerInGame.teamInGame.other().teamInSeason.team.id?c}" />">
                         <#if (playerInGame.teamInGame.other().isHost()) >
                                 <span class="glyphicon glyphicon-home"></span>
                         </#if>${playerInGame.teamInGame.other().teamInSeason.team.getTitle(lang)}

@@ -1,6 +1,6 @@
 package com.sopovs.moradanen.fan.domain;
 
-import static com.sopovs.moradanen.fan.bootstrap.DbTestData.BLACKBURN_NAME;
+import static com.sopovs.moradanen.fan.bootstrap.TestGameWithDetailsData.BLACKBURN_NAME;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

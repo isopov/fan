@@ -1,6 +1,9 @@
 package com.sopovs.moradanen.fan.service;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static com.sopovs.moradanen.fan.bootstrap.DbTestData.BARCLAYS_PREMIER_LEAGUE;
+import static com.sopovs.moradanen.fan.bootstrap.TestGameWithDetailsData.BLACKBURN_NAME;
+import static com.sopovs.moradanen.fan.bootstrap.TestGameWithDetailsData.FULHAM;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasItems;
 import static org.junit.Assert.assertEquals;
@@ -18,7 +21,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.joda.time.LocalDate;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,17 +49,17 @@ public class DaoServiceTest {
 
     @Test
     public void testTeamsPlayedWith() throws Exception {
-        Long blackId = service.findClubByName(DbTestData.BLACKBURN_NAME).getId();
+        Long blackId = service.findClubByName(BLACKBURN_NAME).getId();
         List<Team> teams = service.teamsPlayedWith(blackId, 0);
         assertTrue(teams.size() >= 1);
-        assertEquals(service.findClubByName(DbTestData.FULHAM), teams.get(0));
-        assertFalse(teams.contains(service.findClubByName(DbTestData.BLACKBURN_NAME)));
+        assertEquals(service.findClubByName(FULHAM), teams.get(0));
+        assertFalse(teams.contains(service.findClubByName(BLACKBURN_NAME)));
 
     }
 
     @Test
     public void testFindContestByName() throws Exception {
-        assertEquals(DbTestData.BARCLAYS_PREMIER_LEAGUE, service.findContestByName(DbTestData.BARCLAYS_PREMIER_LEAGUE)
+        assertEquals(DbTestData.BARCLAYS_PREMIER_LEAGUE, service.findContestByName(BARCLAYS_PREMIER_LEAGUE)
                 .getName());
     }
 
@@ -65,31 +67,31 @@ public class DaoServiceTest {
     public void testListAllClubs() throws Exception {
         ArrayList<Club> clubs = newArrayList(service.listAllClubs());
         assertTrue(clubs.size() > 0);
-        clubs.contains(service.findClubByName(DbTestData.BLACKBURN_NAME));
-        clubs.contains(service.findClubByName(DbTestData.FULHAM));
+        clubs.contains(service.findClubByName(BLACKBURN_NAME));
+        clubs.contains(service.findClubByName(FULHAM));
     }
 
     @Test
     public void testFindClubByName() throws Exception {
-        Club blackburn = service.findClubByName(DbTestData.BLACKBURN_NAME);
-        assertEquals(DbTestData.BLACKBURN_NAME, blackburn.getName());
-        assertEquals(DbTestData.BLACKBURN_NAME, blackburn.getTitle("en"));
+        Club blackburn = service.findClubByName(BLACKBURN_NAME);
+        assertEquals(BLACKBURN_NAME, blackburn.getName());
+        assertEquals(BLACKBURN_NAME, blackburn.getTitle("en"));
 
     }
 
     @Test
     public void testLastSeasonByClubName() throws Exception {
-        Season season = service.lastSeasonByClubName(DbTestData.BLACKBURN_NAME);
+        Season season = service.lastSeasonByClubName(BLACKBURN_NAME);
         assertEquals(service.lastSeasons(), Arrays.asList(season));
         newSeason(season.getContest());
-        assertEquals(season, service.lastSeasonByClubName(DbTestData.BLACKBURN_NAME));
+        assertEquals(season, service.lastSeasonByClubName(BLACKBURN_NAME));
 
     }
 
     @Test
     public void testGetGames() throws Exception {
-        Team blackburn = service.findClubByName(DbTestData.BLACKBURN_NAME);
-        Team fulham = service.findClubByName(DbTestData.FULHAM);
+        Team blackburn = service.findClubByName(BLACKBURN_NAME);
+        Team fulham = service.findClubByName(FULHAM);
         List<Game> games = service.getGames(blackburn.getId(), fulham.getId());
         assertTrue(games.size() >= 1);
         for (Game game : games) {
@@ -100,7 +102,7 @@ public class DaoServiceTest {
 
     @Test
     public void testLastGamesForTeam() throws Exception {
-        Club blackburn = service.findClubByName(DbTestData.BLACKBURN_NAME);
+        Club blackburn = service.findClubByName(BLACKBURN_NAME);
         Game game = service.lastGamesForTeam(blackburn.getId(), 1).get(0);
         assertThat(game.getTeams(), hasItem(blackburn));
 
@@ -122,15 +124,15 @@ public class DaoServiceTest {
     @Test
     public void testFindTeamInSeasonByTeamAndSeason() {
         assertNotNull(service.findTeamInSeasonByTeamAndSeason(
-                service.findClubByName(DbTestData.BLACKBURN_NAME).getId(),
-                service.lastSeasonByClubName(DbTestData.BLACKBURN_NAME).getId()));
+                service.findClubByName(BLACKBURN_NAME).getId(),
+                service.lastSeasonByClubName(BLACKBURN_NAME).getId()));
 
     }
 
     @Test
     public void testGetCumulativeGoals() {
-        service.getCumulativeGoals(Arrays.asList(service.findClubByName(DbTestData.BLACKBURN_NAME).getId()),
-                service.lastSeasonByClubName(DbTestData.BLACKBURN_NAME).getId());
+        service.getCumulativeGoals(Arrays.asList(service.findClubByName(BLACKBURN_NAME).getId()),
+                service.lastSeasonByClubName(BLACKBURN_NAME).getId());
     }
 
     private Season newSeason(Contest contest) {

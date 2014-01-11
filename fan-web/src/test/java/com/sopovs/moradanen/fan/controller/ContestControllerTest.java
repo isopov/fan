@@ -1,5 +1,7 @@
 package com.sopovs.moradanen.fan.controller;
 
+import static com.sopovs.moradanen.fan.bootstrap.TestGameWithDetailsData.BLACKBURN_NAME;
+import static com.sopovs.moradanen.fan.bootstrap.TestGameWithDetailsData.FULHAM;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.hamcrest.text.StringContainsInOrder.stringContainsInOrder;
@@ -12,7 +14,6 @@ import java.util.Arrays;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.sopovs.moradanen.fan.bootstrap.DbTestData;
 import com.sopovs.moradanen.fan.service.IDaoService;
 
 public class ContestControllerTest extends AbstractControllerTest {
@@ -29,16 +30,12 @@ public class ContestControllerTest extends AbstractControllerTest {
 
     @Test
     public void testViewSeason() throws Exception {
-        daoService.lastSeasonByClubName(DbTestData.BLACKBURN_NAME).getId();
+        daoService.lastSeasonByClubName(BLACKBURN_NAME).getId();
         this.mockMvc
-                .perform(
-                        get("/contest/season/"
-                                + daoService.lastSeasonByClubName(DbTestData.BLACKBURN_NAME).getId().toString()))
+                .perform(get("/contest/season/" + daoService.lastSeasonByClubName(BLACKBURN_NAME).getId().toString()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(
-                        content().string(
-                                allOf(containsString(DbTestData.BLACKBURN_NAME), containsString(DbTestData.FULHAM))));
+                .andExpect(content().string(allOf(containsString(BLACKBURN_NAME), containsString(FULHAM))));
     }
 
     @Test
@@ -47,9 +44,7 @@ public class ContestControllerTest extends AbstractControllerTest {
                 .perform(get("/contest/teams"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(
-                        content().string(
-                                allOf(containsString("Season"), containsString(DbTestData.BLACKBURN_NAME),
-                                        containsString(DbTestData.FULHAM))));
+                .andExpect(content().string(allOf(containsString("Season"), containsString(BLACKBURN_NAME),
+                        containsString(FULHAM))));
     }
 }
