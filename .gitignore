@@ -10,6 +10,7 @@ target
 gradle-app.setting
 #idea output folder - why here?
 out
+classes
 #For gradle builds
 build
 .gradle
