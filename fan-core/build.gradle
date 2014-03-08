@@ -12,7 +12,7 @@ configurations {
 
 dependencies {
     compile 'com.google.guava:guava:forced'
-    compile 'org.hibernate:hibernate-entitymanager:4.3.1.Final'
+    compile 'org.hibernate:hibernate-entitymanager:4.3.4.Final'
     compile 'org.jadira.usertype:usertype.jodatime:2.0.1'
     compile 'joda-time:joda-time:2.3'
     compile 'commons-dbcp:commons-dbcp:1.4'
@@ -28,7 +28,7 @@ dependencies {
     compile "org.springframework.social:spring-social-core:$springSocialVersion"
     compile 'org.springframework.data:spring-data-jpa:1.5.0.RC1'
     //TODO - remove from compile dependencies to "provided"
-    compile 'org.projectlombok:lombok:1.12.4'
+    compile 'org.projectlombok:lombok:1.12.6'
 
     compile "com.mysema.querydsl:querydsl-jpa:$querydslVersion"
     querydslapt "com.mysema.querydsl:querydsl-apt:$querydslVersion"

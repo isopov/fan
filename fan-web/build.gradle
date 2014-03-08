@@ -3,7 +3,7 @@ buildscript {
         maven { url "http://repo.spring.io/libs-snapshot" }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.0.RC3")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.0.0.RC4")
     }
 }
 apply plugin: 'spring-boot'
@@ -20,13 +20,13 @@ repositories {
 dependencies {
     compile project(':fan-core')
     compile 'org.aspectj:aspectjweaver:1.7.2'
-    compile ("org.springframework.boot:spring-boot-starter-web:1.0.0.RC3"){
+    compile ("org.springframework.boot:spring-boot-starter-web:1.0.0.RC4"){
         exclude module: 'spring-boot-starter-tomcat'
     }
-    compile "com.sopovs.moradanen.spring.boot.undertow:spring-boot-starter-undertow:0.1.0"
+    compile "com.sopovs.moradanen.spring.boot.undertow:spring-boot-starter-undertow:0.1.1"
     //Gradle resolved this transitive dependency as runtime and does not add to eclipse classpath
-    compile 'io.undertow:undertow-core:1.0.0.Final'
-    compile "org.hibernate:hibernate-validator:5.1.0.CR1"
+    compile 'io.undertow:undertow-core:1.0.1.Final'
+    compile "org.hibernate:hibernate-validator:5.1.0.Final"
     compile 'org.glassfish:javax.el:3.0.0'
     compile "org.springframework:spring-webmvc:$springVersion"
     compile "org.springframework.security:spring-security-config:$springSecurityVersion"
