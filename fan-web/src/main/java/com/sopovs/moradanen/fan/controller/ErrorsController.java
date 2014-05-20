@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ErrorsController extends AbstractController {
 
-    @RequestMapping({ "500", "/error" })
+    @RequestMapping("/error")
     public String error500() {
         return "errors/500";
     }

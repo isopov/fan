@@ -20,13 +20,14 @@ apply plugin: 'versions'
 sourceCompatibility = 1.7
 
 ext {
-    slf4jVersion = "1.7.6"
-    springVersion = "4.0.2.RELEASE"
-    logbackVersion = "1.1.1"
+    slf4jVersion = "1.7.7"
+    springVersion = "4.0.4.RELEASE"
+    logbackVersion = "1.1.2"
     querydslVersion = "3.3.1"
-    springSecurityVersion = "3.2.1.RELEASE"
-    springSocialVersion = "1.1.0.M4"
-    jacksonVersion = "2.3.0"
+    springSecurityVersion = "3.2.3.RELEASE"
+    springSocialVersion = "1.1.0.RELEASE"
+    springSocialFacebookVersion = "1.1.1.RELEASE"
+    jacksonVersion = "2.4.0-rc3"
 }
 
 subprojects {

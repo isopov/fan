@@ -2,7 +2,7 @@
 <#import "layout.ftl" as layout />
 <#import "common.ftl" as c />
 
-<#assign security=JspTaglibs["http://www.springframework.org/security/tags"] />
+<#assign security=JspTaglibs["/META-INF/security.tld"] />
 
 <#assign pageTitle>Login</#assign>
 

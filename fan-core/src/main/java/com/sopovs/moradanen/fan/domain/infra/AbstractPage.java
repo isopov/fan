@@ -30,7 +30,7 @@ import com.sopovs.moradanen.fan.domain.Lang;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
-public class AbstractPage extends DefaultI18nedDomain<I18nPage> {
+public abstract class AbstractPage extends DefaultI18nedDomain<I18nPage> {
 
     private static final long serialVersionUID = 1L;
     private String text;
