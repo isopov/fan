@@ -1,5 +1,3 @@
 language: java
 jdk:
   - oraclejdk7
-install: ./gradlew assemble
-script: ./gradlew clean test
