@@ -3,6 +3,7 @@ package com.sopovs.moradanen.fan.domain.infra;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
@@ -10,8 +11,6 @@ import javax.persistence.UniqueConstraint;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import org.hibernate.annotations.ForeignKey;
 
 import com.sopovs.moradanen.fan.domain.AbstractEntity;
 
@@ -25,8 +24,7 @@ public class Tag extends AbstractEntity {
     private String value;
 
     @ManyToMany
-    @JoinTable(name = "PAGE_TAG")
-    @ForeignKey(name = "PAGE_TAG_TAG_FK")
+    @JoinTable(name = "PAGE_TAG", foreignKey = @ForeignKey(name = "PAGE_TAG_TAG_FK"))
     private List<AbstractPage> pages;
 
     public Tag() {

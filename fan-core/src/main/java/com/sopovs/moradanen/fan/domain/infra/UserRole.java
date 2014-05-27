@@ -5,14 +5,15 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import org.hibernate.annotations.ForeignKey;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
@@ -24,7 +25,7 @@ public class UserRole implements Serializable {
 
     @Id
     @ManyToOne
-    @ForeignKey(name = "USER_ROLE_USER_FK")
+    @JoinColumn(foreignKey = @ForeignKey(name = "USER_ROLE_USER_FK"))
     private User user;
 
     @Enumerated(EnumType.STRING)

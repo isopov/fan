@@ -27,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.UsersConnectionRepository;
+import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -52,13 +53,15 @@ public class SignupController {
     @Autowired
     private IFanUserDetailsService userDetailService;
 
+    private final ProviderSignInUtils providerSignInUtils = new ProviderSignInUtils(new HttpSessionSessionStrategy());
+
     public SignupController() {
 
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public ModelAndView signupForm(WebRequest request) {
-        Connection<?> connection = ProviderSignInUtils.getConnection(request);
+        Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
         if (connection != null) {
             List<String> userIds = userConnectionRepository.findUserIdsWithConnection(connection);
             Preconditions.checkState(userIds.size() < 2);
@@ -114,14 +117,13 @@ public class SignupController {
         User newUser = signupData.createUser();
         userDetailService.saveUser(newUser);
         SignInUtils.signin(newUser.getId().toString());
-        ProviderSignInUtils.handlePostSignUp(newUser.getId().toString(), request);
+        providerSignInUtils.doPostSignUp(newUser.getId().toString(), request);
 
         return "redirect:/";
 
     }
 
     // internal helpers
-
     public static class SignupData {
         @NotEmpty
         @Size(max = 30, min = 3)
